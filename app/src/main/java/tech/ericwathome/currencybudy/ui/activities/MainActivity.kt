@@ -1,4 +1,4 @@
-package tech.ericwathome.currencybudy.ui
+package tech.ericwathome.currencybudy.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
