@@ -7,7 +7,7 @@ import tech.ericwathome.currencybudy.model.RateDetails
 
 interface RateApi {
     @GET("/exchangerates_data/convert")
-    fun getExchangeRates(
+    suspend fun getExchangeRate(
         @QueryMap query: HashMap<String, String>
     ): Response<RateDetails>
 }
