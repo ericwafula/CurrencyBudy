@@ -9,5 +9,18 @@
         android:id="@+id/currencyConverter"
         android:name="tech.ericwathome.currencybudy.ui.fragments.CurrencyConverterFragment"
         android:label="Currency Converter"
-        tools:layout="@layout/fragment_currency_converter" />
+        tools:layout="@layout/fragment_currency_converter" >
+        <action
+            android:id="@+id/action_currencyConverter_to_latestFragment"
+            app:destination="@id/latest" />
+    </fragment>
+    <fragment
+        android:id="@+id/latest"
+        android:name="tech.ericwathome.currencybudy.ui.fragments.LatestFragment"
+        android:label="Latest"
+        tools:layout="@layout/fragment_latest" >
+        <action
+            android:id="@+id/action_latestFragment_to_currencyConverter"
+            app:destination="@id/currencyConverter" />
+    </fragment>
 </navigation>

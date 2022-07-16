@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/currencyConverter"
+        android:icon="@drawable/ic_converter_24"
+        android:title="@string/currency_converter" />
+    <item
+        android:id="@+id/latest"
+        android:icon="@drawable/ic_latest_24"
+        android:title="@string/latest" />
+</menu>

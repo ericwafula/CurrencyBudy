@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CurrencyBudy</string>
+    <string name="currency_converter">Currency Converter</string>
+    <string name="latest">latest</string>
 </resources>

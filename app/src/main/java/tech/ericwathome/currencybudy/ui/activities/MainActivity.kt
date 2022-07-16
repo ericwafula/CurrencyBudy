@@ -18,12 +18,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHostFrag = supportFragmentManager.findFragmentById(R.id.nav_host_frag) as NavHostFragment
-        navController = navHostFrag.navController
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_frag) as NavHostFragment
+        navController = navHostFragment.navController
 
-        val destinations = setOf(R.id.currencyConverter)
+        val destinations = setOf(R.id.currencyConverter, R.id.latest)
         val appBarConfiguration = AppBarConfiguration(destinations)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.bottomNav.setupWithNavController(navController)
     }
 
 }
