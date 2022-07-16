@@ -1,5 +1,6 @@
 package tech.ericwathome.currencybudy.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,16 +16,20 @@ class CurrencyConverterFragmentViewModel @Inject constructor(
     private val rateRepository: RateRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
+    companion object {
+        private val TAG = this::class.simpleName
+    }
 
     sealed class CurrencyEvent {
-        class Success(resultMessage: String): CurrencyEvent()
-        class Failure(errorMessage: String): CurrencyEvent()
+        class Success(val resultText: String): CurrencyEvent()
+        class Failure(val errorText: String): CurrencyEvent()
         object Loading : CurrencyEvent()
         object Empty : CurrencyEvent()
     }
 
     private val _conversion = MutableStateFlow<CurrencyEvent>(CurrencyEvent.Empty)
     val conversion = _conversion
+
 
     fun convert(amount: String, from: String, to: String) {
         val fromAmount = amount.toFloatOrNull()
@@ -46,6 +51,7 @@ class CurrencyConverterFragmentViewModel @Inject constructor(
                         _conversion.value = CurrencyEvent.Failure("Unexpected Error")
                     } else {
                         _conversion.value = CurrencyEvent.Success("$amount $from = $rate $to")
+                        Log.d(TAG, "convert: ${conversion.value}")
                     }
                 }
             }
