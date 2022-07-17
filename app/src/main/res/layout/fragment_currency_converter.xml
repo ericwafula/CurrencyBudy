@@ -6,13 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.CurrencyConverterFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.58" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -20,6 +26,54 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.34" />
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginStart="24dp"
+        android:textSize="32sp"
+        android:id="@+id/title"
+        android:text="@string/currency_converter_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <androidx.cardview.widget.CardView
+        app:contentPadding="36dp"
+        android:id="@+id/currency_card"
+        android:layout_marginTop="48dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:id="@+id/txv_converted_currency"
+                android:text="@string/eur_usd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/txv_converted_result"
+                android:text="@string/_1_23456"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_amount"
@@ -34,47 +88,34 @@
         app:layout_constraintTop_toBottomOf="@id/guideline3">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:text="@string/_1"
             android:id="@+id/edt_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_from"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <Spinner
+        android:id="@+id/spinner_from"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:hint="@string/from"
-        app:layout_constraintEnd_toStartOf="@id/til_to"
-        app:layout_constraintStart_toEndOf="@id/guideline4"
-        app:layout_constraintTop_toBottomOf="@id/guideline3">
+        android:minHeight="60dp"
+        app:layout_constraintEnd_toStartOf="@id/spinner_to"
+        app:layout_constraintStart_toStartOf="@id/guideline4"
+        app:layout_constraintTop_toTopOf="@id/guideline3"
+        tools:listitem="@layout/support_simple_spinner_dropdown_item" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_from"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_to"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <Spinner
+        android:id="@+id/spinner_to"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
-        android:hint="@string/to"
+        android:minHeight="60dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/til_from"
-        app:layout_constraintTop_toBottomOf="@id/guideline3">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_to"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintStart_toEndOf="@id/spinner_from"
+        app:layout_constraintTop_toBottomOf="@id/guideline3"
+        tools:listitem="@layout/support_simple_spinner_dropdown_item" />
 
     <TextView
         android:id="@+id/txv_result"
@@ -87,17 +128,17 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_from" />
+        app:layout_constraintTop_toBottomOf="@id/spinner_from" />
 
     <ProgressBar
-        app:layout_constraintTop_toBottomOf="@id/txv_result"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btn_convert"
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/btn_convert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txv_result"
         tools:layout_editor_absoluteX="173dp"
         tools:layout_editor_absoluteY="445dp" />
 

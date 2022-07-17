@@ -7,4 +7,18 @@
     <string name="convert">Convert</string>
     <string name="_0_00000">0.00000</string>
     <string name="amount">amount</string>
+    <string name="currency_converter_title">Currency\nConverter</string>
+    <string name="eur_usd">EUR/USD</string>
+    <string name="_1_23456">1.23456</string>
+    <string name="_1">1</string>
+    <string-array name="currencies">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>CAD</item>
+        <item>JPY</item>
+        <item>AUD</item>
+        <item>GBP</item>
+        <item>NZD</item>
+        <item>CHF</item>
+    </string-array>
 </resources>

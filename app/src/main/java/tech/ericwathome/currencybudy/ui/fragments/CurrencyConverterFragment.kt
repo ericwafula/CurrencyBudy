@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.transition.Visibility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import tech.ericwathome.currencybudy.R
 import tech.ericwathome.currencybudy.databinding.FragmentCurrencyConverterBinding
 import tech.ericwathome.currencybudy.ui.viewmodels.CurrencyConverterFragmentViewModel
 
@@ -34,12 +36,21 @@ class CurrencyConverterFragment : Fragment() {
 
     private fun initializeViews() {
         binding.progressBar.isVisible = false
+        val currencyAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.currencies, android.R.layout.simple_spinner_item)
+        binding.spinnerFrom.apply {
+            adapter = currencyAdapter
+            setSelection(1)
+        }
+        binding.spinnerTo.apply {
+            adapter = currencyAdapter
+            setSelection(0)
+        }
+
+        convert()
+
         binding.btnConvert.setOnClickListener {
-            viewModel.convert(
-                binding.edtAmount.text.toString().trim(),
-                binding.edtFrom.text.toString().trim(),
-                binding.edtTo.text.toString().trim()
-            )
+            binding.txvConvertedCurrency.text = "${binding.spinnerFrom.selectedItem}/${binding.spinnerTo.selectedItem}"
+            convert()
         }
 
         lifecycleScope.launchWhenCreated {
@@ -47,8 +58,7 @@ class CurrencyConverterFragment : Fragment() {
                 when (it) {
                     is CurrencyConverterFragmentViewModel.CurrencyEvent.Success -> {
                         binding.progressBar.isVisible = false
-                        binding.txvResult.setTextColor(Color.GREEN)
-                        binding.txvResult.text = it.resultText
+                        binding.txvConvertedResult.text = it.resultText
                     }
                     is CurrencyConverterFragmentViewModel.CurrencyEvent.Failure -> {
                         binding.progressBar.isVisible = false
@@ -62,5 +72,13 @@ class CurrencyConverterFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun convert() {
+        viewModel.convert(
+            binding.edtAmount.text.toString().trim(),
+            binding.spinnerFrom.selectedItem.toString(),
+            binding.spinnerTo.selectedItem.toString()
+        )
     }
 }
