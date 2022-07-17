@@ -12,6 +12,15 @@
     <string name="_1_23456">1.23456</string>
     <string name="_1">1</string>
     <string name="chart_image">chart_image</string>
+    <string name="latest_rates">Latest</string>
+    <string name="majors">Popular Majors</string>
+    <string name="gbp_usd">GBP/USD</string>
+    <string name="usd_jpy">USD/JPY</string>
+    <string name="usd_cad">USD/CAD</string>
+    <string name="popular_exotics">Popular Exotics</string>
+    <string name="usd_zar_0_00000">USD/ZAR = 0.00000</string>
+    <string name="usd_mxn_0_00000">USD/MXN = 0.00000</string>
+    <string name="usd_rub_0_00000">USD/RUB = 0.00000</string>
     <string-array name="currencies">
         <item>USD</item>
         <item>EUR</item>
