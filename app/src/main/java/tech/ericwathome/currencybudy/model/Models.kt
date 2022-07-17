@@ -36,3 +36,10 @@ data class PopularRates(
     @SerializedName("JPY") val jpy: String,
     @SerializedName("CAD") val cad: String
 )
+
+sealed class CurrencyEvent {
+    class Success(val resultText: String? = null, val rates: PopularRates? = null): CurrencyEvent()
+    class Failure(val errorText: String): CurrencyEvent()
+    object Loading : CurrencyEvent()
+    object Empty : CurrencyEvent()
+}
