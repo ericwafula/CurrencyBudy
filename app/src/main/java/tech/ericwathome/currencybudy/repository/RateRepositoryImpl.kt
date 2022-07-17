@@ -1,12 +1,12 @@
 package tech.ericwathome.currencybudy.repository
 
-import tech.ericwathome.currencybudy.model.RateDetails
+import tech.ericwathome.currencybudy.model.ExchangeRateResponse
 import tech.ericwathome.currencybudy.network.RateApi
 import tech.ericwathome.currencybudy.util.Resource
 import javax.inject.Inject
 
 class RateRepositoryImpl @Inject constructor (private val rateApi: RateApi) : RateRepository {
-    override suspend fun getExchangeRate(query: HashMap<String, String>): Resource<RateDetails> {
+    override suspend fun getExchangeRate(query: HashMap<String, String>): Resource<ExchangeRateResponse> {
         return try {
             val response = rateApi.getExchangeRate(query)
             val result = response.body()
