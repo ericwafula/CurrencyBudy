@@ -62,8 +62,6 @@ class CurrencyConverterFragment : Fragment() {
                     }
                     is CurrencyConverterFragmentViewModel.CurrencyEvent.Failure -> {
                         binding.progressBar.isVisible = false
-                        binding.txvResult.setTextColor(Color.RED)
-                        binding.txvResult.text = it.errorText
                     }
                     is CurrencyConverterFragmentViewModel.CurrencyEvent.Loading -> {
                         binding.progressBar.isVisible = true

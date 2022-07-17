@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ericw/CurrencyBudy/app/src/main/res/drawable/card_gradient.xml" value="0.1775" />
         <entry key="..\:/Users/ericw/CurrencyBudy/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/ericw/CurrencyBudy/app/src/main/res/layout/fragment_currency_converter.xml" value="0.22" />
         <entry key="..\:/Users/ericw/CurrencyBudy/app/src/main/res/layout/fragment_latest.xml" value="0.19375" />

@@ -11,6 +11,7 @@
     <string name="eur_usd">EUR/USD</string>
     <string name="_1_23456">1.23456</string>
     <string name="_1">1</string>
+    <string name="chart_image">chart_image</string>
     <string-array name="currencies">
         <item>USD</item>
         <item>EUR</item>
