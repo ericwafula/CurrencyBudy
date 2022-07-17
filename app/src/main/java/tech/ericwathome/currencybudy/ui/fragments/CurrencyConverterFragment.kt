@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import tech.ericwathome.currencybudy.R
 import tech.ericwathome.currencybudy.databinding.FragmentCurrencyConverterBinding
+import tech.ericwathome.currencybudy.model.CurrencyEvent
 import tech.ericwathome.currencybudy.ui.viewmodels.CurrencyConverterFragmentViewModel
 
 @AndroidEntryPoint
@@ -56,14 +57,14 @@ class CurrencyConverterFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.conversion.collect {
                 when (it) {
-                    is CurrencyConverterFragmentViewModel.CurrencyEvent.Success -> {
+                    is CurrencyEvent.Success -> {
                         binding.progressBar.isVisible = false
                         binding.txvConvertedResult.text = it.resultText
                     }
-                    is CurrencyConverterFragmentViewModel.CurrencyEvent.Failure -> {
+                    is CurrencyEvent.Failure -> {
                         binding.progressBar.isVisible = false
                     }
-                    is CurrencyConverterFragmentViewModel.CurrencyEvent.Loading -> {
+                    is CurrencyEvent.Loading -> {
                         binding.progressBar.isVisible = true
                     }
                     else -> Unit

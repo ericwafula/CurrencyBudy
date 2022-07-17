@@ -2,6 +2,7 @@ package tech.ericwathome.currencybudy.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import tech.ericwathome.currencybudy.model.CurrencyEvent
@@ -10,6 +11,7 @@ import tech.ericwathome.currencybudy.util.DispatcherProvider
 import tech.ericwathome.currencybudy.util.Resource
 import javax.inject.Inject
 
+@HiltViewModel
 class LatestFragmentViewModel @Inject constructor(
     private val rateRepository: RateRepository,
     private val dispatchers: DispatcherProvider
