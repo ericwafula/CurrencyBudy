@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CurrencyBuddy</string>
+    <!--  texts  -->
+    <string name="onboarding_text_1">Experience simplicity with Currency Buddy\'s clean and intuitive interface.</string>
+    <string name="onboarding_text_2">Get accurate conversions with Currency Buddy\'s reliable exchange rate sources.</string>
+    <string name="onboarding_text_3">Convert currencies on-the-go with Currency Buddy, available anytime, anywhere.</string>
 </resources>
