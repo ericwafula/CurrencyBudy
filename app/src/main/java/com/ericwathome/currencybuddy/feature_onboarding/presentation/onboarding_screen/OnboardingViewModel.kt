@@ -15,10 +15,14 @@ class OnboardingViewModel @Inject constructor(
     private val useCases: UseCases
 ) : ViewModel() {
 
-    private var _onboardingState = MutableStateFlow(false)
+    init {
+        getOnboardingState()
+    }
+
+    private var _onboardingState = MutableStateFlow(true)
     val onboardingState = _onboardingState.asStateFlow()
 
-    fun getOnboardingState() {
+    private fun getOnboardingState() {
         viewModelScope.launch {
             useCases.getOnboardingStatus().collectLatest {
                 _onboardingState.value = it

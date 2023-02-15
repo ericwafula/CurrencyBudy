@@ -36,7 +36,7 @@ class AppPreferences(
             }
         }
         .map {  preferences ->
-        preferences[SHOW_ONBOARDING] ?: false
+        preferences[SHOW_ONBOARDING] ?: true
     }
 
 }

@@ -16,6 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.Item
@@ -30,6 +32,8 @@ import kotlinx.coroutines.launch
 fun OnboardingScreen() {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
+    val viewModel: OnboardingViewModel = viewModel()
+    val onboardingState by viewModel.onboardingState.collectAsState()
 
     Column(
         verticalArrangement = Arrangement.spacedBy(60.dp),
@@ -49,9 +53,14 @@ fun OnboardingScreen() {
                 if (pagerState.currentPage + 1 < OnboardingUtils.items.size) {
                     pagerState.scrollToPage(pagerState.currentPage + 1)
                 } else {
-                    /**
-                     * navigate to converter screen
-                     */
+                    if (onboardingState) {
+                        viewModel.updateOnboardingState(false)
+                    } else {
+                        /**
+                         * navigate to converter screen
+                         */
+
+                    }
                 }
             }
         }
