@@ -16,7 +16,7 @@
         android:theme="@style/Theme.CurrencyBuddy"
         tools:targetApi="31">
         <activity
-            android:name=".feature_converter.presentation.converter_screen.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CurrencyBuddy">
             <intent-filter>
