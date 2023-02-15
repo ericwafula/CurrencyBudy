@@ -1,14 +1,20 @@
 package com.ericwathome.currencybuddy.di
 
+import android.content.Context
 import com.ericwathome.currencybuddy.BuildConfig
 import com.ericwathome.currencybuddy.common.AppConstants
 import com.ericwathome.currencybuddy.common.UseCases
+import com.ericwathome.currencybuddy.common.util.AppPreferences
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService
 import com.ericwathome.currencybuddy.feature_converter.domain.repository.ExchangeRateRepository
 import com.ericwathome.currencybuddy.feature_converter.domain.use_case.GetExchangeRate
+import com.ericwathome.currencybuddy.feature_onboarding.domain.use_case.GetOnboardingStatus
+import com.ericwathome.currencybuddy.feature_onboarding.domain.use_case.UpdateOnboardingStatus
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -55,11 +61,26 @@ object AppModule {
         GetExchangeRate(repository)
 
     @Provides
+    fun provideAppPreferences(@ActivityContext context: Context) = AppPreferences(context)
+
+    @Provides
+    fun provideUpdateOnboardingStatusUseCase(appPreferences: AppPreferences) =
+        UpdateOnboardingStatus(appPreferences)
+
+    @Provides
+    fun provideGetOnboardingStatusUseCase(appPreferences: AppPreferences) =
+        GetOnboardingStatus(appPreferences)
+
+    @Provides
     fun provideUseCases(
-        getExchangeRate: GetExchangeRate
+        getExchangeRate: GetExchangeRate,
+        updateOnboardingStatus: UpdateOnboardingStatus,
+        getOnboardingStatus: GetOnboardingStatus
     ): UseCases {
         return UseCases(
-            getExchangeRate = getExchangeRate
+            getExchangeRate = getExchangeRate,
+            updateOnboardingStatus = updateOnboardingStatus,
+            getOnboardingStatus = getOnboardingStatus
         )
     }
 
