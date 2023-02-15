@@ -2,7 +2,9 @@ package com.ericwathome.currencybuddy.di
 
 import com.ericwathome.currencybuddy.BuildConfig
 import com.ericwathome.currencybuddy.common.Constants
+import com.ericwathome.currencybuddy.common.UseCases
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService
+import com.ericwathome.currencybuddy.feature_converter.domain.use_case.GetExchangeRate
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,6 +47,15 @@ object AppModule {
     @Singleton
     fun provideExchangeRateApiService(retrofit: Retrofit): ExchangeRateApiService {
         return retrofit.create(ExchangeRateApiService::class.java)
+    }
+
+    @Provides
+    fun provideUseCases(
+        getExchangeRate: GetExchangeRate
+    ): UseCases {
+        return UseCases(
+            getExchangeRate = getExchangeRate
+        )
     }
 
 }
