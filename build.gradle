@@ -9,7 +9,9 @@ buildscript {
         room_version = '2.5.0'
         coroutines_version = '1.6.4'
         work_version = '2.8.0'
-        lifecycle_viewmodel_version = ''
+        lifecycle_version = '2.5.1'
+        splash_screen_version = '1.0.0'
+        datastore_version = '1.0.0'
     }
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"

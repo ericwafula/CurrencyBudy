@@ -1,7 +1,7 @@
 package com.ericwathome.currencybuddy.di
 
 import com.ericwathome.currencybuddy.BuildConfig
-import com.ericwathome.currencybuddy.common.Constants
+import com.ericwathome.currencybuddy.common.AppConstants
 import com.ericwathome.currencybuddy.common.UseCases
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService
 import com.ericwathome.currencybuddy.feature_converter.domain.use_case.GetExchangeRate
@@ -28,8 +28,8 @@ object AppModule {
         }
         return OkHttpClient.Builder()
             .addInterceptor(logger)
-            .connectTimeout(Constants.CALL_TIMEOUT, TimeUnit.SECONDS)
-            .readTimeout(Constants.READ_TIMEOUT, TimeUnit.SECONDS)
+            .connectTimeout(AppConstants.CALL_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(AppConstants.READ_TIMEOUT, TimeUnit.SECONDS)
             .build()
     }
 
@@ -37,7 +37,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("${Constants.BASE_URL}${BuildConfig.API_KEY}/")
+            .baseUrl("${AppConstants.BASE_URL}${BuildConfig.API_KEY}/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

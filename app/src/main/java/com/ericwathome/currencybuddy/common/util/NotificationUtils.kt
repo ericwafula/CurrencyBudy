@@ -4,7 +4,7 @@ import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.ericwathome.currencybuddy.R
-import com.ericwathome.currencybuddy.common.Constants
+import com.ericwathome.currencybuddy.common.AppConstants
 
 object NotificationUtils {
     fun showNotification(
@@ -13,11 +13,11 @@ object NotificationUtils {
         text: String
     ) {
         val notificationManager = context.getSystemService(NotificationManager::class.java)
-        val notification = NotificationCompat.Builder(context, Constants.SYNC_CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context, AppConstants.SYNC_CHANNEL_ID)
             .setContentTitle(title)
             .setContentText(text)
             .setSmallIcon(R.drawable.ic_sync_24)
             .build()
-        notificationManager.notify(Constants.SYNC_NOTIFICATION_ID, notification)
+        notificationManager.notify(AppConstants.SYNC_NOTIFICATION_ID, notification)
     }
 }

@@ -112,10 +112,10 @@ fun BottomSection(
             if (index < 2) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_forward_24),
-                    contentDescription = null
+                    contentDescription = stringResource(id = R.string.forward_icon)
                 )
             } else {
-                Text(text = "Get Started", modifier = Modifier.padding(horizontal = 24.dp))
+                Text(text = stringResource(id = R.string.get_started), modifier = Modifier.padding(horizontal = 24.dp))
             }
         }
     }
@@ -135,14 +135,14 @@ fun Indicators(size: Int, index: Int) {
 
 @Composable
 fun RowScope.Indicator(isSelected: Boolean = true) {
-    val width = animateDpAsState(
+    val width by animateDpAsState(
         targetValue = if (isSelected) 25.dp else 10.dp,
         animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
     )
     Box(
         modifier = Modifier
             .height(10.dp)
-            .width(width.value)
+            .width(width)
             .clip(CircleShape)
             .background(
                 if (isSelected) {

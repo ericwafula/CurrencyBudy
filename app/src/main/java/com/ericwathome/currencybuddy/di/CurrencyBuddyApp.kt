@@ -3,7 +3,7 @@ package com.ericwathome.currencybuddy.di
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import com.ericwathome.currencybuddy.common.Constants
+import com.ericwathome.currencybuddy.common.AppConstants
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -16,8 +16,8 @@ class CurrencyBuddyApp : Application() {
 
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
-            Constants.SYNC_CHANNEL_ID,
-            Constants.SYNC_CHANNEL_NAME,
+            AppConstants.SYNC_CHANNEL_ID,
+            AppConstants.SYNC_CHANNEL_NAME,
             NotificationManager.IMPORTANCE_HIGH
         )
 
