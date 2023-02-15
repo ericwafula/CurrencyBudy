@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface ExchangeRateApiService {
     @GET("latest/{baseCode}")
-    suspend fun getLatestRates(apiKey: String, baseCode: String): Resource<ExchangeRateDto>
+    suspend fun getLatestRates(baseCode: String): ExchangeRateDto
 }

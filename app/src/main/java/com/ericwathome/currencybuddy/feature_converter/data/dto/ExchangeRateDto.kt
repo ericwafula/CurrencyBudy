@@ -1,5 +1,6 @@
 package com.ericwathome.currencybuddy.feature_converter.data.dto
 
+import com.ericwathome.currencybuddy.feature_converter.domain.model.ExchangeRate
 import com.google.gson.annotations.SerializedName
 
 data class ExchangeRateDto(
@@ -20,3 +21,14 @@ data class ExchangeRateDto(
     @SerializedName("conversion_rates")
     val conversionRates: Map<String, Double>
 )
+
+fun ExchangeRateDto.toExchangeRate(): ExchangeRate {
+    return ExchangeRate(
+        timeLastUpdateUnix = timeLastUpdateUnix,
+        timeLastUpdateUtc = timeLastUpdateUtc,
+        timeNextUpdateUnix = timeNextUpdateUnix,
+        timeNextUpdateUtc = timeNextUpdateUtc,
+        baseCode = baseCode,
+        conversionRates = conversionRates
+    )
+}
