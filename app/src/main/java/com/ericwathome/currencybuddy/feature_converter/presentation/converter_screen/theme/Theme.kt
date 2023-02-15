@@ -22,12 +22,13 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = BrandBlue40,
-    secondary = BrandBlue20,
+    primary = BrandBlue20,
+    secondary = BrandBlue40,
     tertiary = BrandBlue60,
     surface = BrandBlue20,
-    onPrimary = BrandBlue20,
+    onPrimary = BrandBlue40,
     onSurface = BrandBlue40,
+    onSecondary = BrandBlue20,
     primaryContainer = BrandBlue40,
     onPrimaryContainer = BrandBlue20
 
