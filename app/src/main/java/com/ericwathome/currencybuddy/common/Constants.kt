@@ -7,4 +7,5 @@ object Constants {
     const val BASE_URL = "https://v6.exchangerate-api.com/v6/"
     const val CALL_TIMEOUT = 30
     const val READ_TIMEOUT = 20
+    const val DATABASE_VERSION = 1
 }
