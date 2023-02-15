@@ -4,6 +4,7 @@ import com.ericwathome.currencybuddy.BuildConfig
 import com.ericwathome.currencybuddy.common.AppConstants
 import com.ericwathome.currencybuddy.common.UseCases
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService
+import com.ericwathome.currencybuddy.feature_converter.domain.repository.ExchangeRateRepository
 import com.ericwathome.currencybuddy.feature_converter.domain.use_case.GetExchangeRate
 import dagger.Module
 import dagger.Provides
@@ -48,6 +49,10 @@ object AppModule {
     fun provideExchangeRateApiService(retrofit: Retrofit): ExchangeRateApiService {
         return retrofit.create(ExchangeRateApiService::class.java)
     }
+
+    @Provides
+    fun provideGetExchangeRateUseCase(repository: ExchangeRateRepository) =
+        GetExchangeRate(repository)
 
     @Provides
     fun provideUseCases(
