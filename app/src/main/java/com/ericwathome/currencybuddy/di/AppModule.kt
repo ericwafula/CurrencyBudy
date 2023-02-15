@@ -61,7 +61,7 @@ object AppModule {
         GetExchangeRate(repository)
 
     @Provides
-    fun provideAppPreferences(@ActivityContext context: Context) = AppPreferences(context)
+    fun provideAppPreferences(@ApplicationContext context: Context) = AppPreferences(context)
 
     @Provides
     fun provideUpdateOnboardingStatusUseCase(appPreferences: AppPreferences) =
