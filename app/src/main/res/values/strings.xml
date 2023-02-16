@@ -8,4 +8,6 @@
     <!--  content description  -->
     <string name="image_description">Image</string>
     <string name="forward_icon">Forward icon</string>
+    <string name="credit_card">Credit card</string>
+    <string name="dropdown_arrow">Dropdown arrow</string>
 </resources>

@@ -110,6 +110,8 @@ dependencies {
 
     // preference datastore
     implementation "androidx.datastore:datastore-preferences:$datastore_version"
+    // icons
+    implementation "androidx.compose.material:material-icons-extended:$material_icons_version"
 }
 
 // Allow references to generated code
