@@ -84,6 +84,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$nav_version"
     // hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_compose_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     // retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

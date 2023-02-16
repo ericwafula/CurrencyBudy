@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ericwathome.currencybuddy.common.UseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -15,23 +16,8 @@ class OnboardingViewModel @Inject constructor(
     private val useCases: UseCases
 ) : ViewModel() {
 
-    init {
-        getOnboardingState()
-    }
-
-    private var _onboardingState = MutableStateFlow(true)
-    val onboardingState = _onboardingState.asStateFlow()
-
-    private fun getOnboardingState() {
-        viewModelScope.launch {
-            useCases.getOnboardingStatus().collectLatest {
-                _onboardingState.value = it
-            }
-        }
-    }
-
     fun updateOnboardingState(showOnboarding: Boolean) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             useCases.updateOnboardingStatus(showOnboarding)
         }
     }

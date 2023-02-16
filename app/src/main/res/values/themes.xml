@@ -4,7 +4,7 @@
     <style name="Theme.CurrencyBuddy" parent="android:Theme.Material.Light.NoActionBar" />
 
     <!--  splash screen  -->
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+    <style name="Theme.CustomSplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/currency_buddy_logo</item>
         <item name="windowSplashScreenAnimationDuration">200</item>

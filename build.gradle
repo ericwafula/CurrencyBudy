@@ -4,6 +4,7 @@ buildscript {
         nav_version = '2.5.3'
         pager_version = '0.28.0'
         hilt_version = '2.44'
+        hilt_compose_version = '1.0.0'
         retrofit_version = '2.9.0'
         http_logger_version = '4.10.0'
         room_version = '2.5.0'

@@ -1,5 +1,7 @@
 package com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,17 +13,22 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.Item
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.OnboardingUtils
+import com.ericwathome.currencybuddy.ui.Screens
+import com.ericwathome.currencybuddy.ui.navigatePopUpTo
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -29,11 +36,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun OnboardingScreen() {
+fun OnboardingScreen(navController: NavHostController) {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
-    val viewModel: OnboardingViewModel = viewModel()
-    val onboardingState by viewModel.onboardingState.collectAsState()
+    val viewModel: OnboardingViewModel = hiltViewModel()
 
     Column(
         verticalArrangement = Arrangement.spacedBy(60.dp),
@@ -53,14 +59,8 @@ fun OnboardingScreen() {
                 if (pagerState.currentPage + 1 < OnboardingUtils.items.size) {
                     pagerState.scrollToPage(pagerState.currentPage + 1)
                 } else {
-                    if (onboardingState) {
-                        viewModel.updateOnboardingState(false)
-                    } else {
-                        /**
-                         * navigate to converter screen
-                         */
-
-                    }
+                    viewModel.updateOnboardingState(false)
+                    navController.navigatePopUpTo(Screens.Converter.route)
                 }
             }
         }
@@ -168,8 +168,9 @@ fun RowScope.Indicator(isSelected: Boolean = true) {
 @Preview
 @Composable
 fun OnboardingScreenPreview() {
+    val context = LocalContext.current
     CurrencyBuddyTheme {
-        OnboardingScreen()
+        OnboardingScreen(navController = NavHostController(context))
     }
 }
 
