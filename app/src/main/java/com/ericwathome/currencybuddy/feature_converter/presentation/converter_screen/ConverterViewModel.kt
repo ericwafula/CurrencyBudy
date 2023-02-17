@@ -62,20 +62,4 @@ class ConverterViewModel @Inject constructor(
 
     }
 
-    suspend fun getExchangeRate(baseCode: String) {
-        useCases.getExchangeRate(baseCode).onEach { result ->
-            when (result) {
-                is Resource.Success -> {
-                    _exchangeRate.value = ConverterState(data = result.data)
-                }
-                is Resource.Loading -> {
-                    _exchangeRate.value = ConverterState(loading = true)
-                }
-                is Resource.Error -> {
-                    _exchangeRate.value =
-                        ConverterState(message = result.message ?: "An unexpected error occurred")
-                }
-            }
-        }.launchIn(viewModelScope)
-    }
 }

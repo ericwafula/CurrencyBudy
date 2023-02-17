@@ -10,15 +10,5 @@ import javax.inject.Inject
 class GetExchangeRate @Inject constructor(
     private val repository: ExchangeRateRepository
 ) {
-    suspend operator fun invoke(baseCode: String) = flow {
-        try {
-            emit(Resource.Loading())
-            val rates = repository.getExchangeRates(baseCode)
-            emit(Resource.Success(rates))
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "an unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(Resource.Error("Couldn't reach server. Check your internet connection"))
-        }
-    }
+
 }
