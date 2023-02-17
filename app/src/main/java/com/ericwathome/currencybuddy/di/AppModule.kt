@@ -13,7 +13,6 @@ import com.ericwathome.currencybuddy.feature_onboarding.domain.use_case.UpdateOn
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
@@ -44,7 +43,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("${AppConstants.BASE_URL}${BuildConfig.API_KEY}/")
+            .baseUrl("${AppConstants.EXCHANGE_RATE_BASE_URL}${BuildConfig.API_KEY}/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
