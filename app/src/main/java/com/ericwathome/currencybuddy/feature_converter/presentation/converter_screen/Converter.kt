@@ -47,18 +47,20 @@ fun ConverterScreen() {
             viewModel.baseConversionRate.value,
             viewModel.quoteConversionRate.value,
             updateSelectedBaseCurrency = {
-
+                viewModel.updateSelectedBaseCurrency(it)
             },
             updateSelectedQuoteCurrency = {
-
+                viewModel.updateSelectedQuoteCurrency(it)
             },
             changeSelectedBaseCurrencyPrice = {
-
+                viewModel.changeSelectedBaseCurrencyPrice(it)
             },
             changeSelectedQuoteCurrencyPrice = {
-
+                viewModel.changeSelectedQuoteCurrencyPrice(it)
             }
-        )
+        ) {
+            viewModel.convert()
+        }
     }
 }
 
@@ -90,7 +92,8 @@ fun ConverterCard(
     updateSelectedBaseCurrency: (String) -> Unit,
     updateSelectedQuoteCurrency: (String) -> Unit,
     changeSelectedBaseCurrencyPrice: (String) -> Unit,
-    changeSelectedQuoteCurrencyPrice: (String) -> Unit
+    changeSelectedQuoteCurrencyPrice: (String) -> Unit,
+    convert: () -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -115,7 +118,7 @@ fun ConverterCard(
             )
             Spacer(modifier = Modifier.size(30.dp))
             ExtendedFloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = convert,
                 modifier = Modifier.widthIn(60.dp)
             ) {
                 Image(
