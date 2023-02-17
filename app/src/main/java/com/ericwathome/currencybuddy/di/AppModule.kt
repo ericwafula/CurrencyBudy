@@ -1,10 +1,12 @@
 package com.ericwathome.currencybuddy.di
 
 import android.content.Context
+import androidx.room.Room
 import com.ericwathome.currencybuddy.BuildConfig
 import com.ericwathome.currencybuddy.common.AppConstants
 import com.ericwathome.currencybuddy.common.UseCases
 import com.ericwathome.currencybuddy.common.util.AppPreferences
+import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.CurrencyBuddyDatabase
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.CurrencyInfoApiService
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService
 import com.ericwathome.currencybuddy.feature_converter.domain.repository.ExchangeRateRepository
@@ -60,6 +62,16 @@ object AppModule {
     @Singleton
     fun provideCurrencyInfoApiService(retrofit: Retrofit): CurrencyInfoApiService {
         return retrofit.create(CurrencyInfoApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCurrencyBuddyDatabase(@ApplicationContext context: Context): CurrencyBuddyDatabase {
+        return Room.databaseBuilder(
+            context,
+            CurrencyBuddyDatabase::class.java,
+            AppConstants.DATABASE_NAME
+        ).build()
     }
 
     @Provides

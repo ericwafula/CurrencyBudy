@@ -1,9 +1,8 @@
 package com.ericwathome.currencybuddy.feature_converter.domain.repository
 
-import com.ericwathome.currencybuddy.common.Resource
-import com.ericwathome.currencybuddy.feature_converter.domain.model.ExchangeRate
+import com.ericwathome.currencybuddy.feature_converter.domain.model.CurrencyInfo
 import kotlinx.coroutines.flow.Flow
 
 interface ExchangeRateRepository {
-    suspend fun getExchangeRates(baseCode: String): ExchangeRate
+    suspend fun getExchangeRate(baseCode: String): Flow<CurrencyInfo>
 }

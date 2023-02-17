@@ -1,6 +1,6 @@
 package com.ericwathome.currencybuddy.feature_converter.data.dto
 
-import com.ericwathome.currencybuddy.feature_converter.domain.model.Currency
+import com.ericwathome.currencybuddy.feature_converter.domain.model.CurrencyInfo
 import com.google.gson.annotations.SerializedName
 
 data class CurrencyDto(
@@ -16,8 +16,8 @@ data class CurrencyDto(
     val namePlural: String
 )
 
-fun CurrencyDto.toCurrency(): Currency {
-    return Currency(
+fun CurrencyDto.toCurrency(): CurrencyInfo {
+    return CurrencyInfo(
         symbol = symbol,
         name = name,
         code = code,
