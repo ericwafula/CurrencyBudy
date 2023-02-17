@@ -1,7 +1,6 @@
 package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -14,18 +13,22 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
 
 @Composable
 fun ConverterScreen() {
+    val viewModel: ConverterViewModel = hiltViewModel()
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -33,9 +36,29 @@ fun ConverterScreen() {
     ) {
         ImageCard()
         Spacer(modifier = Modifier.height(48.dp))
-        ConverterCard {
-            CardContent()
-        }
+        ConverterCard(
+            viewModel.currencies,
+            viewModel.selectedBase.value,
+            viewModel.selectedQuote.value,
+            viewModel.selectedBaseSymbol.value,
+            viewModel.selectedQuoteSymbol.value,
+            viewModel.selectedBasePrice.value,
+            viewModel.selectedQuotePrice.value,
+            viewModel.baseConversionRate.value,
+            viewModel.quoteConversionRate.value,
+            updateSelectedBaseCurrency = {
+
+            },
+            updateSelectedQuoteCurrency = {
+
+            },
+            changeSelectedBaseCurrencyPrice = {
+
+            },
+            changeSelectedQuoteCurrencyPrice = {
+
+            }
+        )
     }
 }
 
@@ -55,7 +78,19 @@ fun ImageCard() {
 
 @Composable
 fun ConverterCard(
-    content: @Composable () -> Unit
+    currencies: List<String>,
+    selectedBase: String,
+    selectedQuote: String,
+    selectedBaseSymbol: String,
+    selectedQuoteSymbol: String,
+    selectedBasePrice: String,
+    selectedQuotePrice: String,
+    baseConversionRate: String,
+    quoteConversionRate: String,
+    updateSelectedBaseCurrency: (String) -> Unit,
+    updateSelectedQuoteCurrency: (String) -> Unit,
+    changeSelectedBaseCurrencyPrice: (String) -> Unit,
+    changeSelectedQuoteCurrencyPrice: (String) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -64,64 +99,71 @@ fun ConverterCard(
             topEnd = 40.dp
         )
     ) {
-        content()
-    }
-}
-
-@Composable
-fun CardContent() {
-    val currencies = remember {
-        mutableStateListOf("EUR", "USD", "CAD", "JPY")
-    }
-    var selectedBaseSymbol by remember { mutableStateOf("€") }
-    var selectedBase by remember {
-        mutableStateOf("EUR")
-    }
-    var conversionRate by remember { mutableStateOf("1 USD = 0.90 EUR") }
-    var selectedQuoteSymbol by remember { mutableStateOf("€") }
-    var selectedQuote by remember {
-        mutableStateOf("EUR")
-    }
-    var selectedBasePrice by remember { mutableStateOf("0.90") }
-    Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 24.dp)) {
-        CurrencyDetails(
-            currencies = currencies,
-            selectedBase = selectedBase,
-            changeSelectedBase = {
-                selectedBase = it
-            },
-            selectedBaseSymbol = selectedBaseSymbol,
-            selectedBasePrice = selectedBasePrice,
-            changeSelectedBasePrice = {
-                selectedBasePrice = it
-            },
-            conversionRate = conversionRate
-        )
-
+        Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 24.dp)) {
+            CurrencyDetails(
+                currencies = currencies,
+                selectedCurrency = selectedBase,
+                changeSelectedCurrency = {
+                    updateSelectedBaseCurrency(it)
+                },
+                selectedSymbol = selectedBaseSymbol,
+                selectedCurrencyPrice = selectedBasePrice,
+                changeSelectedCurrencyPrice = {
+                    changeSelectedBaseCurrencyPrice(it)
+                },
+                conversionRate = baseConversionRate
+            )
+            Spacer(modifier = Modifier.size(30.dp))
+            ExtendedFloatingActionButton(
+                onClick = { /*TODO*/ },
+                modifier = Modifier.widthIn(60.dp)
+            ) {
+                Image(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_convert),
+                    contentDescription = stringResource(
+                        id = R.string.convert_icon
+                    )
+                )
+            }
+            Spacer(modifier = Modifier.size(30.dp))
+            CurrencyDetails(
+                currencies = currencies,
+                selectedCurrency = selectedQuote,
+                changeSelectedCurrency = {
+                    updateSelectedQuoteCurrency(it)
+                },
+                selectedSymbol = selectedQuoteSymbol,
+                selectedCurrencyPrice = selectedQuotePrice,
+                changeSelectedCurrencyPrice = {
+                    changeSelectedQuoteCurrencyPrice(it)
+                },
+                conversionRate = quoteConversionRate
+            )
+        }
     }
 }
 
 @Composable
 fun CurrencyDetails(
-    currencies: SnapshotStateList<String>,
-    selectedBase: String,
-    selectedBaseSymbol: String,
-    selectedBasePrice: String,
+    currencies: List<String>,
+    selectedCurrency: String,
+    selectedSymbol: String,
+    selectedCurrencyPrice: String,
     conversionRate: String,
-    changeSelectedBase: (String) -> Unit,
-    changeSelectedBasePrice: (String) -> Unit
+    changeSelectedCurrency: (String) -> Unit,
+    changeSelectedCurrencyPrice: (String) -> Unit
 ) {
     Surface {
         Column {
-            CurrencySpinner(currencies = currencies, selected = selectedBase) {
-                changeSelectedBase(it)
+            CurrencySpinner(currencies = currencies, selected = selectedCurrency) {
+                changeSelectedCurrency(it)
             }
             Row {
-                Text(text = selectedBaseSymbol)
+                Text(text = selectedSymbol)
                 Row {
                     BasicTextField(
-                        value = selectedBasePrice,
-                        onValueChange = { changeSelectedBasePrice(it) },
+                        value = selectedCurrencyPrice,
+                        onValueChange = { changeSelectedCurrencyPrice(it) },
                         textStyle = MaterialTheme.typography.bodyLarge.copy(
                             fontSize = 42.sp,
                             color = MaterialTheme.colorScheme.onSurface,
@@ -131,9 +173,11 @@ fun CurrencyDetails(
                     )
                 }
             }
-            Text(text = conversionRate, style = TextStyle(
-                fontSize = 10.sp
-            ), modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp))
+            Text(
+                text = conversionRate, style = TextStyle(
+                    fontSize = 10.sp
+                ), modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            )
         }
     }
 }
@@ -188,12 +232,12 @@ fun ConverterScreenPreview() {
 fun CurrencyDetailsPreview() {
     CurrencyBuddyTheme {
         CurrencyDetails(
-            currencies = remember { mutableStateListOf() },
-            selectedBase = "EUR",
-            changeSelectedBase = { },
-            selectedBaseSymbol = "€",
-            selectedBasePrice = "120.00",
-            changeSelectedBasePrice = { },
+            currencies = remember { mutableStateListOf("EUR", "USD", "CAD", "JPY") },
+            selectedCurrency = "EUR",
+            changeSelectedCurrency = { },
+            selectedSymbol = "€",
+            selectedCurrencyPrice = "120.00",
+            changeSelectedCurrencyPrice = { },
             conversionRate = "1 USD = 0.90 EUR"
         )
     }

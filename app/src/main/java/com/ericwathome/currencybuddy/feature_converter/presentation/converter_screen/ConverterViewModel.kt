@@ -1,5 +1,6 @@
 package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen
 
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ericwathome.currencybuddy.common.Resource
@@ -20,6 +21,15 @@ class ConverterViewModel @Inject constructor(
 
     private val _exchangeRate = MutableStateFlow<ConverterState?>(null)
     val exchangeRate = _exchangeRate.asStateFlow()
+    val currencies = mutableStateListOf("EUR", "USD", "CAD", "JPY")
+    var selectedBaseSymbol = mutableStateOf("€")
+    var selectedBase = mutableStateOf("EUR")
+    var baseConversionRate = mutableStateOf("1 USD = 0.90 EUR")
+    var quoteConversionRate = mutableStateOf("1 EUR = 1.11 USD")
+    var selectedQuoteSymbol = mutableStateOf("$")
+    var selectedQuote = mutableStateOf("USD")
+    var selectedBasePrice = mutableStateOf("120.00")
+    var selectedQuotePrice = mutableStateOf("133.70")
 
     suspend fun getExchangeRate(baseCode: String) {
         useCases.getExchangeRate(baseCode).onEach { result ->
