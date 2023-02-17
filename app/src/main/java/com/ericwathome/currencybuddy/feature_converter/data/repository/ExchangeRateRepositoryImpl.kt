@@ -1,19 +1,89 @@
 package com.ericwathome.currencybuddy.feature_converter.data.repository
 
-import android.icu.util.Currency
+import com.ericwathome.currencybuddy.common.AppConstants
+import com.ericwathome.currencybuddy.common.Resource
+import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.ExchangeRateDao
+import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.CurrencyInfoApiService
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService
-import com.ericwathome.currencybuddy.feature_converter.data.dto.toExchangeRate
 import com.ericwathome.currencybuddy.feature_converter.domain.model.CurrencyInfo
-import com.ericwathome.currencybuddy.feature_converter.domain.model.ExchangeRate
+import com.ericwathome.currencybuddy.feature_converter.domain.model.CurrentRate
+import com.ericwathome.currencybuddy.feature_converter.domain.model.relations.CurrencyInfoWithCurrentRates
 import com.ericwathome.currencybuddy.feature_converter.domain.repository.ExchangeRateRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 class ExchangeRateRepositoryImpl @Inject constructor(
-    private val apiService: ExchangeRateApiService
+    private val exchangeRateApiService: ExchangeRateApiService,
+    private val currencyInfoApiService: CurrencyInfoApiService,
+    private val dao: ExchangeRateDao
 ) : ExchangeRateRepository {
-    override suspend fun getExchangeRate(baseCode: String): Flow<CurrencyInfo> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getExchangeRates(baseCode: String): Flow<Resource<CurrencyInfoWithCurrentRates>> =
+        flow {
+            emit(Resource.Loading())
+            val localCurrencyInfo = dao.getCurrencyInfoWithCurrencyRates(baseCode)
+            emit(Resource.Loading(localCurrencyInfo))
+            try {
+                val exchangeRate = exchangeRateApiService.getLatestRates(baseCode)
+                val currencyDtos =
+                    currencyInfoApiService.getCurrencyInfo(AppConstants.CURRENCY_INFO_URL)
+                val conversionRates = buildList {
+                    exchangeRate.conversionRates.map {
+                        add(
+                            CurrentRate(
+                                code = it.key,
+                                rate = it.value,
+                                currencyInfoCode = baseCode
+                            )
+                        )
+                    }
+                }
+                val updatedConversionRates = conversionRates.map { currentRate ->
+                    val currencyDto = currencyDtos.find { it.code == currentRate.code }
+                    currentRate.copy(
+                        name = currencyDto?.name,
+                        symbol = currencyDto?.symbol
+                    )
+                }
+                val currencyInfo = CurrencyInfo(code = baseCode)
+                val currentBaseRate = updatedConversionRates.find { it.code == baseCode }
+                currencyInfo.apply {
+                    symbol = currentBaseRate?.symbol
+                    name = currentBaseRate?.name
+                }
+                /**
+                 * Remove all items in the database and add them again
+                 */
+                dao.apply {
+                    updatedConversionRates.forEach {
+                        deleteCurrencyRate(it)
+                    }
+                    updatedConversionRates.forEach {
+                        insertCurrencyRate(it)
+                    }
+                    deleteCurrencyInfo(currencyInfo)
+                    insertCurrencyInfo(currencyInfo)
+                }
+
+            } catch (e: HttpException) {
+                emit(
+                    Resource.Error(
+                        message = "Oops! Something went wrong.",
+                        data = localCurrencyInfo
+                    )
+                )
+            } catch (e: IOException) {
+                emit(
+                    Resource.Error(
+                        message = "Couldn't reach server, check your internet connection.",
+                        data = localCurrencyInfo
+                    )
+                )
+            }
+            val newLocalCurrencyInfo = dao.getCurrencyInfoWithCurrencyRates(baseCode)
+            emit(Resource.Success(newLocalCurrencyInfo))
+        }
 
 }

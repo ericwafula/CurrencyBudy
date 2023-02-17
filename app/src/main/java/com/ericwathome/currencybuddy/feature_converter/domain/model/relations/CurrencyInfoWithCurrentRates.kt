@@ -8,8 +8,8 @@ import com.ericwathome.currencybuddy.feature_converter.domain.model.CurrentRate
 data class CurrencyInfoWithCurrentRates (
     @Embedded val currencyInfo: CurrencyInfo,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "currencyInfoId"
+        parentColumn = "code",
+        entityColumn = "currencyInfoCode"
     )
     val rates: List<CurrentRate>
 )

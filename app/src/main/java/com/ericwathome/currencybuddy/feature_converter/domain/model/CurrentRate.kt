@@ -5,10 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class CurrentRate(
-    @PrimaryKey
-    val id: Long? = null,
-    val code: String,
-    val name: String,
-    val rate: Double,
-    val currencyInfoId: Long
+    @PrimaryKey(autoGenerate = false)
+    val code: String? = null,
+    val name: String? = null,
+    val rate: Double? = null,
+    val symbol: String? = null,
+    val currencyInfoCode: String
 )

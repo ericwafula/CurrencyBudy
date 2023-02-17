@@ -15,8 +15,14 @@ interface ExchangeRateDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrencyRate(currentRate: CurrentRate)
 
+    @Delete
+    suspend fun deleteCurrencyInfo(currencyInfo: CurrencyInfo)
+
+    @Delete
+    suspend fun deleteCurrencyRate(currentRate: CurrentRate)
+
     @Transaction
     @Query("SELECT * FROM currency_info WHERE code = :currencyCode")
-    fun getCurrencyInfoWithCurrencyRates(currencyCode: String): Flow<CurrencyInfoWithCurrentRates>
+    fun getCurrencyInfoWithCurrencyRates(currencyCode: String): CurrencyInfoWithCurrentRates
 
 }

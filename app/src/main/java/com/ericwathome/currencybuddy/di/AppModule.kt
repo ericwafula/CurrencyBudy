@@ -7,6 +7,7 @@ import com.ericwathome.currencybuddy.common.AppConstants
 import com.ericwathome.currencybuddy.common.UseCases
 import com.ericwathome.currencybuddy.common.util.AppPreferences
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.CurrencyBuddyDatabase
+import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.ExchangeRateDao
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.CurrencyInfoApiService
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService
 import com.ericwathome.currencybuddy.feature_converter.domain.repository.ExchangeRateRepository
@@ -73,6 +74,10 @@ object AppModule {
             AppConstants.DATABASE_NAME
         ).build()
     }
+
+    @Provides
+    @Singleton
+    fun provideExchangeRateDao(db: CurrencyBuddyDatabase): ExchangeRateDao = db.exchangeRateDao()
 
     @Provides
     fun provideGetExchangeRateUseCase(repository: ExchangeRateRepository) =
