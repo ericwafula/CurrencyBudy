@@ -26,11 +26,22 @@ class ExchangeRateRepositoryImpl @Inject constructor(
             val localCurrencyInfo = dao.getCurrencyInfoWithCurrencyRates(baseCode)
             emit(Resource.Loading(localCurrencyInfo))
             try {
-                val exchangeRate = exchangeRateApiService.getLatestRates(baseCode)
+                /**
+                 * fetch exchange rate data from api
+                 */
+                val exchangeRateDto = exchangeRateApiService.getLatestRates(baseCode)
+
+                /**
+                 * fetch currency info details from api
+                 */
                 val currencyDtos =
                     currencyInfoApiService.getCurrencyInfo(AppConstants.CURRENCY_INFO_URL)
+
+                /**
+                 * create a list of conversionRates
+                 */
                 val conversionRates = buildList {
-                    exchangeRate.conversionRates.map {
+                    exchangeRateDto.conversionRates.map {
                         add(
                             CurrentRate(
                                 code = it.key,
@@ -40,6 +51,9 @@ class ExchangeRateRepositoryImpl @Inject constructor(
                         )
                     }
                 }
+                /**
+                 * update conversion rates objects with currency name and symbol
+                 */
                 val updatedConversionRates = conversionRates.map { currentRate ->
                     val currencyDto = currencyDtos.find { it.code == currentRate.code }
                     currentRate.copy(
@@ -47,6 +61,11 @@ class ExchangeRateRepositoryImpl @Inject constructor(
                         symbol = currencyDto?.symbol
                     )
                 }
+
+                /**
+                 * creates a currencyInfo object, finds a single base rate and updates the
+                 * currency info object with a symbol and a name
+                 */
                 val currencyInfo = CurrencyInfo(code = baseCode)
                 val currentBaseRate = updatedConversionRates.find { it.code == baseCode }
                 currencyInfo.apply {
