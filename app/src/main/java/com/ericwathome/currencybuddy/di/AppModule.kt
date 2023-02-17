@@ -5,6 +5,7 @@ import com.ericwathome.currencybuddy.BuildConfig
 import com.ericwathome.currencybuddy.common.AppConstants
 import com.ericwathome.currencybuddy.common.UseCases
 import com.ericwathome.currencybuddy.common.util.AppPreferences
+import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.CurrencyInfoApiService
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService
 import com.ericwathome.currencybuddy.feature_converter.domain.repository.ExchangeRateRepository
 import com.ericwathome.currencybuddy.feature_converter.domain.use_case.GetExchangeRate
@@ -43,7 +44,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("${AppConstants.EXCHANGE_RATE_BASE_URL}${BuildConfig.API_KEY}/")
+            .baseUrl("${AppConstants.BASE_URL}${BuildConfig.API_KEY}/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -53,6 +54,12 @@ object AppModule {
     @Singleton
     fun provideExchangeRateApiService(retrofit: Retrofit): ExchangeRateApiService {
         return retrofit.create(ExchangeRateApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCurrencyInfoApiService(retrofit: Retrofit): CurrencyInfoApiService {
+        return retrofit.create(CurrencyInfoApiService::class.java)
     }
 
     @Provides
