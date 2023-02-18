@@ -52,33 +52,33 @@ fun ConverterScreen() {
         }
         if (showDialog) {
             AlertDialog(onDismissRequest = { showDialog = false }) {
-                Text(text = dialogMessage)
+                Surface {
+                    Column(modifier = Modifier.padding(18.dp)) {
+                        Text(text = dialogMessage)
+                    }
+                }
             }
         }
-        if (state.loading) {
-            CircularProgressIndicator()
-        } else {
-            ConverterCard(
-                state.data?.currencies ?: emptyList(),
-                viewModel.selectedBase.value,
-                viewModel.selectedQuote.value,
-                state.data?.baseSymbol ?: "",
-                state.data?.quoteSymbol ?: "",
-                viewModel.selectedBasePrice.value,
-                updateSelectedBaseCurrency = {
-                    viewModel.updateSelectedBaseCurrency(it)
-                },
-                updateSelectedQuoteCurrency = {
-                    viewModel.updateSelectedQuoteCurrency(it)
-                },
-                changeSelectedBaseCurrencyPrice = {
-                    viewModel.changeSelectedBaseCurrencyPrice(it)
-                },
-                baseConversionRate = state.data?.baseConversionRate ?: "",
-                selectedQuotePrice = state.data?.quotePrice ?: ""
-            ) {
-                viewModel.convert()
-            }
+        ConverterCard(
+            state.data?.currencies ?: emptyList(),
+            viewModel.selectedBase.value,
+            viewModel.selectedQuote.value,
+            state.data?.baseSymbol ?: "",
+            state.data?.quoteSymbol ?: "",
+            viewModel.selectedBasePrice.value,
+            updateSelectedBaseCurrency = {
+                viewModel.updateSelectedBaseCurrency(it)
+            },
+            updateSelectedQuoteCurrency = {
+                viewModel.updateSelectedQuoteCurrency(it)
+            },
+            changeSelectedBaseCurrencyPrice = {
+                viewModel.changeSelectedBaseCurrencyPrice(it)
+            },
+            baseConversionRate = state.data?.baseConversionRate ?: "",
+            selectedQuotePrice = state.data?.quotePrice ?: ""
+        ) {
+            viewModel.convert()
         }
     }
 }
@@ -91,7 +91,7 @@ fun ImageCard() {
             id = R.string.credit_card
         ),
         modifier = Modifier
-            .width(400.dp)
+            .fillMaxWidth()
             .height(200.dp)
             .padding(horizontal = 24.dp)
     )

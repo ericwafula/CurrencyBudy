@@ -109,7 +109,6 @@ class ExchangeRateRepositoryImpl @Inject constructor(
             val newLocalCurrencyInfo = withContext(Dispatchers.IO) {
                 dao.getCurrencyInfoWithCurrencyRates(baseCode)
             }
-            Log.d("TAG", "getExchangeRates: $newLocalCurrencyInfo")
             emit(Resource.Success(newLocalCurrencyInfo))
         }
 

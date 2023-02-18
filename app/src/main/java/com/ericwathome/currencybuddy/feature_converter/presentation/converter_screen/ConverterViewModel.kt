@@ -26,7 +26,7 @@ class ConverterViewModel @Inject constructor(
     var selectedBase: State<String> = _selectedBase
     private var _selectedQuote: MutableState<String> = mutableStateOf("USD")
     var selectedQuote: State<String> = _selectedQuote
-    private var _selectedBasePrice: MutableState<String> = mutableStateOf("120.00")
+    private var _selectedBasePrice: MutableState<String> = mutableStateOf("0")
     var selectedBasePrice: State<String> = _selectedBasePrice
     private var _converterState = mutableStateOf(ConverterState())
     val converterState: State<ConverterState> = _converterState
