@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -25,10 +24,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
+import kotlinx.coroutines.flow.collectLatest
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConverterScreen() {
     val viewModel: ConverterViewModel = hiltViewModel()
+    val state by viewModel.converterState
+    var showDialog by rememberSaveable { mutableStateOf(false) }
+    var dialogMessage by rememberSaveable { mutableStateOf("") }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,30 +40,45 @@ fun ConverterScreen() {
     ) {
         ImageCard()
         Spacer(modifier = Modifier.height(48.dp))
-        ConverterCard(
-            viewModel.currencies,
-            viewModel.selectedBase.value,
-            viewModel.selectedQuote.value,
-            viewModel.selectedBaseSymbol.value,
-            viewModel.selectedQuoteSymbol.value,
-            viewModel.selectedBasePrice.value,
-            viewModel.selectedQuotePrice.value,
-            viewModel.baseConversionRate.value,
-            viewModel.quoteConversionRate.value,
-            updateSelectedBaseCurrency = {
-                viewModel.updateSelectedBaseCurrency(it)
-            },
-            updateSelectedQuoteCurrency = {
-                viewModel.updateSelectedQuoteCurrency(it)
-            },
-            changeSelectedBaseCurrencyPrice = {
-                viewModel.changeSelectedBaseCurrencyPrice(it)
-            },
-            changeSelectedQuoteCurrencyPrice = {
-                viewModel.changeSelectedQuoteCurrencyPrice(it)
+        LaunchedEffect(key1 = true) {
+            viewModel.eventFlow.collectLatest { event ->
+                when (event) {
+                    is ConverterViewModel.UiEvent.ShowDialog -> {
+                        showDialog = true
+                        dialogMessage = event.message
+                    }
+                }
             }
-        ) {
-            viewModel.convert()
+        }
+        if (showDialog) {
+            AlertDialog(onDismissRequest = { showDialog = false }) {
+                Text(text = dialogMessage)
+            }
+        }
+        if (state.loading) {
+            CircularProgressIndicator()
+        } else {
+            ConverterCard(
+                state.data?.currencies ?: emptyList(),
+                viewModel.selectedBase.value,
+                viewModel.selectedQuote.value,
+                state.data?.baseSymbol ?: "",
+                state.data?.quoteSymbol ?: "",
+                viewModel.selectedBasePrice.value,
+                updateSelectedBaseCurrency = {
+                    viewModel.updateSelectedBaseCurrency(it)
+                },
+                updateSelectedQuoteCurrency = {
+                    viewModel.updateSelectedQuoteCurrency(it)
+                },
+                changeSelectedBaseCurrencyPrice = {
+                    viewModel.changeSelectedBaseCurrencyPrice(it)
+                },
+                baseConversionRate = state.data?.baseConversionRate ?: "",
+                selectedQuotePrice = state.data?.quotePrice ?: ""
+            ) {
+                viewModel.convert()
+            }
         }
     }
 }
@@ -88,11 +107,9 @@ fun ConverterCard(
     selectedBasePrice: String,
     selectedQuotePrice: String,
     baseConversionRate: String,
-    quoteConversionRate: String,
     updateSelectedBaseCurrency: (String) -> Unit,
     updateSelectedQuoteCurrency: (String) -> Unit,
     changeSelectedBaseCurrencyPrice: (String) -> Unit,
-    changeSelectedQuoteCurrencyPrice: (String) -> Unit,
     convert: () -> Unit
 ) {
     Surface(
@@ -137,10 +154,8 @@ fun ConverterCard(
                 },
                 selectedSymbol = selectedQuoteSymbol,
                 selectedCurrencyPrice = selectedQuotePrice,
-                changeSelectedCurrencyPrice = {
-                    changeSelectedQuoteCurrencyPrice(it)
-                },
-                conversionRate = quoteConversionRate
+                conversionRate = "",
+                changeSelectedCurrencyPrice = { }
             )
         }
     }

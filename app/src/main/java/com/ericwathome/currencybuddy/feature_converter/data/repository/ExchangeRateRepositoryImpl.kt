@@ -1,5 +1,6 @@
 package com.ericwathome.currencybuddy.feature_converter.data.repository
 
+import android.util.Log
 import com.ericwathome.currencybuddy.common.AppConstants
 import com.ericwathome.currencybuddy.common.Resource
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.ExchangeRateDao
@@ -9,8 +10,10 @@ import com.ericwathome.currencybuddy.feature_converter.domain.model.CurrencyInfo
 import com.ericwathome.currencybuddy.feature_converter.domain.model.CurrentRate
 import com.ericwathome.currencybuddy.feature_converter.domain.model.relations.CurrencyInfoWithCurrentRates
 import com.ericwathome.currencybuddy.feature_converter.domain.repository.ExchangeRateRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -23,7 +26,9 @@ class ExchangeRateRepositoryImpl @Inject constructor(
     override suspend fun getExchangeRates(baseCode: String): Flow<Resource<CurrencyInfoWithCurrentRates>> =
         flow {
             emit(Resource.Loading())
-            val localCurrencyInfo = dao.getCurrencyInfoWithCurrencyRates(baseCode)
+            val localCurrencyInfo = withContext(Dispatchers.IO) {
+                dao.getCurrencyInfoWithCurrencyRates(baseCode)
+            }
             emit(Resource.Loading(localCurrencyInfo))
             try {
                 /**
@@ -52,7 +57,7 @@ class ExchangeRateRepositoryImpl @Inject constructor(
                     }
                 }
                 /**
-                 * update conversion rates objects with currency name and symbol
+                 * update conversion rates objects with a currency name and a symbol
                  */
                 val updatedConversionRates = conversionRates.map { currentRate ->
                     val currencyDto = currencyDtos.find { it.code == currentRate.code }
@@ -101,7 +106,10 @@ class ExchangeRateRepositoryImpl @Inject constructor(
                     )
                 )
             }
-            val newLocalCurrencyInfo = dao.getCurrencyInfoWithCurrencyRates(baseCode)
+            val newLocalCurrencyInfo = withContext(Dispatchers.IO) {
+                dao.getCurrencyInfoWithCurrencyRates(baseCode)
+            }
+            Log.d("TAG", "getExchangeRates: $newLocalCurrencyInfo")
             emit(Resource.Success(newLocalCurrencyInfo))
         }
 

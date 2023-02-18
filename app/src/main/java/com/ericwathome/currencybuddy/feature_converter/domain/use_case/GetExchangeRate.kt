@@ -10,5 +10,5 @@ import javax.inject.Inject
 class GetExchangeRate @Inject constructor(
     private val repository: ExchangeRateRepository
 ) {
-
+    suspend operator fun invoke(baseCode: String) = repository.getExchangeRates(baseCode)
 }

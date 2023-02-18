@@ -1,65 +1,106 @@
 package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen
 
-import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ericwathome.currencybuddy.common.Resource
 import com.ericwathome.currencybuddy.common.UseCases
-import com.ericwathome.currencybuddy.feature_converter.domain.model.ExchangeRate
+import com.ericwathome.currencybuddy.feature_converter.domain.model.relations.CurrencyInfoWithCurrentRates
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.util.Currency
 import javax.inject.Inject
+import kotlin.math.log
 
 @HiltViewModel
 class ConverterViewModel @Inject constructor(
     private val useCases: UseCases
 ) : ViewModel() {
-
-    private val _exchangeRate = MutableStateFlow<ConverterState?>(null)
-    val exchangeRate = _exchangeRate.asStateFlow()
-    private val _currencies: SnapshotStateList<String> = mutableStateListOf("EUR", "USD", "CAD", "JPY")
-    val currencies: List<String> = _currencies
-    private var _selectedBaseSymbol: MutableState<String> = mutableStateOf("€")
-    var selectedBaseSymbol: State<String> = _selectedBaseSymbol
     private var _selectedBase: MutableState<String> = mutableStateOf("EUR")
     var selectedBase: State<String> = _selectedBase
-    private var _baseConversionRate: MutableState<String> = mutableStateOf("1 USD = 0.90 EUR")
-    var baseConversionRate: State<String> = _baseConversionRate
-    private var _quoteConversionRate: MutableState<String> = mutableStateOf("1 EUR = 1.11 USD")
-    var quoteConversionRate: State<String> = _quoteConversionRate
-    private var _selectedQuoteSymbol: MutableState<String> = mutableStateOf("$")
-    var selectedQuoteSymbol: State<String> = _selectedQuoteSymbol
     private var _selectedQuote: MutableState<String> = mutableStateOf("USD")
     var selectedQuote: State<String> = _selectedQuote
     private var _selectedBasePrice: MutableState<String> = mutableStateOf("120.00")
     var selectedBasePrice: State<String> = _selectedBasePrice
-    private var _selectedQuotePrice: MutableState<String> = mutableStateOf("133.70")
-    var selectedQuotePrice: State<String> = _selectedQuotePrice
+    private var _converterState = mutableStateOf(ConverterState())
+    val converterState: State<ConverterState> = _converterState
+    private var _eventFlow = MutableSharedFlow<UiEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     fun updateSelectedBaseCurrency(currency: String) {
-        _selectedBaseSymbol.value = currency
-    }
-
-    fun updateSelectedQuoteCurrency(currency: String) {
-        _selectedBaseSymbol.value = currency
+        _selectedBase.value = currency
     }
 
     fun changeSelectedBaseCurrencyPrice(price: String) {
         _selectedBasePrice.value = price
     }
 
-    fun changeSelectedQuoteCurrencyPrice(price: String) {
-        _selectedQuotePrice.value = price
+    fun updateSelectedQuoteCurrency(currency: String) {
+        _selectedQuote.value = currency
     }
+
 
     fun convert() {
-
+        viewModelScope.launch {
+            useCases.getExchangeRate(_selectedBase.value).onEach { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        _converterState.value = converterState.value.copy(
+                            data = mapResultData(result.data)
+                        )
+                        Log.d("TAG", "convert success: ${mapResultData(result.data)}")
+                    }
+                    is Resource.Loading -> {
+                        _converterState.value = converterState.value.copy(
+                            data = mapResultData(result.data),
+                            loading = true
+                        )
+                        Log.d("TAG", "convert loading: ${mapResultData(result.data)}")
+                    }
+                    is Resource.Error -> {
+                        _converterState.value = converterState.value.copy(
+                            data = mapResultData(result.data),
+                            loading = false
+                        )
+                        _eventFlow.emit(
+                            UiEvent.ShowDialog(
+                                result.message ?: "An unexpected error occurred"
+                            )
+                        )
+                        Log.d("TAG", "convert error: ${mapResultData(result.data)}")
+                    }
+                }
+            }.launchIn(this)
+        }
     }
 
+    private fun mapResultData(result: CurrencyInfoWithCurrentRates?): ConverterValues {
+        val currencyList = result?.rates?.map {
+            it.code ?: ""
+        }
+        val baseCode = result?.currencyInfo?.code ?: ""
+        val baseSymbol = result?.currencyInfo?.symbol ?: ""
+        val currentRateObject = result?.rates?.find { it.code == selectedQuote.value }
+        val quoteCode = currentRateObject?.code ?: ""
+        val baseConversionRate = currentRateObject?.rate ?: 0.0
+        val quoteSymbol = currentRateObject?.symbol ?: ""
+        val quotePrice = selectedBasePrice.value.toDouble() * baseConversionRate
+        return ConverterValues(
+            currencies = currencyList,
+            baseSymbol = baseSymbol,
+            baseConversionRate = "1 $baseCode = $baseConversionRate $quoteCode",
+            quoteSymbol = quoteSymbol,
+            quotePrice = quotePrice.toString()
+        )
+    }
+
+    sealed class UiEvent {
+        data class ShowDialog(val message: String) : UiEvent()
+    }
 }

@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 )
 data class CurrencyInfo(
     @PrimaryKey(autoGenerate = false)
-    val code: String? = null,
+    val code: String,
     var symbol: String? = null,
     var name: String? = null
 )
