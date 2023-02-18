@@ -31,11 +31,11 @@ If you encounter any issues while using Currency Budy, or if you have any questi
 
 The application uses clean architecture to further decouple the MVVM architecture by following the principle of separation of concerns.
 
-![Currency Budy Architecture](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2001-52-18.png?token=GHSAT0AAAAAAB6ZTPLKHVODACFJOBJVWKMAY7RNCEA)
 ![Currency Budy Architecture](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2001-54-29.png?token=GHSAT0AAAAAAB6ZTPLKSSFYILQIX7GOOVZGY7RNC7Q)
 
 ### User Interface
 
+![Currency Budy Architecture](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2001-52-18.png?token=GHSAT0AAAAAAB6ZTPLKHVODACFJOBJVWKMAY7RNCEA)
 ![Currency Budy User Interface](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2001-57-55.png?token=GHSAT0AAAAAAB6ZTPLKGZBDT6DAVMODOWKSY7RM6QQ)
 
 ## License
