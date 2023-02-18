@@ -29,6 +29,8 @@ If you encounter any issues while using Currency Budy, or if you have any questi
 
 ### Architecture
 
+The application uses clean architecture to further decouple the MVVM architecture by following the principle of separation of concerns.
+
 ![Currency Budy Architecture](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2001-52-18.png?token=GHSAT0AAAAAAB6ZTPLKHVODACFJOBJVWKMAY7RNCEA)
 ![Currency Budy Architecture](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2001-54-29.png?token=GHSAT0AAAAAAB6ZTPLKSSFYILQIX7GOOVZGY7RNC7Q)
 
@@ -38,6 +40,6 @@ If you encounter any issues while using Currency Budy, or if you have any questi
 
 ## License
 
-Currency Budy is open-source and released under the [MIT] license. See the [LICENSE](license.txt) file for details.
+Currency Budy is open-source and released under the MIT license. See the [LICENSE](license.txt) file for details.
 
 We hope you find Currency Budy helpful and easy to use!
