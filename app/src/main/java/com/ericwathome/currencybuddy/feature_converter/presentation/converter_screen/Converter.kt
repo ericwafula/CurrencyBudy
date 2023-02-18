@@ -105,7 +105,7 @@ fun ConverterCard(
     selectedBaseSymbol: String,
     selectedQuoteSymbol: String,
     selectedBasePrice: String,
-    selectedQuotePrice: String,
+    selectedQuotePrice: String = "0",
     baseConversionRate: String,
     updateSelectedBaseCurrency: (String) -> Unit,
     updateSelectedQuoteCurrency: (String) -> Unit,
