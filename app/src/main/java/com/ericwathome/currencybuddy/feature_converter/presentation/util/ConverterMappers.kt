@@ -8,7 +8,7 @@ internal fun mapResultData(
     result: CurrencyInfoWithCurrentRates?,
     amount: Double,
     currencyCode: String
-) : ConverterValues {
+): ConverterValues {
     val currencyList = result?.rates?.map {
         it.code
     }
@@ -18,7 +18,7 @@ internal fun mapResultData(
     val quoteCode = currentRateObject?.code ?: ""
     val baseConversionRate = currentRateObject?.rate ?: 0.0
     val quoteSymbol = currentRateObject?.symbol ?: ""
-    val quotePrice = amount * baseConversionRate
+    val quotePrice = "%.4f".format((amount * baseConversionRate))
     return ConverterValues(
         currencies = currencyList,
         baseSymbol = baseSymbol,
