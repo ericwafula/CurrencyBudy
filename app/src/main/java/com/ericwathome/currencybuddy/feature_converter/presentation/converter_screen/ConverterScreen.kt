@@ -81,7 +81,7 @@ fun ConverterScreen() {
             viewModel.selectedQuote.value,
             state.data?.baseSymbol ?: "",
             state.data?.quoteSymbol ?: "",
-            viewModel.selectedBasePrice.value,
+            viewModel.selectedBaseAmount.value,
             updateSelectedBaseCurrency = {
                 viewModel.updateSelectedBaseCurrency(it)
             },
