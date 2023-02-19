@@ -31,7 +31,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun ConverterScreen() {
     val viewModel: ConverterViewModel = hiltViewModel()
     val state by viewModel.converterState
-    var showDialog by rememberSaveable { mutableStateOf(false) }
+    var showErrorDialog by rememberSaveable { mutableStateOf(false) }
     var dialogMessage by rememberSaveable { mutableStateOf("") }
     Column(
         modifier = Modifier
@@ -44,19 +44,35 @@ fun ConverterScreen() {
             viewModel.eventFlow.collectLatest { event ->
                 when (event) {
                     is ConverterViewModel.UiEvent.ShowDialog -> {
-                        showDialog = true
+                        showErrorDialog = true
                         dialogMessage = event.message
                     }
                 }
             }
         }
-        if (showDialog) {
-            AlertDialog(onDismissRequest = { showDialog = false }) {
+        if (showErrorDialog) {
+            AlertDialog(onDismissRequest = { showErrorDialog = false }) {
                 Surface {
                     Column(modifier = Modifier.padding(18.dp)) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_warning),
+                            contentDescription = stringResource(
+                                id = R.string.warning_icon
+                            ),
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
                         Text(text = dialogMessage)
                     }
                 }
+            }
+        }
+        if (state.loading) {
+            AlertDialog(onDismissRequest = { }) {
+                CircularProgressIndicator(
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier.size(60.dp)
+                )
             }
         }
         ConverterCard(

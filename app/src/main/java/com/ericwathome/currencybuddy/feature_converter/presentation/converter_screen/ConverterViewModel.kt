@@ -26,12 +26,16 @@ class ConverterViewModel @Inject constructor(
     var selectedBase: State<String> = _selectedBase
     private var _selectedQuote: MutableState<String> = mutableStateOf("USD")
     var selectedQuote: State<String> = _selectedQuote
-    private var _selectedBasePrice: MutableState<String> = mutableStateOf("0")
+    private var _selectedBasePrice: MutableState<String> = mutableStateOf("1")
     var selectedBasePrice: State<String> = _selectedBasePrice
     private var _converterState = mutableStateOf(ConverterState())
     val converterState: State<ConverterState> = _converterState
     private var _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
+
+    init {
+        convert()
+    }
 
     fun updateSelectedBaseCurrency(currency: String) {
         _selectedBase.value = currency
@@ -52,16 +56,15 @@ class ConverterViewModel @Inject constructor(
                 when (result) {
                     is Resource.Success -> {
                         _converterState.value = converterState.value.copy(
-                            data = mapResultData(result.data)
+                            data = mapResultData(result.data),
+                            loading = false
                         )
-                        Log.d("TAG", "convert success: ${mapResultData(result.data)}")
                     }
                     is Resource.Loading -> {
                         _converterState.value = converterState.value.copy(
                             data = mapResultData(result.data),
                             loading = true
                         )
-                        Log.d("TAG", "convert loading: ${mapResultData(result.data)}")
                     }
                     is Resource.Error -> {
                         _converterState.value = converterState.value.copy(
@@ -73,7 +76,6 @@ class ConverterViewModel @Inject constructor(
                                 result.message ?: "An unexpected error occurred"
                             )
                         )
-                        Log.d("TAG", "convert error: ${mapResultData(result.data)}")
                     }
                 }
             }.launchIn(this)

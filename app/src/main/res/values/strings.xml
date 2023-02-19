@@ -11,4 +11,5 @@
     <string name="credit_card">Credit card</string>
     <string name="dropdown_arrow">Dropdown arrow</string>
     <string name="convert_icon">Convert icon</string>
+    <string name="warning_icon">Warning icon</string>
 </resources>

@@ -59,7 +59,7 @@ fun OnboardingScreen(navController: NavHostController) {
                 if (pagerState.currentPage + 1 < OnboardingUtils.items.size) {
                     pagerState.scrollToPage(pagerState.currentPage + 1)
                 } else {
-                    viewModel.updateOnboardingState(false)
+                    viewModel.updateOnboardingState(true)
                     navController.navigatePopUpTo(Screens.Converter.route)
                 }
             }
