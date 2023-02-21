@@ -1,6 +1,7 @@
 package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -35,11 +36,10 @@ fun ConverterScreen() {
     var dialogMessage by rememberSaveable { mutableStateOf("") }
     Column(
         modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.background)
             .fillMaxWidth()
             .padding(top = 24.dp)
     ) {
-        ImageCard()
-        Spacer(modifier = Modifier.height(48.dp))
         LaunchedEffect(key1 = true) {
             viewModel.eventFlow.collectLatest { event ->
                 when (event) {
@@ -71,10 +71,13 @@ fun ConverterScreen() {
             AlertDialog(onDismissRequest = { }) {
                 CircularProgressIndicator(
                     color = MaterialTheme.colorScheme.secondary,
-                    modifier = Modifier.size(60.dp)
+                    modifier = Modifier.size(60.dp),
+                    progress = 0.5f
                 )
             }
         }
+        ImageCard()
+        Spacer(modifier = Modifier.height(48.dp))
         ConverterCard(
             state.data?.currencies ?: emptyList(),
             viewModel.selectedBase.value,
@@ -133,7 +136,8 @@ fun ConverterCard(
         shape = RoundedCornerShape(
             topStart = 40.dp,
             topEnd = 40.dp
-        )
+        ),
+        color = MaterialTheme.colorScheme.surfaceVariant
     ) {
         Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 24.dp)) {
             CurrencyDetails(
@@ -152,7 +156,8 @@ fun ConverterCard(
             Spacer(modifier = Modifier.size(30.dp))
             ExtendedFloatingActionButton(
                 onClick = convert,
-                modifier = Modifier.widthIn(60.dp)
+                modifier = Modifier.widthIn(60.dp),
+                containerColor = MaterialTheme.colorScheme.primary
             ) {
                 Image(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_convert),
@@ -187,7 +192,7 @@ fun CurrencyDetails(
     changeSelectedCurrency: (String) -> Unit,
     changeSelectedCurrencyPrice: (String) -> Unit
 ) {
-    Surface {
+    Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
         Column {
             CurrencySpinner(currencies = currencies, selected = selectedCurrency) {
                 changeSelectedCurrency(it)
@@ -230,14 +235,15 @@ fun CurrencySpinner(
         onClick = { expanded = true },
         contentPadding = PaddingValues(horizontal = 0.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
-        Text(text = selected)
+        Text(text = selected, style = TextStyle(color = MaterialTheme.colorScheme.onSurfaceVariant))
         Spacer(modifier = Modifier.size(8.dp))
         Icon(
             imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-            contentDescription = stringResource(id = R.string.dropdown_arrow)
+            contentDescription = stringResource(id = R.string.dropdown_arrow),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
     DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {

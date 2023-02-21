@@ -29,7 +29,7 @@ If you encounter any issues while using Currency Budy, or if you have any questi
 
 ### Architecture
 
-The application uses clean architecture to further decouple the MVVM architecture by following the principle of separation of concerns.
+The application uses clean architecture.
 
 ![Currency Budy Architecture](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2009-21-29.png?token=GHSAT0AAAAAAB6ZTPLKCZKBMR7OZWV42WOQY7R5DGA)
 

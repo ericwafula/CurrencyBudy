@@ -56,7 +56,7 @@ fun OnboardingScreen(navController: NavHostController) {
         }
         BottomSection(size = OnboardingUtils.items.size, index = pagerState.currentPage) {
             scope.launch {
-                if (pagerState.currentPage + 1 < OnboardingUtils.items.size) {
+                if (pagerState.currentPage < OnboardingUtils.items.lastIndex) {
                     pagerState.scrollToPage(pagerState.currentPage + 1)
                 } else {
                     viewModel.updateOnboardingState(true)
@@ -117,7 +117,7 @@ fun BottomSection(
         Indicators(size = size, index = index)
         FloatingActionButton(onClick = {
             onNextClicked()
-        }) {
+        }, containerColor = MaterialTheme.colorScheme.primary) {
             if (index < 2) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_forward_24),
@@ -155,9 +155,9 @@ fun RowScope.Indicator(isSelected: Boolean = true) {
             .clip(CircleShape)
             .background(
                 if (isSelected) {
-                    MaterialTheme.colorScheme.secondary
-                } else {
                     MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.primaryContainer
                 }
             )
     ) {
