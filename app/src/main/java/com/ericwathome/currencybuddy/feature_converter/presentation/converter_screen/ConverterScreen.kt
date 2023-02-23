@@ -8,6 +8,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ericwathome.currencybuddy.common.util.AlertDialogTemplate
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun ConverterScreen() {
@@ -22,7 +24,28 @@ fun ConverterScreen() {
             .padding(top = 24.dp)
     ) {
 
-        
+        /**
+         * set error dialog state and message when an error occurs
+         */
+        LaunchedEffect(key1 = true) {
+            viewModel.eventFlow.collectLatest { event ->
+                when (event) {
+                    is ConverterViewModel.UiEvent.ShowDialog -> {
+                        showErrorDialog = true
+                        dialogMessage = event.message
+                    }
+                }
+            }
+        }
+
+        /**
+         * show alert dialog based on the current error state
+         */
+        if (showErrorDialog) {
+            AlertDialogTemplate(message = dialogMessage)
+        }
+
+
     }
 }
 
