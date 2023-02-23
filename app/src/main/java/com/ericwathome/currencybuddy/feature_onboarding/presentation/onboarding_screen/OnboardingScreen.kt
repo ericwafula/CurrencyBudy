@@ -1,13 +1,11 @@
 package com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen
 
-import android.content.Context
-import android.util.Log
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,10 +18,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.ericwathome.currencybuddy.R
+import com.ericwathome.currencybuddy.common.PaddingValues
+import com.ericwathome.currencybuddy.common.SizingValues
+import com.ericwathome.currencybuddy.common.SpacingValues
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.Item
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.OnboardingUtils
@@ -42,15 +41,17 @@ fun OnboardingScreen(navController: NavHostController) {
     val viewModel: OnboardingViewModel = hiltViewModel()
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(60.dp),
-        modifier = Modifier.padding(bottom = 48.dp)
+        verticalArrangement = Arrangement.spacedBy(SpacingValues.p_60),
+        modifier = Modifier.padding()
+            .background(color = MaterialTheme.colorScheme.background)
+            .fillMaxSize()
     ) {
         HorizontalPager(
             count = OnboardingUtils.items.size,
             state = pagerState,
             modifier = Modifier
                 .fillMaxSize()
-                .weight(0.8f)
+                .weight(1f)
         ) { page ->
             OnboardingItem(item = OnboardingUtils.items[page])
         }
@@ -72,16 +73,12 @@ fun OnboardingItem(
     item: Item
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.surface,
-        shape = RoundedCornerShape(
-            bottomStart = 40.dp,
-            bottomEnd = 40.dp
-        )
+        color = MaterialTheme.colorScheme.background
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = PaddingValues.p_24),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -91,7 +88,7 @@ fun OnboardingItem(
                     id = R.string.image_description
                 )
             )
-            Spacer(modifier = Modifier.height(60.dp))
+            Spacer(modifier = Modifier.height(SpacingValues.p_60))
             Text(
                 text = stringResource(id = item.text),
                 textAlign = TextAlign.Center,
@@ -107,24 +104,26 @@ fun BottomSection(
     index: Int,
     onNextClicked: () -> Unit
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier
-            .padding(horizontal = 24.dp)
-            .fillMaxWidth()
-    ) {
-        Indicators(size = size, index = index)
-        FloatingActionButton(onClick = {
-            onNextClicked()
-        }, containerColor = MaterialTheme.colorScheme.primary) {
-            if (index < 2) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_arrow_forward_24),
-                    contentDescription = stringResource(id = R.string.forward_icon)
-                )
-            } else {
-                Text(text = stringResource(id = R.string.get_started), modifier = Modifier.padding(horizontal = 24.dp))
+    Surface(color = MaterialTheme.colorScheme.background) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .padding(all = PaddingValues.p_32)
+                .fillMaxWidth(),
+        ) {
+            Indicators(size = size, index = index)
+            FloatingActionButton(onClick = {
+                onNextClicked()
+            }, containerColor = MaterialTheme.colorScheme.primary) {
+                if (index < 2) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_arrow_forward_24),
+                        contentDescription = stringResource(id = R.string.forward_icon)
+                    )
+                } else {
+                    Text(text = stringResource(id = R.string.get_started), modifier = Modifier.padding(horizontal = PaddingValues.p_24))
+                }
             }
         }
     }
@@ -134,7 +133,7 @@ fun BottomSection(
 fun Indicators(size: Int, index: Int) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(PaddingValues.p_12)
     ) {
         repeat(size) {
             Indicator(isSelected = it == index)
@@ -145,12 +144,12 @@ fun Indicators(size: Int, index: Int) {
 @Composable
 fun RowScope.Indicator(isSelected: Boolean = true) {
     val width by animateDpAsState(
-        targetValue = if (isSelected) 25.dp else 10.dp,
+        targetValue = if (isSelected) PaddingValues.p_24 else PaddingValues.p_12,
         animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
     )
     Box(
         modifier = Modifier
-            .height(10.dp)
+            .height(SizingValues.p_10)
             .width(width)
             .clip(CircleShape)
             .background(
@@ -165,7 +164,7 @@ fun RowScope.Indicator(isSelected: Boolean = true) {
     }
 }
 
-@Preview
+@Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun OnboardingScreenPreview() {
     val context = LocalContext.current
@@ -174,7 +173,7 @@ fun OnboardingScreenPreview() {
     }
 }
 
-@Preview
+@Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun OnboardingItemPreview() {
     CurrencyBuddyTheme {
@@ -184,7 +183,7 @@ fun OnboardingItemPreview() {
     }
 }
 
-@Preview
+@Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun BottomSectionPreview() {
     CurrencyBuddyTheme {
