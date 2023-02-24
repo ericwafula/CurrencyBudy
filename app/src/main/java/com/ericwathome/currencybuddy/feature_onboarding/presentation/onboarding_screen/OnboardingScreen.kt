@@ -16,13 +16,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ericwathome.currencybuddy.R
-import com.ericwathome.currencybuddy.common.PaddingValues
-import com.ericwathome.currencybuddy.common.SizingValues
-import com.ericwathome.currencybuddy.common.SpacingValues
+import com.ericwathome.currencybuddy.common.util.Padding
+import com.ericwathome.currencybuddy.common.util.Sizing
+import com.ericwathome.currencybuddy.common.util.Spacing
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.Item
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.OnboardingUtils
@@ -41,7 +40,7 @@ fun OnboardingScreen(navController: NavHostController) {
     val viewModel: OnboardingViewModel = hiltViewModel()
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(SpacingValues.p_60),
+        verticalArrangement = Arrangement.spacedBy(Spacing.p_60),
         modifier = Modifier.padding()
             .background(color = MaterialTheme.colorScheme.background)
             .fillMaxSize()
@@ -78,7 +77,7 @@ fun OnboardingItem(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = PaddingValues.p_24),
+                .padding(horizontal = Padding.p_24),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -88,7 +87,7 @@ fun OnboardingItem(
                     id = R.string.image_description
                 )
             )
-            Spacer(modifier = Modifier.height(SpacingValues.p_60))
+            Spacer(modifier = Modifier.height(Spacing.p_60))
             Text(
                 text = stringResource(id = item.text),
                 textAlign = TextAlign.Center,
@@ -109,7 +108,7 @@ fun BottomSection(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .padding(all = PaddingValues.p_32)
+                .padding(all = Padding.p_32)
                 .fillMaxWidth(),
         ) {
             Indicators(size = size, index = index)
@@ -122,7 +121,7 @@ fun BottomSection(
                         contentDescription = stringResource(id = R.string.forward_icon)
                     )
                 } else {
-                    Text(text = stringResource(id = R.string.get_started), modifier = Modifier.padding(horizontal = PaddingValues.p_24))
+                    Text(text = stringResource(id = R.string.get_started), modifier = Modifier.padding(horizontal = Padding.p_24))
                 }
             }
         }
@@ -133,7 +132,7 @@ fun BottomSection(
 fun Indicators(size: Int, index: Int) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(PaddingValues.p_12)
+        horizontalArrangement = Arrangement.spacedBy(Padding.p_12)
     ) {
         repeat(size) {
             Indicator(isSelected = it == index)
@@ -144,12 +143,12 @@ fun Indicators(size: Int, index: Int) {
 @Composable
 fun RowScope.Indicator(isSelected: Boolean = true) {
     val width by animateDpAsState(
-        targetValue = if (isSelected) PaddingValues.p_24 else PaddingValues.p_12,
+        targetValue = if (isSelected) Padding.p_24 else Padding.p_12,
         animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
     )
     Box(
         modifier = Modifier
-            .height(SizingValues.p_10)
+            .height(Sizing.p_10)
             .width(width)
             .clip(CircleShape)
             .background(

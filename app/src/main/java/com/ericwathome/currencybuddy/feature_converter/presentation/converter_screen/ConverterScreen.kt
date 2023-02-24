@@ -6,9 +6,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ericwathome.currencybuddy.common.util.AlertDialogTemplate
+import com.ericwathome.currencybuddy.common.util.Padding
+import com.ericwathome.currencybuddy.common.util.ErrorDialog
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -20,8 +20,8 @@ fun ConverterScreen() {
     Column(
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.background)
-            .fillMaxWidth()
-            .padding(top = 24.dp)
+            .fillMaxSize()
+            .padding(top = Padding.p_24)
     ) {
 
         /**
@@ -42,10 +42,8 @@ fun ConverterScreen() {
          * show alert dialog based on the current error state
          */
         if (showErrorDialog) {
-            AlertDialogTemplate(message = dialogMessage)
+            ErrorDialog(message = dialogMessage)
         }
-
-
 
 
     }

@@ -1,4 +1,4 @@
-package com.ericwathome.currencybuddy.common.util
+package com.ericwathome.currencybuddy.common.preference
 
 object PreferenceConstants {
     const val PREFERENCES = "preferences"
