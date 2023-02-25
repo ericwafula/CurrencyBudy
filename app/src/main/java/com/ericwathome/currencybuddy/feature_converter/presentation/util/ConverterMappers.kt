@@ -27,7 +27,7 @@ internal fun mapResultData(
     val quoteCode = currentRateObject?.code ?: ""
     val baseConversionRate = currentRateObject?.rate ?: 0.0
     val quoteSymbol = currentRateObject?.symbol ?: ""
-    val quotePrice = "%.4f".format((amount * baseConversionRate))
+    val quotePrice = "%.2f".format((amount * baseConversionRate))
 
     /**
      * create account number using the current conversion rates
