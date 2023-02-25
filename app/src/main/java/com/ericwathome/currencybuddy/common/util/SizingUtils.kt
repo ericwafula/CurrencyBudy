@@ -35,6 +35,7 @@ object Sizing {
     val p_16 = 16.dp
     val p_24 = 24.dp
     val p_32 = 32.dp
+    val p_55 = 55.dp
     val p_60 = 60.dp
 }
 

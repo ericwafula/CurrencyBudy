@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.common.util.*
-import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
+import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -25,6 +25,28 @@ fun ConverterScreen() {
     val state by viewModel.converterState
     var showErrorDialog by rememberSaveable { mutableStateOf(false) }
     var dialogMessage by rememberSaveable { mutableStateOf("") }
+
+    /**
+     * set error dialog state and message when an error occurs
+     */
+    LaunchedEffect(key1 = true) {
+        viewModel.eventFlow.collectLatest { event ->
+            when (event) {
+                is ConverterViewModel.UiEvent.ShowDialog -> {
+                    showErrorDialog = true
+                    dialogMessage = event.message
+                }
+            }
+        }
+    }
+
+    /**
+     * show alert dialog based on the current error state
+     */
+    if (showErrorDialog) {
+        ErrorDialog(message = dialogMessage)
+    }
+
     Column(
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.background)
@@ -32,26 +54,6 @@ fun ConverterScreen() {
             .padding(top = Padding.p_24)
     ) {
 
-        /**
-         * set error dialog state and message when an error occurs
-         */
-        LaunchedEffect(key1 = true) {
-            viewModel.eventFlow.collectLatest { event ->
-                when (event) {
-                    is ConverterViewModel.UiEvent.ShowDialog -> {
-                        showErrorDialog = true
-                        dialogMessage = event.message
-                    }
-                }
-            }
-        }
-
-        /**
-         * show alert dialog based on the current error state
-         */
-        if (showErrorDialog) {
-            ErrorDialog(message = dialogMessage)
-        }
 
 
     }
@@ -62,7 +64,6 @@ fun ConverterScreen() {
  */
 @Composable
 fun CreditCardData(currentBaseVsQuote: String, accountNumber: String, expiryDate: String) {
-
     Column(
         modifier = Modifier
             .padding(Padding.p_24)

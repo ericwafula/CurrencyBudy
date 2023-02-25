@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.CreditCardData
-import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
+import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 
 
 /**

@@ -1,4 +1,4 @@
-package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme
+package com.ericwathome.currencybuddy.ui.theme
 
 import android.app.Activity
 import android.os.Build

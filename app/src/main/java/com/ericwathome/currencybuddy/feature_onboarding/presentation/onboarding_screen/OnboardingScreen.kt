@@ -22,7 +22,7 @@ import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.common.util.Padding
 import com.ericwathome.currencybuddy.common.util.Sizing
 import com.ericwathome.currencybuddy.common.util.Spacing
-import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
+import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.Item
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.OnboardingUtils
 import com.ericwathome.currencybuddy.ui.Screens

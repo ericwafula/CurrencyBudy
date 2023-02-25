@@ -14,4 +14,6 @@
     <string name="warning_icon">Warning icon</string>
     <string name="credit_card_chip">Credit card chip</string>
     <string name="master_card_logo">Master card logo</string>
+    <string name="show_more">Show more</string>
+    <string name="show_less">Show less</string>
 </resources>
