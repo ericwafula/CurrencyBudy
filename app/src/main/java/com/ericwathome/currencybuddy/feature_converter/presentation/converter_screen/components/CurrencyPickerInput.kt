@@ -30,7 +30,7 @@ fun CurrencyPicker(
     enabled: Boolean,
     onButtonClick: () -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(Spacing.p_24)
@@ -41,7 +41,7 @@ fun CurrencyPicker(
         ) {
             Card(
                 modifier = Modifier.clickable {
-                    expanded = !expanded
+                    showDialog = !showDialog
                     onButtonClick()
                 },
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
@@ -53,8 +53,8 @@ fun CurrencyPicker(
                 ) {
                     Text(text = receivedCurrencyCode)
                     Icon(
-                        imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                        contentDescription = stringResource(id = if (expanded) R.string.show_less else R.string.show_more)
+                        imageVector = if (showDialog) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                        contentDescription = stringResource(id = if (showDialog) R.string.show_less else R.string.show_more)
                     )
                 }
             }
