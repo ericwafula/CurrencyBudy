@@ -57,8 +57,12 @@ fun ConverterScreen() {
     }
 }
 
+/**
+ * shows the data in the credit card
+ */
 @Composable
-fun CreditCardData(baseCurrency: String, date: String) {
+fun CreditCardData(currentBaseVsQuote: String, accountNumber: String, expiryDate: String) {
+
     Column(
         modifier = Modifier
             .padding(Padding.p_24)
@@ -66,7 +70,7 @@ fun CreditCardData(baseCurrency: String, date: String) {
         verticalArrangement = Arrangement.spacedBy(Spacing.p_24)
     ) {
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Currency Converter")
+            Text(text = currentBaseVsQuote)
             Image(
                 painter = painterResource(id = R.drawable.credit_card_chip),
                 contentDescription = stringResource(
@@ -75,30 +79,34 @@ fun CreditCardData(baseCurrency: String, date: String) {
             )
         }
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-            repeat(3) {
+            for (character in accountNumber) {
                 Text(
-                    text = "* * * *",
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = TextSizing.p_24
-                    )
+                    text = "$character",
+                    style = TextStyle(fontSize = TextSizing.p_24, fontWeight = FontWeight.Bold)
                 )
             }
-            Text(
-                text = "$1234",
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = TextSizing.p_24
-                )
-            )
         }
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-            Text(text = "02/23")
+            Text(text = expiryDate)
             Image(
                 painter = painterResource(id = R.drawable.master_card_logo),
                 contentDescription = stringResource(
                     id = R.string.master_card_logo
                 )
+            )
+        }
+    }
+}
+
+@Preview(uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun CurrencyConverterCardPreview() {
+    CurrencyBuddyTheme {
+        ConverterCard {
+            CreditCardData(
+                currentBaseVsQuote = "Euro\nvs\nUnited States Dollar",
+                accountNumber = "**** *$13 3.70",
+                expiryDate = "02/23"
             )
         }
     }

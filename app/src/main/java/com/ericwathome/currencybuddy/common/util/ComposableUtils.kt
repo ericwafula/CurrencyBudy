@@ -13,6 +13,10 @@ import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.CreditCardData
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
 
+
+/**
+ * A list of common composable components to be used across the app
+ */
 @Composable
 fun ErrorDialog(message: String) {
     Dialog(onDismissRequest = { }) {
@@ -54,12 +58,3 @@ fun AlertDialogTemplatePreview() {
     }
 }
 
-@Preview(uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun CurrencyConverterCardPreview() {
-    CurrencyBuddyTheme {
-        ConverterCard {
-            CreditCardData(baseCurrency = "Currency Converter", date = "02/23")
-        }
-    }
-}

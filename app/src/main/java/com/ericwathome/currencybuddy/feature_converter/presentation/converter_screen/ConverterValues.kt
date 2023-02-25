@@ -8,5 +8,7 @@ data class ConverterValues(
     val baseConversionRate: String?,
     val quoteSymbol: String?,
     val quotePrice: String?,
-    val currencyName: String?
+    val currencyName: String?,
+    val accountNumber: String,
+    val expiryDate: String
 )
