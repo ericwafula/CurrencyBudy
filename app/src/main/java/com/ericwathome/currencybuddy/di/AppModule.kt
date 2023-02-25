@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.ericwathome.currencybuddy.BuildConfig
 import com.ericwathome.currencybuddy.common.AppConstants
+import com.ericwathome.currencybuddy.common.preference.AppPreferences
 import com.ericwathome.currencybuddy.common.UseCases
-import com.ericwathome.currencybuddy.common.util.AppPreferences
+import com.ericwathome.currencybuddy.common.preference.AppPreferencesImpl
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.CurrencyBuddyDatabase
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.ExchangeRateDao
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.CurrencyInfoApiService
@@ -84,7 +85,7 @@ object AppModule {
         GetExchangeRate(repository)
 
     @Provides
-    fun provideAppPreferences(@ApplicationContext context: Context) = AppPreferences(context)
+    fun provideAppPreferences(@ApplicationContext context: Context): AppPreferences = AppPreferencesImpl(context)
 
     @Provides
     fun provideUpdateOnboardingStatusUseCase(appPreferences: AppPreferences) =
