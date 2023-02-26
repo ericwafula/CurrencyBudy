@@ -1,21 +1,26 @@
 package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.common.util.*
+import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.components.CurrencyPicker
 import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -49,15 +54,68 @@ fun ConverterScreen() {
         }
     }
 
+    /**
+     * show progress bar when loading
+     */
+    if (state.loading) {
+        Dialog(onDismissRequest = { state.loading }) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Transparent),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+            }
+        }
+    }
     Column(
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.background)
             .fillMaxSize()
-            .padding(top = Padding.dp_24)
+            .padding(vertical = Padding.dp_32, horizontal = Padding.dp_24),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
+        ConverterCard {
+            CreditCardData(
+                currentBaseVsQuote = "${state.data?.currentBaseVsQuote}" ?: "",
+                accountNumber = state.data?.accountNumber ?: "",
+                expiryDate = state.data?.expiryDate ?: ""
+            )
+        }
 
-
-
+        CurrencyPicker(
+            receivedCurrencies = state.data?.currencies ?: emptyList(),
+            currencyCode = { viewModel.updateSelectedBaseCurrency(it) },
+            currentPrice = { viewModel.changeSelectedBaseCurrencyPrice(it) },
+            currentSymbol = { viewModel.updateBaseSymbol(it) },
+            receivedCurrencyCode = viewModel.selectedBase.value,
+            receivedPrice = viewModel?.selectedBaseAmount?.value ?: "",
+            receivedSymbol = state?.data?.baseSymbol ?: "",
+            enabled = true
+        )
+        FloatingActionButton(
+            onClick = { viewModel.convert() },
+            containerColor = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.fillMaxWidth(0.3f)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_convert),
+                contentDescription = stringResource(
+                    id = R.string.convert_icon
+                )
+            )
+        }
+        CurrencyPicker(
+            receivedCurrencies = state.data?.currencies ?: emptyList(),
+            currencyCode = { viewModel.updateSelectedQuoteCurrency(it) },
+            currentPrice = { },
+            currentSymbol = { viewModel.updateQuoteSymbol(it) },
+            receivedCurrencyCode = viewModel.selectedQuote.value,
+            receivedPrice = state?.data?.quotePrice ?: "",
+            receivedSymbol = state?.data?.quoteSymbol ?: "",
+            enabled = false
+        )
     }
 }
 
@@ -73,7 +131,11 @@ fun CreditCardData(currentBaseVsQuote: String, accountNumber: String, expiryDate
         verticalArrangement = Arrangement.spacedBy(Spacing.dp_24)
     ) {
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-            Text(text = currentBaseVsQuote)
+            Text(
+                text = currentBaseVsQuote, style = TextStyle(
+                    fontSize = MaterialTheme.typography.bodySmall.fontSize
+                )
+            )
             Image(
                 painter = painterResource(id = R.drawable.credit_card_chip),
                 contentDescription = stringResource(
