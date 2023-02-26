@@ -25,7 +25,17 @@ remember to add an apikey.properties file in the root package that has the follo
 
 ## Development
 
-Currency Budy is built using Android and Jetpack Compose, and utilizes Hilt for dependency injection, Room database for caching, Coroutines for asynchronous operations, Pager for onboarding, Navigation Component for navigation, Retrofit for network operations, Splash Screen API for the splash screen, and Preference DataStore for saving onboarding state. If you're interested in contributing to the development of Currency Budy, please reach out.
+Currency Budy is built using Android and Jetpack Compose, and utilizes the following dependencies:
+- Hilt for dependency injection 
+- Room database for caching 
+- Coroutines for asynchronous operations
+- Pager for onboarding
+- Navigation Component for navigation
+- Retrofit for network operations 
+- Splash Screen API for the splash screen
+- Preference DataStore for saving onboarding state 
+
+If you're interested in contributing to the development of Currency Budy, please reach out.
 
 ## Support
 
@@ -35,6 +45,8 @@ If you encounter any issues while using Currency Budy, or if you have any questi
 
 The application uses clean architecture and makes use of features i.e feature_onboarding & feature_converter. Each feature follows the common convention as shown below
 
+![Screenshot from 2023-02-26 17-27-54](https://user-images.githubusercontent.com/82439687/221416695-22cd551b-67d6-4161-bf1d-12ee10373437.png)
+
 #### data
 Contains the datasources, repository implementations and DTOs. The datasource has two packages, local and remote. The local package contains the room database setup and dao. The remote package contains the two api interfaces for sending network requests to two separate api endpoints. The repository package contains the repository implementations. This is where the data is mapped into different entities and then cached. The app follows the single source of truth principle. This is why only the cached data is sent to the UI layer.
 
@@ -43,8 +55,6 @@ Contains a model package which hosts the different entities and a relations pack
 
 #### presentation
 Contains all the classes and packages related to the UI i.e components, viewModel, state holders and screens
-
-![Screenshot from 2023-02-26 17-27-54](https://user-images.githubusercontent.com/82439687/221416695-22cd551b-67d6-4161-bf1d-12ee10373437.png)
 
 ### User Interface
 
