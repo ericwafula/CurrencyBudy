@@ -10,30 +10,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import com.ericwathome.currencybuddy.R
-import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.CreditCardData
-import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
+import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 
 
 /**
  * A list of common composable components to be used across the app
  */
 @Composable
-fun ErrorDialog(message: String) {
+fun ErrorDialog(message: String, dismiss: () -> Unit) {
     Dialog(onDismissRequest = { }) {
         Surface(
             color = MaterialTheme.colorScheme.surfaceVariant,
             shape = MaterialTheme.shapes.medium
         ) {
-            Column(Modifier.padding(Padding.p_16)) {
+            Column(Modifier.padding(Padding.dp_16)) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_warning_svg),
                     contentDescription = stringResource(
                         id = R.string.warning_icon
                     ),
-                    modifier = Modifier.size(Sizing.p_24),
+                    modifier = Modifier.size(Sizing.dp_24),
                     tint = MaterialTheme.colorScheme.error
                 )
-                Spacer(modifier = Modifier.size(Sizing.p_8))
+                Spacer(modifier = Modifier.size(Sizing.dp_8))
                 Text(text = message)
             }
         }
@@ -54,7 +53,9 @@ fun ConverterCard(content: @Composable () -> Unit) {
 @Composable
 fun AlertDialogTemplatePreview() {
     CurrencyBuddyTheme {
-        ErrorDialog(message = "Unable to connect. Check your connection")
+        ErrorDialog(message = "Unable to connect. Check your connection") {
+
+        }
     }
 }
 

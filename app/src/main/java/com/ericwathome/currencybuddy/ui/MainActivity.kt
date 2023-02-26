@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
+import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
