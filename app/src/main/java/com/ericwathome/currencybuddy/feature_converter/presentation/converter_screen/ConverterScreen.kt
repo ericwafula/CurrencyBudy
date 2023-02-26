@@ -51,7 +51,7 @@ fun ConverterScreen() {
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.background)
             .fillMaxSize()
-            .padding(top = Padding.p_24)
+            .padding(top = Padding.dp_24)
     ) {
 
 
@@ -66,9 +66,9 @@ fun ConverterScreen() {
 fun CreditCardData(currentBaseVsQuote: String, accountNumber: String, expiryDate: String) {
     Column(
         modifier = Modifier
-            .padding(Padding.p_24)
+            .padding(Padding.dp_24)
             .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Spacing.p_24)
+        verticalArrangement = Arrangement.spacedBy(Spacing.dp_24)
     ) {
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
             Text(text = currentBaseVsQuote)
@@ -83,7 +83,7 @@ fun CreditCardData(currentBaseVsQuote: String, accountNumber: String, expiryDate
             for (character in accountNumber) {
                 Text(
                     text = "$character",
-                    style = TextStyle(fontSize = TextSizing.p_24, fontWeight = FontWeight.Bold)
+                    style = TextStyle(fontSize = TextSizing.sp_24, fontWeight = FontWeight.Bold)
                 )
             }
         }

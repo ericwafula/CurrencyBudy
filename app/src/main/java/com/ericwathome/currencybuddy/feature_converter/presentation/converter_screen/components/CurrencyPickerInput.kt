@@ -33,10 +33,10 @@ fun CurrencyPicker(
     var showDialog by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(Spacing.p_24)
+        verticalArrangement = Arrangement.spacedBy(Spacing.dp_24)
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(Padding.p_12),
+            horizontalArrangement = Arrangement.spacedBy(Padding.dp_12),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Card(
@@ -48,8 +48,8 @@ fun CurrencyPicker(
             ) {
                 Row(
                     modifier = Modifier
-                        .padding(horizontal = Padding.p_24, vertical = Padding.p_24),
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.p_24)
+                        .padding(horizontal = Padding.dp_24, vertical = Padding.dp_24),
+                    horizontalArrangement = Arrangement.spacedBy(Spacing.dp_24)
                 ) {
                     Text(text = receivedCurrencyCode)
                     Icon(
@@ -61,7 +61,7 @@ fun CurrencyPicker(
             Text(
                 text = receivedSymbol, style = TextStyle(
                     color = MaterialTheme.colorScheme.primary,
-                    fontSize = TextSizing.p_30
+                    fontSize = TextSizing.sp_30
                 )
             )
         }
@@ -70,15 +70,15 @@ fun CurrencyPicker(
             onValueChange = { currentPrice(it) },
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = Sizing.p_55),
-            shape = RoundedCornerShape(Radius.p_8),
+                .heightIn(min = Sizing.dp_55),
+            shape = RoundedCornerShape(Radius.dp_8),
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = MaterialTheme.colorScheme.tertiary,
                 textColor = MaterialTheme.colorScheme.onTertiary,
             ),
             textStyle = MaterialTheme.typography.titleMedium.copy(
                 fontWeight = FontWeight.Normal,
-                fontSize = TextSizing.p_30
+                fontSize = TextSizing.sp_30
             ),
             enabled = enabled
         )
