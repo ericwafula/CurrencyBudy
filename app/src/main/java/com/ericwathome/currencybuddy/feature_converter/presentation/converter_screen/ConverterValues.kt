@@ -10,5 +10,6 @@ data class ConverterValues(
     val quotePrice: String?,
     val currencyName: String?,
     val accountNumber: String,
-    val expiryDate: String
+    val expiryDate: String,
+    val currentBaseVsQuote: String
 )
