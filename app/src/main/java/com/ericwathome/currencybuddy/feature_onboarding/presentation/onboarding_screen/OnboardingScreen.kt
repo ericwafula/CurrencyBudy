@@ -22,7 +22,7 @@ import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.common.util.Padding
 import com.ericwathome.currencybuddy.common.util.Sizing
 import com.ericwathome.currencybuddy.common.util.Spacing
-import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.theme.CurrencyBuddyTheme
+import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.Item
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.OnboardingUtils
 import com.ericwathome.currencybuddy.ui.Screens
@@ -40,7 +40,7 @@ fun OnboardingScreen(navController: NavHostController) {
     val viewModel: OnboardingViewModel = hiltViewModel()
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Spacing.p_60),
+        verticalArrangement = Arrangement.spacedBy(Spacing.dp_60),
         modifier = Modifier.padding()
             .background(color = MaterialTheme.colorScheme.background)
             .fillMaxSize()
@@ -77,7 +77,7 @@ fun OnboardingItem(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = Padding.p_24),
+                .padding(horizontal = Padding.dp_24),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -87,7 +87,7 @@ fun OnboardingItem(
                     id = R.string.image_description
                 )
             )
-            Spacer(modifier = Modifier.height(Spacing.p_60))
+            Spacer(modifier = Modifier.height(Spacing.dp_60))
             Text(
                 text = stringResource(id = item.text),
                 textAlign = TextAlign.Center,
@@ -108,7 +108,7 @@ fun BottomSection(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .padding(all = Padding.p_32)
+                .padding(all = Padding.dp_32)
                 .fillMaxWidth(),
         ) {
             Indicators(size = size, index = index)
@@ -121,7 +121,7 @@ fun BottomSection(
                         contentDescription = stringResource(id = R.string.forward_icon)
                     )
                 } else {
-                    Text(text = stringResource(id = R.string.get_started), modifier = Modifier.padding(horizontal = Padding.p_24))
+                    Text(text = stringResource(id = R.string.get_started), modifier = Modifier.padding(horizontal = Padding.dp_24))
                 }
             }
         }
@@ -132,7 +132,7 @@ fun BottomSection(
 fun Indicators(size: Int, index: Int) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Padding.p_12)
+        horizontalArrangement = Arrangement.spacedBy(Padding.dp_12)
     ) {
         repeat(size) {
             Indicator(isSelected = it == index)
@@ -143,12 +143,12 @@ fun Indicators(size: Int, index: Int) {
 @Composable
 fun RowScope.Indicator(isSelected: Boolean = true) {
     val width by animateDpAsState(
-        targetValue = if (isSelected) Padding.p_24 else Padding.p_12,
+        targetValue = if (isSelected) Padding.dp_24 else Padding.dp_12,
         animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
     )
     Box(
         modifier = Modifier
-            .height(Sizing.p_10)
+            .height(Sizing.dp_10)
             .width(width)
             .clip(CircleShape)
             .background(

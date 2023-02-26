@@ -5,6 +5,7 @@
     <string name="onboarding_text_2">Get accurate conversions with Currency Buddy\'s reliable exchange rate sources.</string>
     <string name="onboarding_text_3">Convert currencies on-the-go with Currency Buddy, available anytime, anywhere.</string>
     <string name="get_started">Get Started</string>
+    <string name="search">Search…</string>
     <!--  content description  -->
     <string name="image_description">Image</string>
     <string name="forward_icon">Forward icon</string>
@@ -14,4 +15,6 @@
     <string name="warning_icon">Warning icon</string>
     <string name="credit_card_chip">Credit card chip</string>
     <string name="master_card_logo">Master card logo</string>
+    <string name="show_more">Show more</string>
+    <string name="show_less">Show less</string>
 </resources>
