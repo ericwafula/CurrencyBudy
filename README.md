@@ -63,5 +63,3 @@ https://user-images.githubusercontent.com/82439687/221413047-890cf534-28b1-4936-
 ## License
 
 Currency Budy is open-source and released under the MIT license. See the [LICENSE](license.txt) file for details.
-
-We hope you find Currency Budy helpful and easy to use!
