@@ -31,7 +31,7 @@ If you encounter any issues while using Currency Budy, or if you have any questi
 
 The application uses clean architecture.
 
-![Currency Budy Architecture](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2009-21-29.png?token=GHSAT0AAAAAAB6ZTPLKCZKBMR7OZWV42WOQY7R5DGA)
+https://user-images.githubusercontent.com/82439687/221413047-890cf534-28b1-4936-92c6-3920e4f84e57.mp4
 
 ### User Interface
 
