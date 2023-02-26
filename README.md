@@ -35,8 +35,7 @@ The application uses clean architecture.
 
 ### User Interface
 
-![Currency Budy Architecture](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2001-52-18.png?token=GHSAT0AAAAAAB6ZTPLLY4VRJ34MXER6XWS2Y7R5EUA)
-![Currency Budy User Interface](https://raw.githubusercontent.com/ericwafula/images/main/Screenshot%20from%202023-02-19%2011-11-49.png?token=GHSAT0AAAAAAB6ZTPLLQGMVH72UDS6WYRJKY7R5CDQ)
+![Currency Budy Architecture](https://user-images.githubusercontent.com/82439687/221413047-890cf534-28b1-4936-92c6-3920e4f84e57.mp4)
 
 ## License
 
