@@ -17,7 +17,7 @@ import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
  * A list of common composable components to be used across the app
  */
 @Composable
-fun ErrorDialog(message: String) {
+fun ErrorDialog(message: String, dismiss: () -> Unit) {
     Dialog(onDismissRequest = { }) {
         Surface(
             color = MaterialTheme.colorScheme.surfaceVariant,
@@ -53,7 +53,9 @@ fun ConverterCard(content: @Composable () -> Unit) {
 @Composable
 fun AlertDialogTemplatePreview() {
     CurrencyBuddyTheme {
-        ErrorDialog(message = "Unable to connect. Check your connection")
+        ErrorDialog(message = "Unable to connect. Check your connection") {
+
+        }
     }
 }
 

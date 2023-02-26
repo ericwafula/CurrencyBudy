@@ -26,7 +26,7 @@ fun CurrencyPickerDialog(
 ) {
     var textFieldState by remember { mutableStateOf("") }
     var filteredCurrencyList = remember { mutableStateOf(currencies) }
-    Dialog(onDismissRequest = { }) {
+    Dialog(onDismissRequest = { dismissDialog() }) {
         Surface(
             color = MaterialTheme.colorScheme.surfaceVariant,
             shape = MaterialTheme.shapes.medium,

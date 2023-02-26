@@ -44,7 +44,9 @@ fun ConverterScreen() {
      * show alert dialog based on the current error state
      */
     if (showErrorDialog) {
-        ErrorDialog(message = dialogMessage)
+        ErrorDialog(message = dialogMessage) {
+            showErrorDialog = false
+        }
     }
 
     Column(

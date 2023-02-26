@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.common.util.*
+import com.ericwathome.currencybuddy.feature_converter.presentation.util.Currency
 import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,10 +28,18 @@ fun CurrencyPicker(
     receivedCurrencyCode: String,
     receivedPrice: String,
     receivedSymbol: String,
+    receivedCurrencies: List<Currency>,
     enabled: Boolean,
     onButtonClick: () -> Unit
 ) {
     var showDialog by remember { mutableStateOf(false) }
+    if (showDialog) {
+        CurrencyPickerDialog(currencies = receivedCurrencies, currencyCode = {
+            currencyCode(it)
+        }) {
+            showDialog = false
+        }
+    }
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(Spacing.dp_24)
@@ -41,7 +50,7 @@ fun CurrencyPicker(
         ) {
             Card(
                 modifier = Modifier.clickable {
-                    showDialog = !showDialog
+                    showDialog = true
                     onButtonClick()
                 },
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
@@ -96,6 +105,14 @@ fun CurrencyPicker() {
             receivedCurrencyCode = "EUR",
             receivedPrice = "120.00",
             receivedSymbol = "€",
+            receivedCurrencies = buildList {
+                add(Currency("EUR", "Euro"))
+                add(Currency("USD", "United States Dollar"))
+                add(Currency("CAD", "Canadian Dollar"))
+                add(Currency("JPY", "Japanese Yen"))
+                add(Currency("AUD", "Australian Dollar"))
+                add(Currency("NZD", "New Zealand Dollar"))
+            },
             enabled = true
         ) {
 
