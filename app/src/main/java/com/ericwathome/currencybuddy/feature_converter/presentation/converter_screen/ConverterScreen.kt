@@ -1,6 +1,7 @@
 package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,6 +20,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.common.util.*
+import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.components.CurrencyPicker
 import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -71,7 +73,8 @@ fun ConverterScreen() {
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.background)
             .fillMaxSize()
-            .padding(vertical = Padding.dp_32, horizontal = Padding.dp_24)
+            .padding(vertical = Padding.dp_32, horizontal = Padding.dp_24),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         ConverterCard {
             CreditCardData(
@@ -81,6 +84,38 @@ fun ConverterScreen() {
             )
         }
 
+        CurrencyPicker(
+            receivedCurrencies = state.data?.currencies ?: emptyList(),
+            currencyCode = { viewModel.updateSelectedBaseCurrency(it) },
+            currentPrice = { viewModel.changeSelectedBaseCurrencyPrice(it) },
+            currentSymbol = { viewModel.updateBaseSymbol(it) },
+            receivedCurrencyCode = viewModel.selectedBase.value,
+            receivedPrice = viewModel?.selectedBaseAmount?.value ?: "",
+            receivedSymbol = state?.data?.baseSymbol ?: "",
+            enabled = true
+        )
+        FloatingActionButton(
+            onClick = { viewModel.convert() },
+            containerColor = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.fillMaxWidth(0.3f)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_convert),
+                contentDescription = stringResource(
+                    id = R.string.convert_icon
+                )
+            )
+        }
+        CurrencyPicker(
+            receivedCurrencies = state.data?.currencies ?: emptyList(),
+            currencyCode = { viewModel.updateSelectedQuoteCurrency(it) },
+            currentPrice = { },
+            currentSymbol = { viewModel.updateQuoteSymbol(it) },
+            receivedCurrencyCode = viewModel.selectedQuote.value,
+            receivedPrice = state?.data?.quotePrice ?: "",
+            receivedSymbol = state?.data?.quoteSymbol ?: "",
+            enabled = false
+        )
     }
 }
 

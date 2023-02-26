@@ -22,6 +22,7 @@ import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 fun CurrencyPickerDialog(
     currencies: List<Currency>,
     currencyCode: (String) -> Unit,
+    currencySymbol: (String) -> Unit,
     dismissDialog: () -> Unit
 ) {
     var textFieldState by remember { mutableStateOf("") }
@@ -58,11 +59,12 @@ fun CurrencyPickerDialog(
                 )
                 LazyColumn {
                     itemsIndexed(filteredCurrencyList.value) { index, currency ->
-                        val (code, name) = currency
+                        val (code, name, symbol) = currency
                         Card(
                             modifier = Modifier
                                 .clickable {
                                     code?.let { currencyCode(code) }
+                                    symbol?.let { currencySymbol(symbol) }
                                     dismissDialog()
                                 }
                                 .fillMaxWidth()
@@ -92,14 +94,15 @@ fun CurrencyPickerDialog() {
     CurrencyBuddyTheme {
         CurrencyPickerDialog(
             currencies = buildList {
-                add(Currency("EUR", "Euro"))
-                add(Currency("USD", "United States Dollar"))
-                add(Currency("CAD", "Canadian Dollar"))
-                add(Currency("JPY", "Japanese Yen"))
-                add(Currency("AUD", "Australian Dollar"))
-                add(Currency("NZD", "New Zealand Dollar"))
+                add(Currency("EUR", "Euro", ""))
+                add(Currency("USD", "United States Dollar", ""))
+                add(Currency("CAD", "Canadian Dollar", ""))
+                add(Currency("JPY", "Japanese Yen", ""))
+                add(Currency("AUD", "Australian Dollar", ""))
+                add(Currency("NZD", "New Zealand Dollar", ""))
             },
-            currencyCode = { }
+            currencyCode = { },
+            currencySymbol = { }
         ) {
 
         }

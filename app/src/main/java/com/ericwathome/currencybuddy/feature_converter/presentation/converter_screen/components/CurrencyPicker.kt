@@ -1,6 +1,7 @@
 package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,18 +26,27 @@ import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
 fun CurrencyPicker(
     currencyCode: (String) -> Unit,
     currentPrice: (String) -> Unit,
+    currentSymbol: (String) -> Unit,
     receivedCurrencyCode: String,
     receivedPrice: String,
     receivedSymbol: String,
     receivedCurrencies: List<Currency>,
-    enabled: Boolean,
-    onButtonClick: () -> Unit
+    enabled: Boolean
 ) {
     var showDialog by remember { mutableStateOf(false) }
+
     if (showDialog) {
-        CurrencyPickerDialog(currencies = receivedCurrencies, currencyCode = {
-            currencyCode(it)
-        }) {
+        CurrencyPickerDialog(
+            currencies = receivedCurrencies,
+            currencyCode = {
+                currencyCode(it)
+            },
+            currencySymbol = {
+                if (it.isNotEmpty()) {
+                    currentSymbol(it)
+                }
+            }
+        ) {
             showDialog = false
         }
     }
@@ -51,13 +61,12 @@ fun CurrencyPicker(
             Card(
                 modifier = Modifier.clickable {
                     showDialog = true
-                    onButtonClick()
                 },
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 Row(
                     modifier = Modifier
-                        .padding(horizontal = Padding.dp_24, vertical = Padding.dp_24),
+                        .padding(horizontal = Padding.dp_24, vertical = Padding.dp_16),
                     horizontalArrangement = Arrangement.spacedBy(Spacing.dp_24)
                 ) {
                     Text(text = receivedCurrencyCode)
@@ -74,22 +83,26 @@ fun CurrencyPicker(
                 )
             )
         }
-        TextField(
+        OutlinedTextField(
             value = receivedPrice,
             onValueChange = { currentPrice(it) },
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = Sizing.dp_55),
             shape = RoundedCornerShape(Radius.dp_8),
-            colors = TextFieldDefaults.textFieldColors(
+            colors = TextFieldDefaults.outlinedTextFieldColors(
                 containerColor = MaterialTheme.colorScheme.tertiary,
                 textColor = MaterialTheme.colorScheme.onTertiary,
+                cursorColor = MaterialTheme.colorScheme.onTertiary,
+                focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                disabledTextColor = MaterialTheme.colorScheme.onTertiary
             ),
             textStyle = MaterialTheme.typography.titleMedium.copy(
                 fontWeight = FontWeight.Normal,
-                fontSize = TextSizing.sp_30
+                fontSize = TextSizing.sp_24
             ),
-            enabled = enabled
+            enabled = enabled,
         )
     }
 }
@@ -102,20 +115,19 @@ fun CurrencyPicker() {
         CurrencyPicker(
             currencyCode = { },
             currentPrice = { },
+            currentSymbol = { },
             receivedCurrencyCode = "EUR",
             receivedPrice = "120.00",
             receivedSymbol = "€",
             receivedCurrencies = buildList {
-                add(Currency("EUR", "Euro"))
-                add(Currency("USD", "United States Dollar"))
-                add(Currency("CAD", "Canadian Dollar"))
-                add(Currency("JPY", "Japanese Yen"))
-                add(Currency("AUD", "Australian Dollar"))
-                add(Currency("NZD", "New Zealand Dollar"))
+                add(Currency("EUR", "Euro", ""))
+                add(Currency("USD", "United States Dollar", ""))
+                add(Currency("CAD", "Canadian Dollar", ""))
+                add(Currency("JPY", "Japanese Yen", ""))
+                add(Currency("AUD", "Australian Dollar", ""))
+                add(Currency("NZD", "New Zealand Dollar", ""))
             },
             enabled = true
-        ) {
-
-        }
+        )
     }
 }

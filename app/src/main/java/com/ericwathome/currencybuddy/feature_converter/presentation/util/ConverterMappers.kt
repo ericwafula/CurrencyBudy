@@ -17,7 +17,8 @@ internal fun mapResultData(
     val currencyList = result?.rates?.map {
         Currency(
             code = it.code,
-            name = it.name
+            name = it.name,
+            symbol = it.symbol
         )
     }
 
@@ -36,7 +37,7 @@ internal fun mapResultData(
         /**
          * get the initial slots in the string
          */
-        val price = "$quoteSymbol$quotePrice"
+        val price = "$quoteSymbol${"%.2f".format(baseConversionRate)}"
         val initialSlots = 14 - price.length
         var characterPosition = 0
         if (price.isNotBlank()) {
