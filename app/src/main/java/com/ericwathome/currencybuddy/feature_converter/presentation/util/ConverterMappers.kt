@@ -2,13 +2,13 @@ package com.ericwathome.currencybuddy.feature_converter.presentation.util
 
 import com.ericwathome.currencybuddy.feature_converter.domain.model.relations.CurrencyInfoWithCurrentRates
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.ConverterValues
-import java.time.LocalDate
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 internal fun mapResultData(
     result: CurrencyInfoWithCurrentRates?,
     amount: Double,
-    currencyCode: String
+    quoteCurrencyCode: String
 ): ConverterValues {
 
     /**
@@ -17,13 +17,14 @@ internal fun mapResultData(
     val currencyList = result?.rates?.map {
         Currency(
             code = it.code,
-            name = it.name
+            name = it.name,
+            symbol = it.symbol
         )
     }
 
     val baseCode = result?.currencyInfo?.code ?: ""
     val baseSymbol = result?.currencyInfo?.symbol ?: ""
-    val currentRateObject = result?.rates?.find { it.code == currencyCode }
+    val currentRateObject = result?.rates?.find { it.code == quoteCurrencyCode }
     val quoteCode = currentRateObject?.code ?: ""
     val baseConversionRate = currentRateObject?.rate ?: 0.0
     val quoteSymbol = currentRateObject?.symbol ?: ""
@@ -36,7 +37,7 @@ internal fun mapResultData(
         /**
          * get the initial slots in the string
          */
-        val price = "$quoteSymbol$quotePrice"
+        val price = "$quoteSymbol${"%.2f".format(baseConversionRate)}"
         val initialSlots = 14 - price.length
         var characterPosition = 0
         if (price.isNotBlank()) {
@@ -81,9 +82,12 @@ internal fun mapResultData(
     /**
      * create a date string from the current date
      */
-    val date = LocalDate.now()
-    val formatter = DateTimeFormatter.ofPattern("mm/YY")
+    val date = ZonedDateTime.now()
+    val formatter = DateTimeFormatter.ofPattern("MM/yy")
     val expiryDate = formatter.format(date)
+    val baseCurrencyName = result?.rates?.find { it.code == baseCode }?.name ?: ""
+    val quoteCurrencyName = result?.rates?.find { it.code == quoteCode }?.name ?: ""
+    val currentBaseVsQuote = "$baseCurrencyName\nvs\n$quoteCurrencyName"
 
     return ConverterValues(
         currencies = currencyList,
@@ -93,6 +97,7 @@ internal fun mapResultData(
         quotePrice = quotePrice,
         currencyName = result?.currencyInfo?.name,
         accountNumber = accountNumber,
-        expiryDate = expiryDate
+        expiryDate = expiryDate,
+        currentBaseVsQuote = currentBaseVsQuote
     )
 }

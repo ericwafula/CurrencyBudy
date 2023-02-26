@@ -48,6 +48,21 @@ class ConverterViewModel @Inject constructor(
         _selectedQuote.value = currency
     }
 
+    fun updateBaseSymbol(symbol: String) {
+        _converterState.value = converterState.value.copy(
+            data = converterState.value.data?.copy(
+                baseSymbol = symbol
+            )
+        )
+    }
+
+    fun updateQuoteSymbol(symbol: String) {
+        _converterState.value = converterState.value.copy(
+            data = converterState.value.data?.copy(
+                quoteSymbol = symbol
+            )
+        )
+    }
 
     fun convert() {
         viewModelScope.launch {

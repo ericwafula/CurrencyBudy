@@ -18,7 +18,7 @@ import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
  */
 @Composable
 fun ErrorDialog(message: String, dismiss: () -> Unit) {
-    Dialog(onDismissRequest = { }) {
+    Dialog(onDismissRequest = { dismiss() }) {
         Surface(
             color = MaterialTheme.colorScheme.surfaceVariant,
             shape = MaterialTheme.shapes.medium
