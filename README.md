@@ -17,6 +17,12 @@ Currency Budy is a simple and user-friendly currency converter app built with An
 4. Enter the amount you want to convert, and Currency Budy will instantly display the converted amount.
 5. Repeat the process for any other currency conversions you need.
 
+## Prerequisites
+
+remember to add an apikey.properties file in the root package that has the following:
+- API_KEY = "YOUR_API_KEY"
+- The app uses exchangerate-api
+
 ## Development
 
 Currency Budy is built using Android and Jetpack Compose, and utilizes Hilt for dependency injection, Room database for caching, Coroutines for asynchronous operations, Pager for onboarding, Navigation Component for navigation, Retrofit for network operations, Splash Screen API for the splash screen, and Preference DataStore for saving onboarding state. If you're interested in contributing to the development of Currency Budy, please reach out.
@@ -25,17 +31,24 @@ Currency Budy is built using Android and Jetpack Compose, and utilizes Hilt for 
 
 If you encounter any issues while using Currency Budy, or if you have any questions or feedback, please [contact me](mailto:ericwathome007@gmail.com) or open an issue on this repository.
 
-## Screenshots
-
 ### Architecture
 
-The application uses clean architecture.
+The application uses clean architecture and makes use of features i.e feature_onboarding & feature_converter. Each feature follows the common convention as shown below
 
-https://user-images.githubusercontent.com/82439687/221413047-890cf534-28b1-4936-92c6-3920e4f84e57.mp4
+#### data
+Contains the datasources, repository implementations and DTOs. The datasource has two packages, local and remote. The local package contains the room database setup and dao. The remote package contains the two api interfaces for sending network requests to two separate api endpoints. The repository package contains the repository implementations. This is where the data is mapped into different entities and then cached. The app follows the single source of truth principle. This is why only the cached data is sent to the UI layer.
+
+#### domain
+Contains a model package which hosts the different entities and a relations package for room relationships, a repository, a usecase and a util package.
+
+#### presentation
+Contains all the classes and packages related to the UI i.e components, viewModel, state holders and screens
+
+![Screenshot from 2023-02-26 17-27-54](https://user-images.githubusercontent.com/82439687/221416695-22cd551b-67d6-4161-bf1d-12ee10373437.png)
 
 ### User Interface
 
-![Currency Budy Architecture](https://user-images.githubusercontent.com/82439687/221413047-890cf534-28b1-4936-92c6-3920e4f84e57.mp4)
+https://user-images.githubusercontent.com/82439687/221413047-890cf534-28b1-4936-92c6-3920e4f84e57.mp4
 
 ## License
 
