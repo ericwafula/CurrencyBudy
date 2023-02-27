@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     useCases: UseCases
-) :ViewModel() {
+) : ViewModel() {
 
     private var _isLoading: MutableState<Boolean> = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading

@@ -87,7 +87,12 @@ internal fun mapResultData(
     val expiryDate = formatter.format(date)
     val baseCurrencyName = result?.rates?.find { it.code == baseCode }?.name ?: ""
     val quoteCurrencyName = result?.rates?.find { it.code == quoteCode }?.name ?: ""
-    val currentBaseVsQuote = "$baseCurrencyName\nvs\n$quoteCurrencyName"
+    val currentBaseVsQuote =
+        if (baseCurrencyName.isBlank() || quoteCurrencyName.isBlank()) {
+            "Currency Converter"
+        } else {
+            "$baseCurrencyName\nvs\n$quoteCurrencyName"
+        }
 
     return ConverterValues(
         currencies = currencyList,

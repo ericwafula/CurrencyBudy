@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CurrencyBuddyTheme {
-                // A surface container using the 'background' color from the theme
                 val navController = rememberNavController()
                 val screen by viewModel.startDestination
                 AppNavigation(navController = navController, startDestination = screen)
