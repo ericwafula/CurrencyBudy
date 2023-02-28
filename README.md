@@ -21,7 +21,8 @@ Currency Budy is a simple and user-friendly currency converter app built with An
 
 remember to add an apikey.properties file in the root package that has the following:
 - API_KEY = "YOUR_API_KEY"
-- The app uses exchangerate-api
+- The app uses exchangerate-api, here is the link https://www.exchangerate-api.com/
+- You can get your free API key which has a 1500 requests per month quota. 
 
 ## Development
 
