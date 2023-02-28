@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
+import com.airbnb.lottie.compose.*
 import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.common.util.Padding
 import com.ericwathome.currencybuddy.common.util.Spacing
@@ -27,6 +28,8 @@ fun CurrencyPickerDialog(
 ) {
     var textFieldState by remember { mutableStateOf("") }
     var filteredCurrencyList = remember { mutableStateOf(currencies) }
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.shake_empty_box_green))
+
     Dialog(onDismissRequest = { dismissDialog() }) {
         Surface(
             color = MaterialTheme.colorScheme.surfaceVariant,
@@ -57,29 +60,38 @@ fun CurrencyPickerDialog(
                         Text(text = stringResource(id = R.string.search))
                     }
                 )
-                LazyColumn {
-                    itemsIndexed(filteredCurrencyList.value) { index, currency ->
-                        val (code, name, symbol) = currency
-                        Card(
-                            modifier = Modifier
-                                .clickable {
-                                    code?.let { currencyCode(code) }
-                                    symbol?.let { currencySymbol(symbol) }
-                                    dismissDialog()
-                                }
-                                .fillMaxWidth()
-                        ) {
-                            Text(
-                                text = "$name, $code",
+                if (filteredCurrencyList.value.isEmpty()) {
+                    LottieAnimation(
+                        composition = composition,
+                        iterations = LottieConstants.IterateForever,
+                        modifier = Modifier.weight(0.5f),
+
+                    )
+                } else {
+                    LazyColumn {
+                        itemsIndexed(filteredCurrencyList.value) { index, currency ->
+                            val (code, name, symbol) = currency
+                            Card(
                                 modifier = Modifier
-                                    .padding(vertical = Padding.dp_24)
-                            )
-                        }
-                        if (index != filteredCurrencyList.value.lastIndex) {
-                            Divider(
-                                modifier = Modifier.fillMaxWidth(),
-                                color = MaterialTheme.colorScheme.background
-                            )
+                                    .clickable {
+                                        code?.let { currencyCode(code) }
+                                        symbol?.let { currencySymbol(symbol) }
+                                        dismissDialog()
+                                    }
+                                    .fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "$name, $code",
+                                    modifier = Modifier
+                                        .padding(vertical = Padding.dp_24)
+                                )
+                            }
+                            if (index != filteredCurrencyList.value.lastIndex) {
+                                Divider(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = MaterialTheme.colorScheme.background
+                                )
+                            }
                         }
                     }
                 }

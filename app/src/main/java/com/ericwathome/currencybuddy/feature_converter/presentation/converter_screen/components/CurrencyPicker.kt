@@ -92,7 +92,8 @@ fun CurrencyPicker(
             shape = RoundedCornerShape(Radius.dp_8),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 containerColor = MaterialTheme.colorScheme.tertiary,
-                textColor = MaterialTheme.colorScheme.onTertiary,
+                focusedTextColor = MaterialTheme.colorScheme.onTertiary,
+                unfocusedTextColor = MaterialTheme.colorScheme.onTertiary,
                 cursorColor = MaterialTheme.colorScheme.onTertiary,
                 focusedBorderColor = MaterialTheme.colorScheme.tertiary,
                 unfocusedBorderColor = MaterialTheme.colorScheme.tertiary,
