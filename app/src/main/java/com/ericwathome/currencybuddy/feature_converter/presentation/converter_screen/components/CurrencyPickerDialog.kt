@@ -28,7 +28,7 @@ fun CurrencyPickerDialog(
 ) {
     var textFieldState by remember { mutableStateOf("") }
     var filteredCurrencyList = remember { mutableStateOf(currencies) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.shake_empty_box_green))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.shake_empty_box))
 
     Dialog(onDismissRequest = { dismissDialog() }) {
         Surface(
@@ -64,8 +64,7 @@ fun CurrencyPickerDialog(
                     LottieAnimation(
                         composition = composition,
                         iterations = LottieConstants.IterateForever,
-                        modifier = Modifier.weight(0.5f),
-
+                        modifier = Modifier.weight(1f)
                     )
                 } else {
                     LazyColumn {

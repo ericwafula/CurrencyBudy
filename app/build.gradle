@@ -11,14 +11,14 @@ apiKeyProperties.load(new FileInputStream(apiKeyFile))
 
 android {
     namespace 'com.ericwathome.currencybuddy'
-    compileSdk 33
+    compileSdk ProjectConfig.COMPILE_SDK
 
     defaultConfig {
         applicationId "com.ericwathome.currencybuddy"
-        minSdk 26
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        minSdk ProjectConfig.MIN_SDK
+        targetSdk ProjectConfig.TARGET_SDK
+        versionCode ProjectConfig.VERSION_CODE
+        versionName ProjectConfig.VERSION_NAME
 
         // should correspond to key/value pairs inside the file
         buildConfigField("String", "API_KEY", apiKeyProperties['API_KEY'])
@@ -55,7 +55,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.2'
+        kotlinCompilerExtensionVersion ProjectConfig.KOTLIN_COMPILER_EXTENSION_VERSION
     }
     packagingOptions {
         resources {
@@ -65,56 +65,56 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-    implementation 'androidx.activity:activity-compose:1.6.1'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.1.0-alpha07'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    implementation (libs.core.ktx)
+    implementation (libs.lifecycle.runtime.ktx)
+    implementation (libs.core.activity.compose)
+    implementation (libs.ui)
+    implementation (libs.ui.tooling.preview)
+    implementation (libs.material3)
+    testImplementation (libs.junit)
+    androidTestImplementation (libs.junit.ext)
+    androidTestImplementation (libs.espresso)
+    androidTestImplementation (libs.ui.test.junit4)
+    debugImplementation (libs.ui.tooling)
+    debugImplementation (libs.ui.test.manifest)
     // pager
-    implementation "com.google.accompanist:accompanist-pager:$pager_version"
+    implementation (libs.accompanist.pager)
     // navigation
-    implementation "androidx.navigation:navigation-compose:$nav_version"
+    implementation (libs.navigation.compose)
     // hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation "androidx.hilt:hilt-navigation-compose:$hilt_compose_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation (libs.hilt.android)
+    implementation (libs.hilt.navigation.compose)
+    kapt (libs.hilt.compiler)
     // retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$http_logger_version"
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
     //room
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    implementation (libs.room.runtime)
+    implementation (libs.room.ktx)
+    annotationProcessor (libs.room.compiler)
+    kapt (libs.room.compiler)
     // coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation (libs.kotlinx.coroutines.android)
+    implementation (libs.kotlinx.coroutines.core)
     // work manager
-    implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation (libs.work.runtime.ktx)
     // lifecycle
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation (libs.lifecycle.extensions)
+    implementation (libs.lifecycle.viewmodel.compose)
+    implementation (libs.lifecycle.viewmodel.ktx)
 
     // splashscreen
-    implementation "androidx.core:core-splashscreen:$splash_screen_version"
+    implementation (libs.core.splashscreen)
 
     // preference datastore
-    implementation "androidx.datastore:datastore-preferences:$datastore_version"
+    implementation (libs.datastore.preferences)
+
     // icons
-    implementation "androidx.compose.material:material-icons-extended:$material_icons_version"
+    implementation (libs.material.icons.extended)
 
     // lottie animations
-    implementation "com.airbnb.android:lottie-compose:5.2.0"
+    implementation (libs.lottie.compose)
 }
 
 // Allow references to generated code
