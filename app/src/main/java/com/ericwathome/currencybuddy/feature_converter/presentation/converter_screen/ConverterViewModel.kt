@@ -5,9 +5,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ericwathome.currencybuddy.common.Resource
-import com.ericwathome.currencybuddy.common.UseCases
-import com.ericwathome.currencybuddy.feature_converter.domain.model.relations.CurrencyInfoWithCurrentRates
+import com.ericwathome.currencybuddy.core.util.Resource
+import com.ericwathome.currencybuddy.core.domain.use_case.UseCases
 import com.ericwathome.currencybuddy.feature_converter.presentation.util.mapResultData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -29,7 +28,7 @@ class ConverterViewModel @Inject constructor(
     var selectedBaseAmount: State<String> = _selectedBasePrice
     private var _converterState = mutableStateOf(ConverterState())
     val converterState: State<ConverterState> = _converterState
-    private var _eventFlow = MutableSharedFlow<UiEvent>()
+    private var _eventFlow = MutableSharedFlow<ConverterEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
     init {
@@ -98,7 +97,7 @@ class ConverterViewModel @Inject constructor(
                             loading = false
                         )
                         _eventFlow.emit(
-                            UiEvent.ShowDialog(
+                            ConverterEvent.ShowDialog(
                                 result.message ?: "An unexpected error occurred"
                             )
                         )
@@ -108,7 +107,4 @@ class ConverterViewModel @Inject constructor(
         }
     }
 
-    sealed class UiEvent {
-        data class ShowDialog(val message: String) : UiEvent()
-    }
 }

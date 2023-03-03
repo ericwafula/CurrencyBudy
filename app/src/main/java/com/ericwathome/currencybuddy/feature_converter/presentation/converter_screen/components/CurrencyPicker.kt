@@ -1,7 +1,6 @@
 package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,9 +16,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.ericwathome.currencybuddy.R
-import com.ericwathome.currencybuddy.common.util.*
+import com.ericwathome.currencybuddy.core.presentation.*
 import com.ericwathome.currencybuddy.feature_converter.presentation.util.Currency
-import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
+import com.ericwathome.currencybuddy.core.presentation.theme.CurrencyBuddyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,10 +1,9 @@
-package com.ericwathome.currencybuddy.common.util
+package com.ericwathome.currencybuddy.core.util
 
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.ericwathome.currencybuddy.R
-import com.ericwathome.currencybuddy.common.AppConstants
 
 object NotificationUtils {
     fun showNotification(

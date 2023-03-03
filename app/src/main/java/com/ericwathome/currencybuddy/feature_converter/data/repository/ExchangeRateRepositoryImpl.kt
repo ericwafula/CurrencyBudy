@@ -1,8 +1,7 @@
 package com.ericwathome.currencybuddy.feature_converter.data.repository
 
-import android.util.Log
-import com.ericwathome.currencybuddy.common.AppConstants
-import com.ericwathome.currencybuddy.common.Resource
+import com.ericwathome.currencybuddy.core.util.AppConstants
+import com.ericwathome.currencybuddy.core.util.Resource
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.ExchangeRateDao
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.CurrencyInfoApiService
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService

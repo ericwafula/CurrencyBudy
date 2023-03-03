@@ -1,4 +1,4 @@
-package com.ericwathome.currencybuddy.common.preference
+package com.ericwathome.currencybuddy.core.domain.preference
 
 import kotlinx.coroutines.flow.Flow
 
