@@ -48,11 +48,11 @@ The application uses clean architecture and makes use of features i.e feature_on
 
 ![image](https://user-images.githubusercontent.com/82439687/222801500-0d3bcbd7-49e3-4b62-bcdb-94ee39b7f15d.png)
 
-#### data
-Contains the datasources, repository implementations and DTOs. The datasource has two packages, local and remote. The local package contains the room database setup and dao. The remote package contains the two api interfaces for sending network requests to two separate api endpoints. The repository package contains the repository implementations. This is where the data is mapped into different entities and then cached. The app follows the single source of truth principle. This is why only the cached data is sent to the UI layer.
-
 #### core
 Contains the common code that is used across the entire application e.g navigation, screen routes, sizing, theme, components, preferences and constants.
+
+#### data
+Contains the datasources, repository implementations and DTOs. The datasource has two packages, local and remote. The local package contains the room database setup and dao. The remote package contains the two api interfaces for sending network requests to two separate api endpoints. The repository package contains the repository implementations. This is where the data is mapped into different entities and then cached. The app follows the single source of truth principle. This is why only the cached data is sent to the UI layer.
 
 #### domain
 Contains a model package which hosts the different entities and a relations package for room relationships, a repository, a usecase and a util package.
