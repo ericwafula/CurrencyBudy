@@ -11,14 +11,14 @@ apiKeyProperties.load(new FileInputStream(apiKeyFile))
 
 android {
     namespace 'com.ericwathome.currencybuddy'
-    compileSdk 33
+    compileSdk ProjectConfig.COMPILE_SDK
 
     defaultConfig {
         applicationId "com.ericwathome.currencybuddy"
-        minSdk 26
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        minSdk ProjectConfig.MIN_SDK
+        targetSdk ProjectConfig.TARGET_SDK
+        versionCode ProjectConfig.VERSION_CODE
+        versionName ProjectConfig.VERSION_NAME
 
         // should correspond to key/value pairs inside the file
         buildConfigField("String", "API_KEY", apiKeyProperties['API_KEY'])
@@ -55,7 +55,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.2'
+        kotlinCompilerExtensionVersion ProjectConfig.KOTLIN_COMPILER_EXTENSION_VERSION
     }
     packagingOptions {
         resources {
