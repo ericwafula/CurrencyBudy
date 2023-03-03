@@ -1,10 +1,12 @@
-package com.ericwathome.currencybuddy.common.preference
+package com.ericwathome.currencybuddy.core.data.preference
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.ericwathome.currencybuddy.core.domain.preference.AppPreferences
+import com.ericwathome.currencybuddy.core.util.PreferenceConstants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map

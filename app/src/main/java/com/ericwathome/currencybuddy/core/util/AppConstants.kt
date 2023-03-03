@@ -1,4 +1,4 @@
-package com.ericwathome.currencybuddy.common
+package com.ericwathome.currencybuddy.core.util
 
 object AppConstants {
     const val SYNC_CHANNEL_ID = "sync_id"

@@ -1,6 +1,6 @@
 package com.ericwathome.currencybuddy.feature_onboarding.domain.use_case
 
-import com.ericwathome.currencybuddy.common.preference.AppPreferences
+import com.ericwathome.currencybuddy.core.domain.preference.AppPreferences
 import javax.inject.Inject
 
 class UpdateOnboardingStatus @Inject constructor(

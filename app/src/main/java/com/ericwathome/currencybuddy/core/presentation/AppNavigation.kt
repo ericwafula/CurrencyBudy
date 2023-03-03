@@ -1,7 +1,6 @@
-package com.ericwathome.currencybuddy.ui
+package com.ericwathome.currencybuddy.core.presentation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
