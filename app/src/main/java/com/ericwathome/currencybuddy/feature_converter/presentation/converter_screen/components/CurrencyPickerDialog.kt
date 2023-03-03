@@ -64,8 +64,7 @@ fun CurrencyPickerDialog(
                     LottieAnimation(
                         composition = composition,
                         iterations = LottieConstants.IterateForever,
-                        modifier = Modifier.weight(1f),
-
+                        modifier = Modifier.weight(1f)
                     )
                 } else {
                     LazyColumn {
