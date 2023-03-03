@@ -1,4 +1,4 @@
-package com.ericwathome.currencybuddy.ui.theme
+package com.ericwathome.currencybuddy.core.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

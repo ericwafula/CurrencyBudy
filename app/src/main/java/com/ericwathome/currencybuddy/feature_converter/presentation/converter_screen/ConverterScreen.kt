@@ -1,7 +1,6 @@
 package com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,9 +18,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ericwathome.currencybuddy.R
-import com.ericwathome.currencybuddy.common.util.*
+import com.ericwathome.currencybuddy.core.presentation.Padding
+import com.ericwathome.currencybuddy.core.presentation.Spacing
+import com.ericwathome.currencybuddy.core.presentation.TextSizing
+import com.ericwathome.currencybuddy.core.presentation.components.ConverterCard
+import com.ericwathome.currencybuddy.core.presentation.components.ErrorDialog
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.components.CurrencyPicker
-import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
+import com.ericwathome.currencybuddy.core.presentation.theme.CurrencyBuddyTheme
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -37,7 +40,7 @@ fun ConverterScreen() {
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
-                is ConverterViewModel.UiEvent.ShowDialog -> {
+                is ConverterEvent.ShowDialog -> {
                     showErrorDialog = true
                     dialogMessage = event.message
                 }

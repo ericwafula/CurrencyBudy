@@ -13,10 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import com.airbnb.lottie.compose.*
 import com.ericwathome.currencybuddy.R
-import com.ericwathome.currencybuddy.common.util.Padding
-import com.ericwathome.currencybuddy.common.util.Spacing
+import com.ericwathome.currencybuddy.core.presentation.Padding
+import com.ericwathome.currencybuddy.core.presentation.Spacing
 import com.ericwathome.currencybuddy.feature_converter.presentation.util.Currency
-import com.ericwathome.currencybuddy.ui.theme.CurrencyBuddyTheme
+import com.ericwathome.currencybuddy.core.presentation.theme.CurrencyBuddyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
