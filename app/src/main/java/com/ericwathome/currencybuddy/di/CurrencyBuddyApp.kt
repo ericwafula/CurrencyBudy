@@ -3,8 +3,10 @@ package com.ericwathome.currencybuddy.di
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import com.ericwathome.currencybuddy.BuildConfig
 import com.ericwathome.currencybuddy.core.util.AppConstants
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 
 @HiltAndroidApp
 class CurrencyBuddyApp : Application() {
@@ -12,6 +14,10 @@ class CurrencyBuddyApp : Application() {
         super.onCreate()
 
         createNotificationChannel()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     private fun createNotificationChannel() {
