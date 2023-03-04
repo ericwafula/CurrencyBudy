@@ -16,8 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import com.ericwathome.currencybuddy.R
-import com.ericwathome.currencybuddy.core.presentation.Padding
-import com.ericwathome.currencybuddy.core.presentation.Sizing
+import com.ericwathome.currencybuddy.core.util.Padding
+import com.ericwathome.currencybuddy.core.util.Sizing
 import com.ericwathome.currencybuddy.core.presentation.theme.CurrencyBuddyTheme
 
 @Composable

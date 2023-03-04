@@ -1,4 +1,4 @@
-package com.ericwathome.currencybuddy.core.presentation
+package com.ericwathome.currencybuddy.core.util
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
