@@ -115,6 +115,9 @@ dependencies {
 
     // lottie animations
     implementation (libs.lottie.compose)
+
+    // timber
+    implementation (libs.timber)
 }
 
 // Allow references to generated code
