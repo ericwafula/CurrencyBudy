@@ -1,10 +1,12 @@
 package com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -19,9 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ericwathome.currencybuddy.R
-import com.ericwathome.currencybuddy.core.presentation.Padding
-import com.ericwathome.currencybuddy.core.presentation.Sizing
-import com.ericwathome.currencybuddy.core.presentation.Spacing
+import com.ericwathome.currencybuddy.core.util.Padding
+import com.ericwathome.currencybuddy.core.util.Sizing
+import com.ericwathome.currencybuddy.core.util.Spacing
 import com.ericwathome.currencybuddy.core.presentation.theme.CurrencyBuddyTheme
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.Item
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.OnboardingUtils
@@ -41,7 +43,8 @@ fun OnboardingScreen(navController: NavHostController) {
 
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.dp_60),
-        modifier = Modifier.padding()
+        modifier = Modifier
+            .padding()
             .background(color = MaterialTheme.colorScheme.background)
             .fillMaxSize()
     ) {
@@ -97,6 +100,7 @@ fun OnboardingItem(
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun BottomSection(
     size: Int,
@@ -104,24 +108,48 @@ fun BottomSection(
     onNextClicked: () -> Unit
 ) {
     Surface(color = MaterialTheme.colorScheme.background) {
-        Row(
+        LazyRow(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .padding(all = Padding.dp_32)
+                .padding(vertical = Padding.dp_32)
                 .fillMaxWidth(),
+            contentPadding = PaddingValues(horizontal = Padding.dp_32)
         ) {
-            Indicators(size = size, index = index)
-            FloatingActionButton(onClick = {
-                onNextClicked()
-            }, containerColor = MaterialTheme.colorScheme.primary) {
-                if (index < 2) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_arrow_forward_24),
-                        contentDescription = stringResource(id = R.string.forward_icon)
-                    )
-                } else {
-                    Text(text = stringResource(id = R.string.get_started), modifier = Modifier.padding(horizontal = Padding.dp_24))
+            item {
+                Indicators(size = size, index = index)
+            }
+            item {
+                FloatingActionButton(
+                    onClick = {
+                        onNextClicked()
+                    },
+                    containerColor = MaterialTheme.colorScheme.primary
+                ) {
+                    AnimatedContent(
+                        targetState = index < 2,
+                        transitionSpec = { fadeIn(
+                            animationSpec = tween(
+                                durationMillis = 300
+                            )
+                        ) with fadeOut(
+                            animationSpec = tween(
+                                durationMillis = 300
+                            )
+                        ) }
+                    ) { showIcon ->
+                        if (showIcon) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_arrow_forward_24),
+                                contentDescription = stringResource(id = R.string.forward_icon)
+                            )
+                        } else {
+                            Text(
+                                text = stringResource(id = R.string.get_started),
+                                modifier = Modifier.padding(horizontal = Padding.dp_24)
+                            )
+                        }
+                    }
                 }
             }
         }
