@@ -24,15 +24,16 @@ import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.core.util.Padding
 import com.ericwathome.currencybuddy.core.util.Sizing
 import com.ericwathome.currencybuddy.core.util.Spacing
-import com.ericwathome.currencybuddy.core.presentation.theme.CurrencyBuddyTheme
-import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.Item
 import com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding_screen.util.OnboardingUtils
-import com.ericwathome.currencybuddy.core.presentation.Screens
-import com.ericwathome.currencybuddy.core.presentation.navigatePopUpTo
+import tech.ericwathome.presentation.onboarding_screen.util.Item
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
+import tech.ericwathome.presentation.Screens
+import tech.ericwathome.presentation.navigation.navigatePopUpTo
+import tech.ericwathome.presentation.onboarding_screen.OnboardingViewModel
+import tech.ericwathome.presentation.theme.CurrencyBuddyTheme
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable

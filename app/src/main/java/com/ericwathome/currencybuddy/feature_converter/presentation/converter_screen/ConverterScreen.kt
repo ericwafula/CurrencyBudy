@@ -22,10 +22,10 @@ import com.ericwathome.currencybuddy.core.util.Padding
 import com.ericwathome.currencybuddy.core.util.Spacing
 import com.ericwathome.currencybuddy.core.util.TextSizing
 import com.ericwathome.currencybuddy.core.presentation.components.ConverterCard
-import com.ericwathome.currencybuddy.core.presentation.components.ErrorDialog
+import tech.ericwathome.presentation.components.ErrorDialog
 import com.ericwathome.currencybuddy.feature_converter.presentation.converter_screen.components.CurrencyPicker
-import com.ericwathome.currencybuddy.core.presentation.theme.CurrencyBuddyTheme
 import kotlinx.coroutines.flow.collectLatest
+import tech.ericwathome.presentation.theme.CurrencyBuddyTheme
 
 @Composable
 fun ConverterScreen() {

@@ -4,17 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import com.ericwathome.currencybuddy.BuildConfig
 import com.ericwathome.currencybuddy.core.util.AppConstants
-import com.ericwathome.currencybuddy.core.domain.preference.AppPreferences
-import com.ericwathome.currencybuddy.core.domain.use_case.UseCases
-import com.ericwathome.currencybuddy.core.data.preference.AppPreferencesImpl
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.CurrencyBuddyDatabase
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.local.ExchangeRateDao
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.CurrencyInfoApiService
 import com.ericwathome.currencybuddy.feature_converter.data.data_source.remote.ExchangeRateApiService
 import com.ericwathome.currencybuddy.feature_converter.domain.repository.ExchangeRateRepository
 import com.ericwathome.currencybuddy.feature_converter.domain.use_case.GetExchangeRate
-import com.ericwathome.currencybuddy.feature_onboarding.domain.use_case.GetOnboardingStatus
-import com.ericwathome.currencybuddy.feature_onboarding.domain.use_case.UpdateOnboardingStatus
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -83,29 +78,5 @@ object AppModule {
     @Provides
     fun provideGetExchangeRateUseCase(repository: ExchangeRateRepository) =
         GetExchangeRate(repository)
-
-    @Provides
-    fun provideAppPreferences(@ApplicationContext context: Context): AppPreferences = AppPreferencesImpl(context)
-
-    @Provides
-    fun provideUpdateOnboardingStatusUseCase(appPreferences: AppPreferences) =
-        UpdateOnboardingStatus(appPreferences)
-
-    @Provides
-    fun provideGetOnboardingStatusUseCase(appPreferences: AppPreferences) =
-        GetOnboardingStatus(appPreferences)
-
-    @Provides
-    fun provideUseCases(
-        getExchangeRate: GetExchangeRate,
-        updateOnboardingStatus: UpdateOnboardingStatus,
-        getOnboardingStatus: GetOnboardingStatus
-    ): UseCases {
-        return UseCases(
-            getExchangeRate = getExchangeRate,
-            updateOnboardingStatus = updateOnboardingStatus,
-            getOnboardingStatus = getOnboardingStatus
-        )
-    }
 
 }

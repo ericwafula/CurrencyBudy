@@ -3,6 +3,7 @@ package com.ericwathome.currencybuddy.feature_onboarding.presentation.onboarding
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.ericwathome.currencybuddy.R
+import tech.ericwathome.presentation.onboarding_screen.util.Item
 
 data class Item(
     @DrawableRes val image: Int,

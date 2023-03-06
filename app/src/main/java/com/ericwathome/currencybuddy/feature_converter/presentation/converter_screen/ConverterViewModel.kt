@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ericwathome.currencybuddy.core.util.Resource
-import com.ericwathome.currencybuddy.core.domain.use_case.UseCases
+import com.ericwathome.currencybuddy.feature_converter.domain.use_case.GetExchangeRate
 import com.ericwathome.currencybuddy.feature_converter.presentation.util.mapResultData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ConverterViewModel @Inject constructor(
-    private val useCases: UseCases
+    private val getExchangeRate: GetExchangeRate
 ) : ViewModel() {
     private var _selectedBase: MutableState<String> = mutableStateOf("EUR")
     var selectedBase: State<String> = _selectedBase
@@ -65,7 +65,7 @@ class ConverterViewModel @Inject constructor(
 
     fun convert() {
         viewModelScope.launch {
-            useCases.getExchangeRate(_selectedBase.value).onEach { result ->
+            getExchangeRate(_selectedBase.value).onEach { result ->
                 when (result) {
                     is Resource.Success -> {
                         _converterState.value = converterState.value.copy(

@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.ericwathome.currencybuddy.core.presentation.theme.CurrencyBuddyTheme
 import dagger.hilt.android.AndroidEntryPoint
+import tech.ericwathome.presentation.theme.CurrencyBuddyTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

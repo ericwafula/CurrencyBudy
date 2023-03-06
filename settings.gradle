@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CurrencyBuddy"
 include ':app'
+include ':feature_onboarding:data', ':feature_onboarding:domain', ':feature_onboarding:presentation'
+include ':core:core_data', ':core:core_presentation'
