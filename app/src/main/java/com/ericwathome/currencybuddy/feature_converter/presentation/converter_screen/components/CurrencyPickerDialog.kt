@@ -16,7 +16,7 @@ import com.ericwathome.currencybuddy.R
 import com.ericwathome.currencybuddy.core.util.Padding
 import com.ericwathome.currencybuddy.core.util.Spacing
 import com.ericwathome.currencybuddy.feature_converter.presentation.util.Currency
-import com.ericwathome.currencybuddy.core.presentation.theme.CurrencyBuddyTheme
+import tech.ericwathome.presentation.theme.CurrencyBuddyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

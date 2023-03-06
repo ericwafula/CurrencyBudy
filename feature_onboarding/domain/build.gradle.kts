@@ -4,6 +4,7 @@ plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.KOTLIN_KAPT)
+    id(Plugins.DAGGER_HILT_ANDROID)
 }
 
 android {
@@ -36,7 +37,7 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{AL2.0,LGPL2.1,gradle/incremental.annotation.processors}"
         }
     }
 }
@@ -47,7 +48,6 @@ dependencies {
     implementation(libs.bundles.room)
     annotationProcessor(libs.room.compiler)
     kapt (libs.room.compiler)
-    implementation(libs.javax.inject)
     implementation(libs.bundles.hilt)
     implementation(libs.jetbrains.annotations)
     testImplementation(libs.junit)

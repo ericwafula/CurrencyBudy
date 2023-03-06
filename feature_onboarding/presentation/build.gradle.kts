@@ -1,6 +1,8 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
+    id(Plugins.KOTLIN_KAPT)
+    id(Plugins.DAGGER_HILT_ANDROID)
 }
 
 android {
@@ -39,7 +41,7 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{AL2.0,LGPL2.1,gradle/incremental.annotation.processors}"
         }
     }
 }

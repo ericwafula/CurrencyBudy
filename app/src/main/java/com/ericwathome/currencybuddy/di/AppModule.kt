@@ -19,6 +19,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import tech.ericwathome.data.preference.AppPreferences
+import tech.ericwathome.data.preference.AppPreferencesImpl
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -78,5 +80,10 @@ object AppModule {
     @Provides
     fun provideGetExchangeRateUseCase(repository: ExchangeRateRepository) =
         GetExchangeRate(repository)
+
+    @Provides
+    fun provideAppPreferences(@ApplicationContext context: Context): AppPreferences {
+        return AppPreferencesImpl(context)
+    }
 
 }
