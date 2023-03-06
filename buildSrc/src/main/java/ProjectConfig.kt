@@ -5,6 +5,12 @@ object ProjectConfig {
     const val PRESENTATION_NAMESPACE = "tech.ericwathome.presentation"
     const val CORE_DATA_NAMESPACE = "tech.ericwathome.core_data"
     const val CORE_PRESENTATION_NAMESPACE = "tech.ericwathome.core_presentation"
+    const val CONVERTER_DATA_NAMESPACE = "tech.ericwathome.converter_data"
+    const val CONVERTER_DOMAIN_NAMESPACE = "tech.ericwathome.converter_domain"
+    const val CONVERTER_PRESENTATION_NAMESPACE = "tech.ericwathome.converter_presentation"
+    const val ONBOARDING_DATA_NAMESPACE = "tech.ericwathome.onboarding_data"
+    const val ONBOARDING_DOMAIN_NAMESPACE = "tech.ericwathome.onboarding_domain"
+    const val ONBOARDING_PRESENTATION_NAMESPACE = "tech.ericwathome.onboarding_presentation"
     const val COMPILE_SDK = 33
     const val MIN_SDK = 26
     const val TARGET_SDK = 33

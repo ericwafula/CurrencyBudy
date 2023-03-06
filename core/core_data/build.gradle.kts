@@ -44,6 +44,9 @@ dependencies {
 
     implementation(libs.bundles.coroutines)
     implementation(libs.datastore.preferences)
+    implementation(libs.bundles.room)
+    annotationProcessor (libs.room.compiler)
+    kapt (libs.room.compiler)
     implementation(libs.bundles.hilt)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)

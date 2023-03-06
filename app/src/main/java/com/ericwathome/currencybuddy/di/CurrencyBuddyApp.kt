@@ -4,7 +4,7 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import com.ericwathome.currencybuddy.BuildConfig
-import com.ericwathome.currencybuddy.core.util.AppConstants
+import com.ericwathome.currencybuddy.util.AppConstants
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 

@@ -13,9 +13,9 @@ import tech.ericwathome.data.preference.AppPreferencesImpl
 @InstallIn(SingletonComponent::class)
 object CoreModule {
 
-//    @Provides
-//    fun provideAppPreferences(@ApplicationContext context: Context): AppPreferences {
-//        return AppPreferencesImpl(context)
-//    }
+    @Provides
+    fun provideAppPreferences(@ApplicationContext context: Context): AppPreferences {
+        return AppPreferencesImpl(context)
+    }
 
 }
