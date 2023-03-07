@@ -28,7 +28,7 @@ class AppPreferencesImpl  (
         }
     }
 
-    override suspend fun getOnboardingStatus(): Flow<Boolean> {
+    override fun getOnboardingStatus(): Flow<Boolean> {
         return context.datastore.data
             .catch {
                 if (it is IOException) {

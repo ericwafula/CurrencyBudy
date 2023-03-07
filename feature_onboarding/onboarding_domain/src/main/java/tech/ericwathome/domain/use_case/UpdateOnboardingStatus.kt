@@ -1,10 +1,10 @@
 package tech.ericwathome.domain.use_case
 
-import tech.ericwathome.data.preference.AppPreferences
+import tech.ericwathome.data.preference.AppPreferencesImpl
 import javax.inject.Inject
 
 class UpdateOnboardingStatus @Inject constructor(
-    private val appPreferences: AppPreferences
+    private val appPreferences: AppPreferencesImpl
 ) {
     suspend operator fun invoke(showOnboarding: Boolean) {
         appPreferences.updateOnboardingStatus(showOnboarding)

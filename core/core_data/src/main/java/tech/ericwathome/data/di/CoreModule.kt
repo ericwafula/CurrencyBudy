@@ -14,8 +14,7 @@ import tech.ericwathome.data.preference.AppPreferencesImpl
 object CoreModule {
 
     @Provides
-    fun provideAppPreferences(@ApplicationContext context: Context): AppPreferences {
-        return AppPreferencesImpl(context)
-    }
+    fun provideAppPreferences(@ApplicationContext context: Context): AppPreferences =
+        AppPreferencesImpl(context)
 
 }

@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import tech.ericwathome.data.preference.AppPreferences
+import tech.ericwathome.data.preference.AppPreferencesImpl
 import tech.ericwathome.domain.use_case.GetOnboardingStatus
 import tech.ericwathome.domain.use_case.OnboardingUseCases
 import tech.ericwathome.domain.use_case.UpdateOnboardingStatus
@@ -14,11 +14,11 @@ import tech.ericwathome.domain.use_case.UpdateOnboardingStatus
 object OnboardingModule {
 
     @Provides
-    fun provideGetOnboardingStatusUseCase(preferences: AppPreferences) =
+    fun provideGetOnboardingStatusUseCase(preferences: AppPreferencesImpl) =
         GetOnboardingStatus(preferences)
 
     @Provides
-    fun provideUpdateOnboardingStatus(preferences: AppPreferences) =
+    fun provideUpdateOnboardingStatus(preferences: AppPreferencesImpl) =
         UpdateOnboardingStatus(preferences)
 
     @Provides

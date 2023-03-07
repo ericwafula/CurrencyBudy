@@ -1,8 +1,11 @@
-package com.ericwathome.currencybuddy.feature_converter.domain.use_case
+package tech.ericwathome.converter_domain.use_case
 
+import dagger.hilt.android.scopes.ViewModelScoped
 import tech.ericwathome.converter_domain.repository.ExchangeRateRepository
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@ViewModelScoped
 class GetExchangeRate @Inject constructor(
     private val repository: ExchangeRateRepository
 ) {

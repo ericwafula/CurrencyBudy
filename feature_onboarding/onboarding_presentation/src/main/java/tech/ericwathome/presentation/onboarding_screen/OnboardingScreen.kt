@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import tech.ericwathome.presentation.onboarding_screen.util.Item
 import tech.ericwathome.presentation.onboarding_screen.util.OnboardingUtils
@@ -39,7 +40,7 @@ import tech.ericwathome.presentation.util.Spacing
 fun OnboardingScreen(navController: NavHostController) {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
-    val viewModel: OnboardingViewModel = hiltViewModel()
+    val viewModel: OnboardingViewModel = viewModel()
 
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.dp_60),

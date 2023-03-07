@@ -2,7 +2,7 @@ package tech.ericwathome.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.ericwathome.currencybuddy.feature_converter.domain.use_case.GetExchangeRate
+import tech.ericwathome.converter_domain.use_case.GetExchangeRate
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +13,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import tech.ericwathome.converter_domain.repository.ExchangeRateRepository
-import tech.ericwathome.core_data.BuildConfig
 import tech.ericwathome.data.data_source.local.CurrencyBuddyDatabase
 import tech.ericwathome.data.data_source.local.ExchangeRateDao
 import tech.ericwathome.data.data_source.remote.CurrencyInfoApiService
@@ -76,6 +75,7 @@ object ConverterDataModule {
     fun provideExchangeRateDao(db: CurrencyBuddyDatabase): ExchangeRateDao = db.exchangeRateDao()
 
     @Provides
+    @Singleton
     fun provideGetExchangeRateUseCase(repository: ExchangeRateRepository) =
         GetExchangeRate(repository)
 
