@@ -1,30 +1,17 @@
-import java.util.Properties
-import java.io.FileInputStream
-
 plugins {
-    id(Plugins.ANDROID_LIBRARY)
-    id(Plugins.KOTLIN_ANDROID)
-    id(Plugins.KOTLIN_KAPT)
-    id(Plugins.DAGGER_HILT_ANDROID)
-}
-
-val apiKeyFile = rootProject.file("apikey.properties")
-val apiKeyProperties = Properties().apply {
-    load(FileInputStream(apiKeyFile))
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = ProjectConfig.CONVERTER_DATA_NAMESPACE
-    compileSdk = ProjectConfig.COMPILE_SDK
+    namespace = "tech.ericwathome.converter_data"
+    compileSdk = 33
 
     defaultConfig {
-        minSdk = ProjectConfig.MIN_SDK
-        targetSdk = ProjectConfig.TARGET_SDK
+        minSdk = 26
+        targetSdk = 33
 
-        // should correspond to key/value pairs inside the file
-        buildConfigField("String", "API_KEY", apiKeyProperties["API_KEY"].toString())
-
-        testInstrumentationRunner = ProjectConfig.ANDROID_JUNIT_RUNNER
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -44,26 +31,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1,gradle/incremental.annotation.processors}"
-        }
-    }
 }
 
 dependencies {
 
-    implementation(project(Modules.FEATURE_CONVERTER_DOMAIN))
-    implementation(project(Modules.CORE_DATA))
-    implementation(libs.bundles.coroutines)
-    implementation(libs.datastore.preferences)
-    implementation(libs.bundles.hilt)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.junit.ext)
-    implementation(libs.jetbrains.annotations)
-    implementation(libs.bundles.coroutines)
-    implementation(libs.bundles.room)
-    annotationProcessor (libs.room.compiler)
-    kapt (libs.room.compiler)
-    implementation(libs.bundles.retrofit)
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.8.0")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

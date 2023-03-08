@@ -47,11 +47,12 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.CORE_DATA))
+    implementation(project(Modules.FEATURE_ONBOARDING_DOMAIN))
     implementation(project(Modules.CORE_PRESENTATION))
     implementation(libs.bundles.coroutines)
     implementation(libs.datastore.preferences)
     implementation(libs.bundles.hilt)
+    kapt(libs.hilt.compiler)
     implementation(libs.bundles.lifecycle)
     implementation(libs.bundles.compose)
     androidTestImplementation(libs.bundles.compose.ui.test)
@@ -59,4 +60,8 @@ dependencies {
     implementation(libs.jetbrains.annotations)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
+}
+
+kapt {
+    correctErrorTypes = true
 }

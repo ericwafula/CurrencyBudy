@@ -69,7 +69,7 @@ android {
 
 dependencies {
     implementation(project(Modules.FEATURE_ONBOARDING_PRESENTATION))
-    implementation(project(Modules.FEATURE_CONVERTER_PRESENTATION))
+//    implementation(project(Modules.FEATURE_CONVERTER_PRESENTATION))
     implementation(project(Modules.CORE_DATA))
     implementation(project(Modules.CORE_PRESENTATION))
     implementation(libs.google.play.core)

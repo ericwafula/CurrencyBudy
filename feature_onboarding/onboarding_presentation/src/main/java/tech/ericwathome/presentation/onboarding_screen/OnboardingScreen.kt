@@ -40,7 +40,7 @@ import tech.ericwathome.presentation.util.Spacing
 fun OnboardingScreen(navController: NavHostController) {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
-    val viewModel: OnboardingViewModel = viewModel()
+    val viewModel: OnboardingViewModel = hiltViewModel()
 
     Column(
         verticalArrangement = Arrangement.spacedBy(Spacing.dp_60),

@@ -44,11 +44,13 @@ dependencies {
 
     implementation(libs.bundles.coroutines)
     implementation(libs.datastore.preferences)
-    implementation(libs.bundles.room)
-    annotationProcessor (libs.room.compiler)
-    kapt (libs.room.compiler)
     implementation(libs.bundles.hilt)
+    kapt(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
     implementation(libs.jetbrains.annotations)
+}
+
+kapt {
+    correctErrorTypes = true
 }

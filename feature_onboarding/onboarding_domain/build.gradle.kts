@@ -1,14 +1,10 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
-    id(Plugins.KOTLIN_KAPT)
-    id(Plugins.DAGGER_HILT_ANDROID)
 }
 
 android {
-    namespace = ProjectConfig.DOMAIN_NAMESPACE
+    namespace = ProjectConfig.ONBOARDING_DOMAIN_NAMESPACE
     compileSdk = ProjectConfig.COMPILE_SDK
 
     defaultConfig {
@@ -37,7 +33,7 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1,gradle/incremental.annotation.processors}"
+            excludes += ProjectConfig.EXCLUDE_PACKAGING_OPTIONS
         }
     }
 }
@@ -45,11 +41,8 @@ android {
 dependencies {
 
     implementation(project(Modules.CORE_DATA))
-    implementation(libs.bundles.room)
-    annotationProcessor(libs.room.compiler)
-    kapt (libs.room.compiler)
-    implementation(libs.bundles.hilt)
-    implementation(libs.jetbrains.annotations)
+    implementation(libs.javax.inject)
+    implementation(libs.kotlinx.coroutines.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
 }

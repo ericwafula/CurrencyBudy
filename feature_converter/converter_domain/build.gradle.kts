@@ -35,15 +35,24 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1,gradle/incremental.annotation.processors}"
+            excludes += ProjectConfig.EXCLUDE_PACKAGING_OPTIONS
         }
     }
 }
 
 dependencies {
+
     implementation(project(Modules.CORE_DATA))
     implementation(libs.core.ktx)
     implementation(libs.bundles.hilt)
+    kapt(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
+    implementation(libs.bundles.room)
+    annotationProcessor (libs.room.compiler)
+    kapt (libs.room.compiler)
+}
+
+kapt {
+    correctErrorTypes = true
 }
