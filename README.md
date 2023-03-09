@@ -1,6 +1,6 @@
 # Currency Budy
 
-Currency Budy is a simple and user-friendly currency converter app built with Android and Jetpack Compose that allows you to quickly and accurately convert currencies on-the-go.
+Currency Budy is a simple and user-friendly multi-module currency converter app built with Android and Jetpack Compose that allows you to quickly and accurately convert currencies on-the-go.
 
 ## Features
 
@@ -44,7 +44,7 @@ If you encounter any issues while using Currency Budy, or if you have any questi
 
 ### Architecture
 
-The application uses clean architecture and makes use of features i.e feature_onboarding & feature_converter. Each feature follows the common convention as shown below
+The application is modularized and follows the clean architecture principle. It currently has 3 Modules, core, feature_onboarding and feature_converter. Each module follows the common convention as shown below
 
 ![image](https://user-images.githubusercontent.com/82439687/222801500-0d3bcbd7-49e3-4b62-bcdb-94ee39b7f15d.png)
 
