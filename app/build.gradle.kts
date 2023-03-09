@@ -13,16 +13,21 @@ val apiKeyProperties = Properties().apply {
     load(FileInputStream(apiKeyFile))
 }
 
+apply(from = "app_version.gradle")
+
 android {
     namespace = ProjectConfig.PROJECT_NAMESPACE
     compileSdk = ProjectConfig.COMPILE_SDK
+
+    val appVersionCode: String by project
+    val appVersionName: String by project
 
     defaultConfig {
         applicationId = ProjectConfig.PROJECT_NAMESPACE
         minSdk = ProjectConfig.MIN_SDK
         targetSdk = ProjectConfig.TARGET_SDK
-        versionCode = ProjectConfig.VERSION_CODE
-        versionName = ProjectConfig.VERSION_NAME
+        versionCode = appVersionCode.toInt()
+        versionName = appVersionName
 
         // should correspond to key/value pairs inside the file
         buildConfigField("String", "API_KEY", apiKeyProperties["API_KEY"].toString())

@@ -14,8 +14,6 @@ object ProjectConfig {
     const val COMPILE_SDK = 33
     const val MIN_SDK = 26
     const val TARGET_SDK = 33
-    const val VERSION_CODE = 1
-    const val VERSION_NAME = "1.0"
     const val KOTLIN_COMPILER_EXTENSION_VERSION = "1.4.2"
     const val ANDROID_JUNIT_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
     const val EXCLUDE_PACKAGING_OPTIONS = "/META-INF/{AL2.0,LGPL2.1,gradle/incremental.annotation.processors}"
