@@ -75,16 +75,4 @@ object ConverterDataModule {
     @Singleton
     fun provideExchangeRateDao(db: CurrencyBuddyDatabase): ExchangeRateDao = db.exchangeRateDao()
 
-    @Provides
-    @Singleton
-    fun provideExchangeRateRepository(
-        exchangeRateApiService: ExchangeRateApiService,
-        currencyInfoApiService: CurrencyInfoApiService,
-        exchangeRateDao: ExchangeRateDao
-    ): ExchangeRateRepository = ExchangeRateRepositoryImpl(
-        exchangeRateApiService = exchangeRateApiService,
-        currencyInfoApiService = currencyInfoApiService,
-        dao = exchangeRateDao
-    )
-
 }
