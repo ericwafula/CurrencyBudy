@@ -12,6 +12,17 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/core_data" />
+            <option value="$PROJECT_DIR$/core/core_presentation" />
+            <option value="$PROJECT_DIR$/feature_converter" />
+            <option value="$PROJECT_DIR$/feature_converter/converter_data" />
+            <option value="$PROJECT_DIR$/feature_converter/converter_domain" />
+            <option value="$PROJECT_DIR$/feature_converter/converter_presentation" />
+            <option value="$PROJECT_DIR$/feature_onboarding" />
+            <option value="$PROJECT_DIR$/feature_onboarding/onboarding_data" />
+            <option value="$PROJECT_DIR$/feature_onboarding/onboarding_domain" />
+            <option value="$PROJECT_DIR$/feature_onboarding/onboarding_presentation" />
           </set>
         </option>
       </GradleProjectSettings>

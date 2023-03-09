@@ -16,7 +16,7 @@
         android:theme="@style/Theme.CustomSplashScreen"
         tools:targetApi="31">
         <activity
-            android:name=".core.presentation.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CustomSplashScreen">
             <intent-filter>

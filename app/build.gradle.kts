@@ -2,10 +2,10 @@ import java.util.Properties
 import java.io.FileInputStream
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    id(Plugins.ANDROID_APPLICATION)
+    id(Plugins.KOTLIN_ANDROID)
+    id(Plugins.KOTLIN_KAPT)
+    id(Plugins.DAGGER_HILT_ANDROID)
 }
 
 val apiKeyFile = rootProject.file("apikey.properties")
@@ -14,11 +14,11 @@ val apiKeyProperties = Properties().apply {
 }
 
 android {
-    namespace = "com.ericwathome.currencybuddy"
+    namespace = ProjectConfig.PROJECT_NAMESPACE
     compileSdk = ProjectConfig.COMPILE_SDK
 
     defaultConfig {
-        applicationId = "com.ericwathome.currencybuddy"
+        applicationId = ProjectConfig.PROJECT_NAMESPACE
         minSdk = ProjectConfig.MIN_SDK
         targetSdk = ProjectConfig.TARGET_SDK
         versionCode = ProjectConfig.VERSION_CODE
@@ -34,7 +34,7 @@ android {
             }
         }
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = ProjectConfig.ANDROID_JUNIT_RUNNER
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -62,19 +62,25 @@ android {
     }
     packagingOptions {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{AL2.0,LGPL2.1,gradle/incremental.annotation.processors}"
         }
     }
 }
 
 dependencies {
+    implementation(project(Modules.FEATURE_ONBOARDING_PRESENTATION))
+    implementation(project(Modules.FEATURE_CONVERTER_DATA))
+    implementation(project(Modules.FEATURE_CONVERTER_DOMAIN))
+    implementation(project(Modules.FEATURE_CONVERTER_PRESENTATION))
+    implementation(project(Modules.CORE_DATA))
+    implementation(project(Modules.CORE_PRESENTATION))
     implementation(libs.google.play.core)
     implementation (libs.core.ktx)
     implementation (libs.lifecycle.runtime.ktx)
     implementation (libs.core.activity.compose)
-    implementation (libs.ui)
-    implementation (libs.ui.tooling.preview)
-    implementation (libs.material3)
+    implementation (libs.jetbrains.annotations)
+
+    implementation (libs.bundles.compose)
     testImplementation (libs.junit)
     androidTestImplementation (libs.junit.ext)
     androidTestImplementation (libs.espresso)
@@ -86,39 +92,15 @@ dependencies {
     // navigation
     implementation (libs.navigation.compose)
     // hilt
-    implementation (libs.hilt.android)
-    implementation (libs.hilt.navigation.compose)
+    implementation (libs.bundles.hilt)
     kapt (libs.hilt.compiler)
-    // retrofit
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.logging.interceptor)
-    //room
-    implementation (libs.room.runtime)
-    implementation (libs.room.ktx)
-    annotationProcessor (libs.room.compiler)
-    kapt (libs.room.compiler)
     // coroutines
-    implementation (libs.kotlinx.coroutines.android)
-    implementation (libs.kotlinx.coroutines.core)
-    // work manager
-    implementation (libs.work.runtime.ktx)
+    implementation (libs.bundles.coroutines)
     // lifecycle
-    implementation (libs.lifecycle.extensions)
-    implementation (libs.lifecycle.viewmodel.compose)
-    implementation (libs.lifecycle.viewmodel.ktx)
+    implementation (libs.bundles.lifecycle)
 
     // splashscreen
     implementation (libs.core.splashscreen)
-
-    // preference datastore
-    implementation (libs.datastore.preferences)
-
-    // icons
-    implementation (libs.material.icons.extended)
-
-    // lottie animations
-    implementation (libs.lottie.compose)
 
     // timber
     implementation (libs.timber)
