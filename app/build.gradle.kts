@@ -69,7 +69,9 @@ android {
 
 dependencies {
     implementation(project(Modules.FEATURE_ONBOARDING_PRESENTATION))
-//    implementation(project(Modules.FEATURE_CONVERTER_PRESENTATION))
+    implementation(project(Modules.FEATURE_CONVERTER_DATA))
+    implementation(project(Modules.FEATURE_CONVERTER_DOMAIN))
+    implementation(project(Modules.FEATURE_CONVERTER_PRESENTATION))
     implementation(project(Modules.CORE_DATA))
     implementation(project(Modules.CORE_PRESENTATION))
     implementation(libs.google.play.core)
@@ -92,24 +94,13 @@ dependencies {
     // hilt
     implementation (libs.bundles.hilt)
     kapt (libs.hilt.compiler)
-    // retrofit
-    implementation (libs.bundles.retrofit)
-    //room
-    implementation (libs.bundles.room)
-    annotationProcessor (libs.room.compiler)
-    kapt (libs.room.compiler)
     // coroutines
     implementation (libs.bundles.coroutines)
-    // work manager
-    implementation (libs.work.runtime.ktx)
     // lifecycle
     implementation (libs.bundles.lifecycle)
 
     // splashscreen
     implementation (libs.core.splashscreen)
-
-    // preference datastore
-    implementation (libs.datastore.preferences)
 
     // timber
     implementation (libs.timber)

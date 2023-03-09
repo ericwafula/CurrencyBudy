@@ -11,9 +11,9 @@ import tech.ericwathome.converter_domain.repository.ExchangeRateRepository
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
-    @Binds
-    abstract fun bindExchangeRateRepository(
-        repositoryImpl: ExchangeRateRepositoryImpl
-    ): ExchangeRateRepository
+//    @Binds
+//    abstract fun bindExchangeRateRepository(
+//        repositoryImpl: ExchangeRateRepositoryImpl
+//    ): ExchangeRateRepository
 
 }

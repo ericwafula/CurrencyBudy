@@ -1,16 +1,8 @@
-import java.util.Properties
-import java.io.FileInputStream
-
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.KOTLIN_KAPT)
     id(Plugins.DAGGER_HILT_ANDROID)
-}
-
-val apiKeyFile = rootProject.file("apikey.properties")
-val apiKeyProperties = Properties().apply {
-    load(FileInputStream(apiKeyFile))
 }
 
 android {
@@ -20,9 +12,6 @@ android {
     defaultConfig {
         minSdk = ProjectConfig.MIN_SDK
         targetSdk = ProjectConfig.TARGET_SDK
-
-        // should correspond to key/value pairs inside the file
-        buildConfigField("String", "API_KEY", apiKeyProperties["API_KEY"].toString())
 
         testInstrumentationRunner = ProjectConfig.ANDROID_JUNIT_RUNNER
         consumerProguardFiles("consumer-rules.pro")

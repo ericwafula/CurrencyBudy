@@ -17,20 +17,20 @@ data class CurrencyInfoWithCurrentRates (
     val rates: List<CurrentRate>
 )
 
-fun CurrencyInfoWithCurrentRates.toBaseCurrencyVsQuoteCurrencies(): BaseCurrencyVsQuoteCurrencies {
+fun CurrencyInfoWithCurrentRates?.toBaseCurrencyVsQuoteCurrencies(): BaseCurrencyVsQuoteCurrencies {
     return BaseCurrencyVsQuoteCurrencies(
         baseCurrency = BaseCurrency(
-            code = currencyInfo.code,
-            symbol = currencyInfo.symbol ?: "",
-            name = currencyInfo.name ?: ""
+            code = this?.currencyInfo?.code ?: "",
+            symbol = this?.currencyInfo?.symbol ?: "",
+            name = this?.currencyInfo?.name ?: ""
         ),
-        quoteCurrencies = rates.map { currentRate ->
+        quoteCurrencies = this?.rates?.map { currentRate ->
             QuoteCurrency(
                 code = currentRate.code,
                 name = currentRate.name ?: "",
                 rate = currentRate.rate ?: 0.0,
                 symbol = currentRate.symbol ?: ""
             )
-        }
+        } ?: emptyList()
     )
 }

@@ -18,6 +18,7 @@ import tech.ericwathome.converter_data.data_source.remote.CurrencyInfoApiService
 import tech.ericwathome.converter_data.data_source.remote.ExchangeRateApiService
 import tech.ericwathome.converter_data.repository.ExchangeRateRepositoryImpl
 import tech.ericwathome.converter_data.util.Constants
+import tech.ericwathome.data.config.ApiKeys
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -40,9 +41,9 @@ object ConverterDataModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient): Retrofit {
+    fun provideRetrofit(client: OkHttpClient, apiKeys: ApiKeys): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("${Constants.BASE_URL}${"BuildConfig.API_KEY"}/")
+            .baseUrl("${Constants.BASE_URL}${apiKeys.apiKeysConfig.getExchangeRateApiKey()}/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -74,16 +75,16 @@ object ConverterDataModule {
     @Singleton
     fun provideExchangeRateDao(db: CurrencyBuddyDatabase): ExchangeRateDao = db.exchangeRateDao()
 
-//    @Provides
-//    @Singleton
-//    fun provideExchangeRateRepository(
-//        exchangeRateApiService: ExchangeRateApiService,
-//        currencyInfoApiService: CurrencyInfoApiService,
-//        exchangeRateDao: ExchangeRateDao
-//    ): ExchangeRateRepository = ExchangeRateRepositoryImpl(
-//        exchangeRateApiService = exchangeRateApiService,
-//        currencyInfoApiService = currencyInfoApiService,
-//        dao = exchangeRateDao
-//    )
+    @Provides
+    @Singleton
+    fun provideExchangeRateRepository(
+        exchangeRateApiService: ExchangeRateApiService,
+        currencyInfoApiService: CurrencyInfoApiService,
+        exchangeRateDao: ExchangeRateDao
+    ): ExchangeRateRepository = ExchangeRateRepositoryImpl(
+        exchangeRateApiService = exchangeRateApiService,
+        currencyInfoApiService = currencyInfoApiService,
+        dao = exchangeRateDao
+    )
 
 }

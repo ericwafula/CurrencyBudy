@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import tech.ericwathome.converter_presentation.converter_screen.ConverterScreen
 import tech.ericwathome.presentation.Screens
 import tech.ericwathome.presentation.onboarding_screen.OnboardingScreen
 
@@ -14,7 +15,7 @@ fun AppNavigation(navController: NavHostController, startDestination: String) {
             OnboardingScreen(navController)
         }
         composable(route = Screens.Converter.route) {
-//            ConverterScreen()
+            ConverterScreen()
         }
     }
 }
