@@ -1,17 +1,19 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(Plugins.ANDROID_LIBRARY)
+    id(Plugins.KOTLIN_ANDROID)
+    id(Plugins.KOTLIN_KAPT)
+    id(Plugins.DAGGER_HILT_ANDROID)
 }
 
 android {
-    namespace = "tech.ericwathome.converter_presentation"
-    compileSdk = 33
+    namespace = ProjectConfig.CONVERTER_PRESENTATION_NAMESPACE
+    compileSdk = ProjectConfig.COMPILE_SDK
 
     defaultConfig {
-        minSdk = 26
-        targetSdk = 33
+        minSdk = ProjectConfig.MIN_SDK
+        targetSdk = ProjectConfig.TARGET_SDK
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = ProjectConfig.ANDROID_JUNIT_RUNNER
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -31,14 +33,36 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = ProjectConfig.KOTLIN_COMPILER_EXTENSION_VERSION
+    }
+    packagingOptions {
+        resources {
+            excludes += ProjectConfig.EXCLUDE_PACKAGING_OPTIONS
+        }
+    }
+
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.8.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(project(Modules.CORE_DATA))
+    implementation(project(Modules.CORE_PRESENTATION))
+    implementation(project(Modules.FEATURE_CONVERTER_DOMAIN))
+    implementation(libs.core.ktx)
+    implementation(libs.bundles.hilt)
+    kapt(libs.hilt.compiler)
+    implementation(libs.bundles.compose)
+    implementation(libs.bundles.compose.ui.test)
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.bundles.coroutines)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.ext)
+}
+
+kapt {
+    correctErrorTypes = true
 }

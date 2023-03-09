@@ -1,8 +1,6 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
-    id(Plugins.KOTLIN_KAPT)
-    id(Plugins.DAGGER_HILT_ANDROID)
 }
 
 android {
@@ -44,15 +42,7 @@ dependencies {
 
     implementation(project(Modules.CORE_DATA))
     implementation(libs.core.ktx)
-    implementation(libs.bundles.hilt)
-    kapt(libs.hilt.compiler)
+    implementation(libs.javax.inject)
+    implementation(libs.kotlinx.coroutines.core)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.junit.ext)
-    implementation(libs.bundles.room)
-    annotationProcessor (libs.room.compiler)
-    kapt (libs.room.compiler)
-}
-
-kapt {
-    correctErrorTypes = true
 }
