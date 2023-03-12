@@ -11,13 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: adopt
 
-    - name: Build and test with Gradle
-      run: ./gradlew build test
+      - name: Copy example public_apikey.properties file and substitute API key
+        run: |
+          cp public_apikey.properties apikey.properties
+          sed -i "s/\".*\"/\"${{ secrets.API_KEY }}\"/" apikey.properties
+
+      - name: Build and test with Gradle
+        run: ./gradlew build test
