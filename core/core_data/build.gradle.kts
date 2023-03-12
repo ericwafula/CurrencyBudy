@@ -46,9 +46,9 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.bundles.hilt)
     kapt(libs.hilt.compiler)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
     implementation(libs.jetbrains.annotations)
+    testImplementation (libs.bundles.local.tests)
 }
 
 kapt {
