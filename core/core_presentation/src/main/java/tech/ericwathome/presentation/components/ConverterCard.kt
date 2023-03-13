@@ -1,4 +1,4 @@
-package com.ericwathome.currencybuddy.core.presentation.components
+package tech.ericwathome.presentation.components
 
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
