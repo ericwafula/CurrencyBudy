@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.ericwathome.currencybuddy.core.presentation.components.ConverterCard
+import tech.ericwathome.presentation.components.ConverterCard
 import tech.ericwathome.presentation.components.ErrorDialog
 import tech.ericwathome.converter_presentation.converter_screen.components.CurrencyPicker
 import kotlinx.coroutines.flow.collectLatest
