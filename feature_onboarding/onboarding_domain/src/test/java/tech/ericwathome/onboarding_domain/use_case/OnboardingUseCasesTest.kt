@@ -83,4 +83,24 @@ class OnboardingUseCasesTest {
             .updateOnboardingStatus(true)
     }
 
+    @Test
+    fun `ensure getOnboardingSatus() returns true when it's invoked from onBoardingUseCases`() = runBlocking {
+        val onboardingUseCases = OnboardingUseCases(getOnBoardingStatus, updateOnBoardingStatus)
+        Mockito.`when`(getOnBoardingStatus())
+            .thenReturn(flowOf(true))
+        onboardingUseCases.getOnboardingStatus().test {
+            val onboardingStatus = awaitItem()
+            assertThat(onboardingStatus).isTrue()
+            expectNoEvents()
+        }
+    }
+
+    @Test
+    fun `ensure updateOnboardingStatus() useCase is invoked when the from onBoardingUseCases`() = runBlocking {
+        val onboardingUseCases = OnboardingUseCases(getOnBoardingStatus, updateOnBoardingStatus)
+        onboardingUseCases.updateOnboardingStatus(true)
+        Mockito.verify(updateOnBoardingStatus, Mockito.times(1))
+            .invoke(true)
+    }
+
 }
