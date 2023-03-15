@@ -40,13 +40,12 @@ jobs:
           java-version: '11'
           distribution: adopt
 
-      - name: Use apikey.properties generated in the build job
-        uses: actions/upload-artifact@v2
-        with:
-          name: apikey-properties
-          path: apikey.properties
+      - name: Copy example public_apikey.properties file and substitute API key
+        run: |
+          cp public_apikey.properties apikey.properties
+          sed -i "s/\".*\"/\"${{ secrets.API_KEY }}\"/" apikey.properties
 
       - name: Run tests with Gradle
-        run: |
-          ./gradlew test
-          cp ${{ runner.workspace }}/apikey.properties ./
+        run: ./gradlew test
+
+
