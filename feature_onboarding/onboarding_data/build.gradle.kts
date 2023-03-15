@@ -3,6 +3,7 @@ plugins {
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.KOTLIN_KAPT)
     id(Plugins.DAGGER_HILT_ANDROID)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,9 +42,12 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.FEATURE_ONBOARDING_DOMAIN))
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.datastore.preferences)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
     implementation(libs.bundles.hilt)
