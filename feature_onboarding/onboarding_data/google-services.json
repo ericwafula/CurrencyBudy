@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:785139061397:android:42eeb0f39d9582a8cc419c",
         "android_client_info": {
-          "package_name": "com.ericwathome.currencybuddy"
+          "package_name": "tech.ericwathome.data"
         }
       },
       "oauth_client": [
