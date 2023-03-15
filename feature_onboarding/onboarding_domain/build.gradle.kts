@@ -43,6 +43,8 @@ dependencies {
     implementation(project(Modules.CORE_DATA))
     implementation(libs.javax.inject)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
     testImplementation(libs.bundles.local.tests)
     androidTestImplementation(libs.junit.ext)
 }
