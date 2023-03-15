@@ -9,6 +9,7 @@ class AuthRepositoryImpl : AuthRepository {
         email: String,
         password: String
     ): AuthResource<FirebaseUser> {
-        TODO("Not yet implemented")
+        // TODO implement login logic
+        return AuthResource.Loading()
     }
 }
