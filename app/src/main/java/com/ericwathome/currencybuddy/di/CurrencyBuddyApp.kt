@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import com.ericwathome.currencybuddy.BuildConfig
 import com.ericwathome.currencybuddy.exceptions.CrashListener
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import tech.ericwathome.presentation.util.NotificationUtils
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
@@ -33,8 +34,11 @@ class CurrencyBuddyApp : Application(),
             "Something went wrong!",
             "We are working on it"
         )
-        Timber.tag("$TAG").d("$throwable")
-        // TODO setup crashlytics
+        Timber.tag("$TAG").e("$throwable")
+        FirebaseCrashlytics.getInstance().recordException(throwable)
+        throwable.message?.let {
+            FirebaseCrashlytics.getInstance().log(it)
+        }
     }
 
     private fun setupCrashHandler() {
