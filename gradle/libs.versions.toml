@@ -90,6 +90,8 @@ turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 # firebase
 firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
 
 
 [bundles]
@@ -102,3 +104,4 @@ room = ["room.runtime", "room.ktx"]
 lifecycle = ["lifecycle.viewmodel.compose", "lifecycle.viewmodel.ktx", "lifecycle.extensions", "lifecycle.runtime.ktx"]
 androidx-test = ["androidx-junit-ktx", "androidx-core-ktx"]
 local-tests = ["androidx-junit-ktx", "androidx-core-ktx", "robolectric", "kotlinx-coroutines-test", "truth", "turbine", "mockito-core", "junit"]
+firebase-analytics = ["firebase-crashlytics-ktx", "firebase-analytics-ktx"]

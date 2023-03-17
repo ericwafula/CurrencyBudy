@@ -6,6 +6,8 @@ plugins {
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.KOTLIN_KAPT)
     id(Plugins.DAGGER_HILT_ANDROID)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 val apiKeyFile = rootProject.file("apikey.properties")
@@ -86,6 +88,8 @@ dependencies {
     implementation (libs.jetbrains.annotations)
 
     implementation (libs.bundles.compose)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase.analytics)
     testImplementation (libs.junit)
     androidTestImplementation (libs.junit.ext)
     androidTestImplementation (libs.espresso)
