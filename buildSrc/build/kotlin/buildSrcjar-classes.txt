@@ -1,1 +1,0 @@
-/mnt/TOSHIBA 750/home/githukudenis/CodeBrew/Code/Android/CurrencyBudy/buildSrc/build/classes/kotlin/main/Modules.class:/mnt/TOSHIBA 750/home/githukudenis/CodeBrew/Code/Android/CurrencyBudy/buildSrc/build/classes/kotlin/main/Plugins.class:/mnt/TOSHIBA 750/home/githukudenis/CodeBrew/Code/Android/CurrencyBudy/buildSrc/build/classes/kotlin/main/ProjectConfig.class
