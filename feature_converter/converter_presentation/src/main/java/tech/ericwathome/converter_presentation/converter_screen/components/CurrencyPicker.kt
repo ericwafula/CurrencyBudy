@@ -2,6 +2,7 @@ package tech.ericwathome.converter_presentation.converter_screen.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -11,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -36,17 +38,13 @@ fun CurrencyPicker(
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
-        CurrencyPickerDialog(
-            currencies = receivedCurrencies,
-            currencyCode = {
-                currencyCode(it)
-            },
-            currencySymbol = {
-                if (it.isNotEmpty()) {
-                    currentSymbol(it)
-                }
+        CurrencyPickerDialog(currencies = receivedCurrencies, currencyCode = {
+            currencyCode(it)
+        }, currencySymbol = {
+            if (it.isNotEmpty()) {
+                currentSymbol(it)
             }
-        ) {
+        }) {
             showDialog = false
         }
     }
@@ -59,15 +57,18 @@ fun CurrencyPicker(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Card(
-                modifier = Modifier.clickable {
+                modifier = Modifier
+                    .clip(MaterialTheme.shapes.large)
+                    .clickable {
                     showDialog = true
                 },
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 Row(
-                    modifier = Modifier
-                        .padding(horizontal = Padding.dp_24, vertical = Padding.dp_16),
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.dp_24)
+                    modifier = Modifier.padding(
+                            horizontal = Padding.dp_24,
+                            vertical = Padding.dp_16
+                        ), horizontalArrangement = Arrangement.spacedBy(Spacing.dp_24)
                 ) {
                     Text(text = receivedCurrencyCode)
                     Icon(
@@ -78,8 +79,7 @@ fun CurrencyPicker(
             }
             Text(
                 text = receivedSymbol, style = TextStyle(
-                    color = MaterialTheme.colorScheme.primary,
-                    fontSize = TextSizing.sp_30
+                    color = MaterialTheme.colorScheme.primary, fontSize = TextSizing.sp_30
                 )
             )
         }
@@ -100,8 +100,7 @@ fun CurrencyPicker(
                 disabledTextColor = MaterialTheme.colorScheme.onTertiary
             ),
             textStyle = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = FontWeight.Normal,
-                fontSize = TextSizing.sp_24
+                fontWeight = FontWeight.Normal, fontSize = TextSizing.sp_24
             ),
             enabled = enabled,
         )
@@ -113,8 +112,7 @@ fun CurrencyPicker(
 @Composable
 fun CurrencyPicker() {
     CurrencyBuddyTheme {
-        CurrencyPicker(
-            currencyCode = { },
+        CurrencyPicker(currencyCode = { },
             currentPrice = { },
             currentSymbol = { },
             receivedCurrencyCode = "EUR",
