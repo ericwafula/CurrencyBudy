@@ -1,33 +1,58 @@
 package com.ericwathome.currencybuddy.di
 
 import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.os.Handler
+import android.os.Looper
 import com.ericwathome.currencybuddy.BuildConfig
-import com.ericwathome.currencybuddy.util.AppConstants
+import com.ericwathome.currencybuddy.exceptions.CrashListener
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import tech.ericwathome.presentation.util.NotificationUtils
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class CurrencyBuddyApp : Application() {
+class CurrencyBuddyApp : Application(),
+    NotificationUtils.InitNotifications by NotificationUtils.Notifications(), CrashListener {
+    companion object {
+        val TAG = this::class.simpleName
+    }
+
     override fun onCreate() {
         super.onCreate()
-
-        createNotificationChannel()
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
+        createNotificationChannel(this)
+        setupCrashHandler()
     }
 
-    private fun createNotificationChannel() {
-        val channel = NotificationChannel(
-            AppConstants.SYNC_CHANNEL_ID,
-            AppConstants.SYNC_CHANNEL_NAME,
-            NotificationManager.IMPORTANCE_HIGH
+    override fun uncaughtException(thread: Thread, throwable: Throwable) {
+        NotificationUtils.showNotification(
+            this,
+            "Something went wrong!",
+            "We are working on it"
         )
+        Timber.tag("$TAG").e("$throwable")
+        FirebaseCrashlytics.getInstance().recordException(throwable)
+        throwable.message?.let {
+            FirebaseCrashlytics.getInstance().log(it)
+        }
+    }
 
-        val notificationManager = getSystemService(NotificationManager::class.java)
-        notificationManager.createNotificationChannel(channel)
+    private fun setupCrashHandler() {
+        Handler(Looper.getMainLooper()).post {
+            while (true) {
+                try {
+                    Looper.loop()
+                } catch (e: Throwable) {
+                    uncaughtException(Looper.getMainLooper().thread, e)
+                }
+            }
+        }
+        Thread.setDefaultUncaughtExceptionHandler { t, e ->
+            uncaughtException(t, e)
+        }
     }
 }
