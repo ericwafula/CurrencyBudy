@@ -1,0 +1,1 @@
+/home/joel/OpenSourceAndroid/mapesa/buildSrc/build/classes/kotlin/main/Modules.class:/home/joel/OpenSourceAndroid/mapesa/buildSrc/build/classes/kotlin/main/Plugins.class:/home/joel/OpenSourceAndroid/mapesa/buildSrc/build/classes/kotlin/main/ProjectConfig.class

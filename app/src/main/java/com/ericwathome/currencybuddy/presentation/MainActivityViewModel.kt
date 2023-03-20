@@ -28,6 +28,7 @@ class MainActivityViewModel @Inject constructor(
             preferences.getOnboardingStatus().collect { isCompleted ->
                 if (isCompleted) {
                     _startDestination.value = Screens.Converter.route
+                    _startDestination.value = Screens.SignIn.route
                 } else {
                     _startDestination.value = Screens.Onboarding.route
                 }
