@@ -1,5 +1,6 @@
 package tech.ericwathome.presentation.onboarding_screen.signin
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 
 import androidx.compose.animation.animateContentSize
@@ -19,7 +20,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -27,16 +30,26 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import tech.ericwathome.core_presentation.R
+import tech.ericwathome.onboarding_domain.util.FirebaseResource
+import tech.ericwathome.presentation.onboarding_screen.signup.AuthViewModel
 import tech.ericwathome.presentation.theme.CurrencyBuddyTheme
 
 @Composable
 fun SignInScreen(
     onLogin : () -> Unit,
     onSignUp : () -> Unit,
+    viewModel: AuthViewModel = hiltViewModel()
 ){
 
-    var value by remember {
+    val authResource = viewModel.loginFlow.collectAsState()
+
+    var email by remember {
+        mutableStateOf("")
+    }
+
+    var password by remember {
         mutableStateOf("")
     }
 
@@ -65,8 +78,8 @@ fun SignInScreen(
         }
 
         OutlinedTextField(
-            value = value,
-            onValueChange = {value = it},
+            value = email,
+            onValueChange = {email = it},
             label = {
                 Text(text = "Email")
             },
@@ -83,8 +96,8 @@ fun SignInScreen(
         )
 
         OutlinedTextField(
-            value = value,
-            onValueChange = {value = it},
+            value = password,
+            onValueChange = {password = it},
             label = {
                 Text(text = "Password")
             },
@@ -121,7 +134,9 @@ fun SignInScreen(
         )
 
         Button(
-            onClick = { onLogin() },
+            onClick = {
+                      viewModel.login(email,password)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
@@ -175,6 +190,25 @@ fun SignInScreen(
         ) {
             GoogleButton{
 
+            }
+        }
+        authResource.value?.let {
+            when(it){
+                is FirebaseResource.Failure -> {
+                    val context = LocalContext.current
+                    Toast.makeText(context, it.exception.message, Toast.LENGTH_SHORT).show()
+                }
+                is FirebaseResource.Loading -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .scale(0.5f)
+                    )
+                }
+                is FirebaseResource.Success -> {
+                    LaunchedEffect(Unit){
+                        onLogin()
+                    }
+                }
             }
         }
     }

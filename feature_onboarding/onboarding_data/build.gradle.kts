@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation(project(mapOf("path" to ":feature_onboarding:onboarding_domain")))
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
     implementation(libs.bundles.hilt)

@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import tech.ericwathome.converter_presentation.converter_screen.ConverterScreen
 import tech.ericwathome.presentation.Screens
 import tech.ericwathome.presentation.onboarding_screen.OnboardingScreen
+import tech.ericwathome.presentation.onboarding_screen.profile.ProfileScreen
 import tech.ericwathome.presentation.onboarding_screen.signin.SignInScreen
 import tech.ericwathome.presentation.onboarding_screen.signup.SignUpScreen
 
@@ -19,7 +20,11 @@ fun AppNavigation(navController: NavHostController, startDestination: String) {
         composable(route = Screens.SignIn.route){
             SignInScreen(
                 onLogin = {
-                    navController.navigate(Screens.Converter.route)
+                    navController.navigate(Screens.Converter.route){
+                        popUpTo(Screens.Converter.route){
+                            inclusive = true
+                        }
+                    }
                 },
                 onSignUp = {
                     navController.navigate(Screens.SignUp.route)
@@ -29,7 +34,11 @@ fun AppNavigation(navController: NavHostController, startDestination: String) {
         composable(route = Screens.SignUp.route){
             SignUpScreen(
                 onSignUp = {
-                    navController.navigate(Screens.Converter.route)
+                    navController.navigate(Screens.Converter.route){
+                        popUpTo(Screens.Converter.route){
+                            inclusive = true
+                        }
+                    }
                 },
                 onLogin = {
                     navController.navigate(Screens.SignIn.route)
@@ -37,7 +46,21 @@ fun AppNavigation(navController: NavHostController, startDestination: String) {
             )
         }
         composable(route = Screens.Converter.route) {
-            ConverterScreen()
+            ConverterScreen(
+                onProfileClicked = {
+                    navController.navigate(Screens.Profile.route)
+                }
+            )
+        }
+        composable(route = Screens.Profile.route){
+            ProfileScreen(
+                onLogOut = {
+                           navController.navigate(Screens.SignIn.route)
+                },
+                onBackPressed = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

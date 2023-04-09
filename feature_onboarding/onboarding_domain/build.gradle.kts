@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
     testImplementation(libs.bundles.local.tests)
     androidTestImplementation(libs.junit.ext)
 }

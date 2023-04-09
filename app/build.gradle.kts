@@ -76,6 +76,7 @@ android {
 
 dependencies {
     implementation(project(Modules.FEATURE_ONBOARDING_PRESENTATION))
+    implementation(project(Modules.FEATURE_ONBOARDING_DATA))
     implementation(project(Modules.FEATURE_CONVERTER_DATA))
     implementation(project(Modules.FEATURE_CONVERTER_DOMAIN))
     implementation(project(Modules.FEATURE_CONVERTER_PRESENTATION))
