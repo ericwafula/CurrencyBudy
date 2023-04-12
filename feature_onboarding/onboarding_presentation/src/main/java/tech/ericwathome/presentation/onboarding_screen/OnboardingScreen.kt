@@ -63,8 +63,11 @@ fun OnboardingScreen(navController: NavHostController) {
                 if (pagerState.currentPage < OnboardingUtils.items.lastIndex) {
                     pagerState.scrollToPage(pagerState.currentPage + 1)
                 } else {
+//                    viewModel.updateOnboardingState(true)
+//                    navController.navigatePopUpTo(Screens.Converter.route)
                     viewModel.updateOnboardingState(true)
                     navController.navigatePopUpTo(Screens.Converter.route)
+                    navController.navigatePopUpTo(Screens.SignIn.route)
                 }
             }
         }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "785139061397",
+    "project_id": "currencybuddy-d6ea2",
+    "storage_bucket": "currencybuddy-d6ea2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785139061397:android:42eeb0f39d9582a8cc419c",
+        "android_client_info": {
+          "package_name": "tech.ericwathome.core_presentation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "785139061397-t06hlu3pd73c21jri5t8qi4fabb03rk3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcsSPxt2VTTTtBktXb-QNslC0MJJU-Frs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "785139061397-t06hlu3pd73c21jri5t8qi4fabb03rk3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

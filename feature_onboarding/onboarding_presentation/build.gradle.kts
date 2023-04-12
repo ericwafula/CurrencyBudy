@@ -3,6 +3,7 @@ plugins {
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.KOTLIN_KAPT)
     id(Plugins.DAGGER_HILT_ANDROID)
+    id(Plugins.GOOGLE_SERVICES)
 }
 
 android {
@@ -47,6 +48,8 @@ android {
 }
 
 dependencies {
+
+
     implementation(project(Modules.FEATURE_ONBOARDING_DOMAIN))
     implementation(project(Modules.CORE_PRESENTATION))
     implementation(libs.bundles.coroutines)
@@ -60,6 +63,9 @@ dependencies {
     implementation(libs.jetbrains.annotations)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
+
+    implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
+    implementation("com.google.firebase:firebase-auth:21.1.0")
 }
 
 kapt {

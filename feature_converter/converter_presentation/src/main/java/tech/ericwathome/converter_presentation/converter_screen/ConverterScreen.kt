@@ -3,7 +3,10 @@ package tech.ericwathome.converter_presentation.converter_screen
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -28,7 +31,9 @@ import tech.ericwathome.presentation.util.Spacing
 import tech.ericwathome.presentation.util.TextSizing
 
 @Composable
-fun ConverterScreen() {
+fun ConverterScreen(
+    onProfileClicked : () -> Unit,
+) {
     val viewModel: ConverterViewModel = hiltViewModel()
     val state by viewModel.converterState
     var showErrorDialog by rememberSaveable { mutableStateOf(false) }
@@ -72,6 +77,7 @@ fun ConverterScreen() {
             }
         }
     }
+
     Column(
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.background)
@@ -79,6 +85,16 @@ fun ConverterScreen() {
             .padding(vertical = Padding.dp_32, horizontal = Padding.dp_24),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
+
+        Box(
+            contentAlignment = Alignment.TopEnd,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onProfileClicked() }
+        ) {
+            Icon(imageVector = Icons.Default.Person, contentDescription = "")
+        }
+
         ConverterCard {
             CreditCardData(
                 currentBaseVsQuote = "${state.data?.currentBaseVsQuote}" ?: "",
@@ -170,12 +186,14 @@ fun CreditCardData(currentBaseVsQuote: String, accountNumber: String, expiryDate
 @Composable
 fun CurrencyConverterCardPreview() {
     CurrencyBuddyTheme {
-        ConverterCard {
-            CreditCardData(
-                currentBaseVsQuote = "Euro\nvs\nUnited States Dollar",
-                accountNumber = "**** *$13 3.70",
-                expiryDate = "02/23"
-            )
-        }
+//        ConverterCard {
+//            CreditCardData(
+//                currentBaseVsQuote = "Euro\nvs\nUnited States Dollar",
+//                accountNumber = "**** *$13 3.70",
+//                expiryDate = "02/23"
+//            )
+//        }
+        ConverterScreen(){}
     }
 }
+
