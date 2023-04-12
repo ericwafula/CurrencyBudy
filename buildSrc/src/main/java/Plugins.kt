@@ -6,5 +6,6 @@ object Plugins {
     const val DAGGER_HILT_ANDROID = "com.google.dagger.hilt.android"
     const val ANDROID_DYNAMIC_FEATURE = "com.android.dynamic-feature"
     const val KOTLIN_JVM = "org.jetbrains.kotlin.jvm"
+    const val GOOGLE_SERVICES = "com.google.gms.google-services"
 
 }
